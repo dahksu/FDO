@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="FDO - Join Us Page">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDO - 加入我们</title>
+  <style>
+    /* ===== 全局基础：黑白灰极简风格 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      background-color: #fff;
+      color: #000;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    /* 如果有暗色模式需求，可以添加 @media (prefers-color-scheme: dark) { ... } 逻辑 */
+
+    /* ===== 页面容器 ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ===== 标题区（Hero风格）===== */
+    .join-hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #000; /* 黑色背景，突出对比 */
+      color: #fff;            /* 白字 */
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      text-align: left;       /* 文字左对齐 */
+    }
+    .join-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .join-hero p {
+      max-width: 600px;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+      color: #f0f0f0;
+    }
+
+    /* ===== 圆形装饰(与之前类似) ===== */
+    .circle-decor {
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 60vw;
+      height: 60vw;
+      background: #222; 
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.8;
+    }
+    .join-hero-content {
+      position: relative;
+      z-index: 2; /* 文字内容在装饰圆之上 */
+      max-width: 700px;
+    }
+
+    /* ===== 群聊展示区 ===== */
+    .groups-section {
+      margin-top: 3rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap; /* 移动端可自动换行 */
+    }
+    .group-card {
+      flex: 1 1 300px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .group-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #000;
+    }
+    .group-card p {
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* ===== 按钮/链接通用样式 ===== */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #000; /* 黑底 */
+      color: #fff;            /* 白字 */
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #333;
+    }
+
+    /* ===== 针对 Signal 卡片里的链接按钮 ===== */
+    .signal-btn {
+      margin-top: 1rem;
+    }
+
+    /* ===== 二维码预览(替换为真实二维码) ===== */
+    .qr-image {
+      max-width: 150px;
+      margin: 1rem auto;
+      display: block;
+      /* 作为占位，可用真实二维码图替换 */
+      background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat; 
+      border-radius: 8px;
+    }
+
+    /* ===== 小屏幕适配 ===== */
+    @media (max-width: 768px) {
+      .join-hero h1 {
+        font-size: 2rem;
+      }
+      .join-hero p {
+        font-size: 0.95rem;
+      }
+      .groups-section {
+        flex-direction: column; /* 垂直堆叠 */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 加入我们 - 英文: Join Us-->
+  <section class="join-hero">
+    <div class="circle-decor"></div>
+    <div class="join-hero-content">
+      <h1>加入我们</h1>
+      <p>欢迎加入 FDO 的交流社区。我们提供两种群聊方式，供你灵活选择：  
+         一种是更安全的 Signal 群组，另一种是国内常用的微信群聊。</p>
+    </div>
+  </section>
+
+  <!-- 群聊卡片区 -->
+  <div class="container">
+    <div class="groups-section">
+
+      <!-- 1) Signal 群聊 -->
+      <div class="group-card">
+        <h3>Signal 群聊</h3>
+        <p>Signal是一款注重隐私与安全的通讯软件，推荐给注重数据安全的朋友。  
+           点击下方按钮直接加入我们的Signal群聊。</p>
+
+        <!-- 加入按钮，直接跳转Signal群聊链接 -->
+        <a class="btn signal-btn" 
+           href="https://signal.group/#CjQKIJx80K9-fZ37q_uJnwc7wH8ksG8S-NFlIMiDb2XUojIOEhCc6_ugRdozjdH2jao_4u_M"
+           target="_blank" 
+           rel="noopener noreferrer">
+          加入Signal群
+        </a>
+      </div>
+
+      <!-- 2) 微信群聊 -->
+      <div class="group-card">
+        <h3>微信群聊</h3>
+        <p>如果你更习惯使用微信，可以扫描下方二维码进入我们的微信群，与其他成员一起互动讨论。</p>
+
+        <!-- 预留一个二维码图片(示例占位图)。可替换为真实二维码 -->
+        <div class="qr-image"></div>
+        <!-- 若需要，也可提供外链按钮 -->
+        <!-- <a href="#" class="btn">下载二维码</a> 或者其他选项 -->
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
