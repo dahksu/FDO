@@ -146,11 +146,13 @@
       }
     }
 
+    /* 一行固定显示三篇文章，多了就自动换行 */
     .articles-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
     }
+
     .article-card {
       background-color: #f9f9f9;
       border-radius: 4px;
@@ -218,59 +220,12 @@
       <!-- 也可以再添加别的链接，如 <a href="/join">加入我们</a> 等 -->
     </div>
 
+    <!-- 只保留一个 articles-list 容器，将所有文章都放在这里 -->
     <div class="articles-list">
       <!-- 示例文章1 -->
       <div class="article-card">
         <div>
-          <h3>测试示例文章</h3>
-          <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa.html">阅读更多</a>
-        </div>
-      </div>
-          <div class="articles-list">
-      <!-- 示例文章1 -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章</h3>
-          <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa.html">阅读更多</a>
-        </div>
-      </div>
-                <div class="articles-list">
-      <!-- 示例文章1 -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章</h3>
-          <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa.html">阅读更多</a>
-        </div>
-      </div>
-                      <div class="articles-list">
-      <!-- 示例文章1 -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章</h3>
-          <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa.html">阅读更多</a>
-        </div>
-      </div>
-                            <div class="articles-list">
-      <!-- 示例文章1 -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章</h3>
+          <h3>测试示例文章1</h3>
           <div class="article-meta">2025-02-12 | FDO 技术</div>
           <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
         </div>
@@ -279,7 +234,54 @@
         </div>
       </div>
 
+      <!-- 示例文章2 -->
+      <div class="article-card">
+        <div>
+          <h3>测试示例文章2</h3>
+          <div class="article-meta">2025-02-15 | FDO 社群</div>
+          <p>这一篇文章我们将聚焦技术与公益的结合，希望能带来新的视角...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="aaaa2.html">阅读更多</a>
+        </div>
+      </div>
 
+      <!-- 示例文章3 -->
+      <div class="article-card">
+        <div>
+          <h3>测试示例文章3</h3>
+          <div class="article-meta">2025-02-16 | FDO 活动</div>
+          <p>探讨如何在校园组织多元化活动，并在社会上营造良好的包容氛围...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="aaaa3.html">阅读更多</a>
+        </div>
+      </div>
+
+      <!-- 示例文章4 -->
+      <div class="article-card">
+        <div>
+          <h3>测试示例文章4</h3>
+          <div class="article-meta">2025-02-20 | FDO 观点</div>
+          <p>持续关注社会议题，我们呼吁更多人参与到社区发展事务之中...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="aaaa4.html">阅读更多</a>
+        </div>
+      </div>
+
+      <!-- 示例文章5 -->
+      <div class="article-card">
+        <div>
+          <h3>测试示例文章5</h3>
+          <div class="article-meta">2025-02-22 | FDO 研究</div>
+          <p>结合不同领域专家观点，分享我们在公益创新方面的思考与见解...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="aaaa5.html">阅读更多</a>
+        </div>
+      </div>
+      <!-- 可以继续新增更多 .article-card -->
     </div>
   </div>
 
