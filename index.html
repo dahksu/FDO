@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="FDO - Single Page Main Program" />
+  <meta name="description" content="FDO - Single Page Main Program with Improved Dark Mode" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FDO - Main Page</title>
   <style>
@@ -18,13 +18,13 @@
     }
     body {
       font-family: sans-serif;
-      background-color: #ffffff;
-      color: #000000;
+      background-color: #ffffff;  /* 默认：白色背景 */
+      color: #000000;            /* 默认：黑色文字 */
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* 每个板块：最少100vh，scroll-snap对齐开始，初始时opacity=0用于动画 */
+    /* 每个板块：最少100vh，scroll-snap对齐开始，初始时opacity=0，用于动画进场 */
     section {
       min-height: 100vh;
       scroll-snap-align: start;
@@ -35,42 +35,78 @@
       justify-content: center;
       align-items: flex-start;
       padding: 2rem;
-      opacity: 0; 
+      opacity: 0;
     }
 
-    /* ========== 2. 暗色模式 ========== */
+    /* ========== 2. 暗色模式：更平衡的配色 ========== */
     @media (prefers-color-scheme: dark) {
       body {
-        background-color: #000;
-        color: #fff;
+        background-color: #121212; /* 整体比纯黑稍浅的深灰，更舒适 */
+        color: #eeeeee;           /* 浅灰文字，对比度足够 */
       }
+
       header {
-        background-color: rgba(0,0,0,0.8);
-        border-bottom: 1px solid #444;
+        background-color: rgba(18,18,18,0.8); /* 顶部导航用同色系半透明 */
+        border-bottom: 1px solid #333;
       }
+      /* 顶部LOGO颜色已随body color自动变浅 */
+
+      /* 首屏圆形背景改得更浅，避免纯黑圆看不出层次 */
       .circle-black {
-        background: #444;
+        background: #444444; 
       }
       .circle-gray {
-        background: #666;
+        background: #666666;
       }
-      .btn-primary {
-        background-color: #fff; 
-        color: #000; 
+
+      /* Hero文字阴影可略浅一些 */
+      .hero-content h1 {
+        color: #ffffff;  
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
       }
-      .btn-primary:hover {
-        background-color: #ddd;
+      .hero-content p {
+        color: #dddddd;  
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
       }
+
+      /* About区：保持背景略深，文字更亮 */
+      .section-about {
+        background-color: #1c1c1c; 
+      }
+      .section-about h2 {
+        color: #ffffff;
+      }
+      .section-about p {
+        color: #cccccc;
+      }
+
+      /* Programs区 */
       .section-programs {
-        background-color: #111;
+        background-color: #202020; 
       }
       .program-item {
-        background-color: #222;
-        color: #ccc;
+        background-color: #2a2a2a; /* 稍浅方块 */
+        color: #e0e0e0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
       }
+
+      /* CTA区：用略浅的灰黑，以便按钮对比清晰 */
+      .section-cta {
+        background-color: #181818;
+        color: #f1f1f1;
+      }
+      .btn-primary {
+        background-color: #f1f1f1; 
+        color: #000000;
+      }
+      .btn-primary:hover {
+        background-color: #dddddd;
+      }
+
+      /* Footer */
       footer {
-        background-color: #222;
-        color: #ccc;
+        background-color: #1c1c1c;
+        color: #aaaaaa;
       }
     }
 
@@ -90,12 +126,12 @@
     .logo-desktop {
       font-size: 1rem;
       font-weight: bold;
-      color: #000;
+      color: inherit;  /* 继承 body color（暗色下自动变浅） */
     }
     .logo-mobile {
       font-size: 1rem;
       font-weight: bold;
-      color: #000;
+      color: inherit;
       display: none;
     }
     /* 桌面端菜单 */
@@ -106,7 +142,7 @@
     }
     nav a {
       text-decoration: none;
-      color: #000;
+      color: inherit;
       transition: color 0.3s;
     }
     nav a:hover {
@@ -119,7 +155,6 @@
       gap: 1rem;
       align-items: center;
     }
-    /* 移动端按钮 */
     .mobile-join-btn {
       background-color: #000;
       color: #fff;
@@ -207,8 +242,6 @@
       color: #f0f0f0;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
     }
-
-    /* 波浪线 */
     .wave-line {
       position: absolute;
       bottom: 0;
@@ -230,9 +263,9 @@
 
     /* ========== 6. About 板块 ========== */
     .section-about {
-      background-color: #fff;
-      color: #000;
-      align-items: center; 
+      background-color: #fff; 
+      color: #000; 
+      align-items: center;
       text-align: left;
     }
     .section-about h2 {
@@ -248,7 +281,7 @@
 
     /* ========== 7. Programs 板块 ========== */
     .section-programs {
-      background-color: #f9f9f9;
+      background-color: #f9f9f9; 
       color: #000;
       align-items: flex-start;
     }
@@ -332,7 +365,6 @@
 
     /* ========== 10. 移动端适配 ========== */
     @media (max-width: 768px) {
-      /* 导航固定顶部，只保留名称 + 加入按钮 */
       header {
         position: fixed;
         top: 0;
@@ -348,7 +380,6 @@
       .logo-mobile {
         display: inline-block;
       }
-      /* 隐藏PC端菜单 */
       nav ul {
         display: none;
       }
@@ -356,15 +387,12 @@
         display: flex;
       }
 
-      /* 让板块整屏覆盖(减去导航条高度) */
       section {
         height: 100vh;
         margin: 0;
         padding: 0 1rem;
         padding-top: 60px;
       }
-
-      /* 首屏 - 手机端文字居右 */
       .hero {
         align-items: center;
         justify-content: flex-end;
@@ -383,7 +411,6 @@
         font-size: 0.95rem;
       }
 
-      /* About / Programs / CTA */
       .section-about, .section-programs, .section-cta {
         align-items: flex-start;
         padding-top: 60px;
@@ -403,7 +430,6 @@
       .program-item {
         margin: 0 auto;
       }
-
       footer {
         height: 100vh;
         padding-top: 60px;
@@ -422,87 +448,95 @@
       <!-- 移动端LOGO -->
       <span class="logo-mobile">FD Orgnization</span>
     </div>
-    <!-- 桌面端菜单 (注意：将“加入”-> /join) -->
+    <!-- 桌面端菜单 (改为 /join) -->
     <nav>
       <ul>
         <li><a href="#hero">首页</a></li>
         <li><a href="#about">关于FDO</a></li>
         <li><a href="#programs">项目</a></li>
-        <!-- 原先的 href="#cta" 改为 /join -->
         <li><a href="/join">加入</a></li>
         <li><a href="#footer">联系我们</a></li>
       </ul>
     </nav>
-    <!-- 移动端只保留“加入”按钮 (原先 "#cta" -> "/join") -->
+    <!-- 移动端只保留“加入”按钮 -->
     <div class="mobile-nav-wrapper">
       <a href="/join" class="mobile-join-btn">加入</a>
     </div>
   </header>
 
-  <!-- Hero / 第1板块 -->
+  <!-- Hero / 第1屏 -->
   <section class="hero" id="hero">
     <div class="circle-black"></div>
     <div class="circle-gray"></div>
     <div class="hero-content">
       <h1>Freedom & Diversity foster Organization</h1>
       <p>倡导自由与多元的公益组织，推动包容性社会建设</p>
-      <!-- 已移除首屏“了解更多”按钮 -->
+      <!-- 首屏不再有“了解更多”按钮 -->
     </div>
     <div class="wave-line"></div>
   </section>
 
-  <!-- About / 第2板块 -->
+  <!-- About / 第2屏 -->
   <section class="section-about" id="about">
     <h2>我们的使命</h2>
     <p>
       FDO（Freedom and Diversity foster Organization）一直专注于在社会层面
       推动“自由”与“多元”的理念。我们相信，唯有包容和尊重差异，才能让社会保持
-      活力与创造力。我们是一个在网络上运行的非营利组织，我们倡导理性、严肃的讨论
+      活力与创造力。我们通过教育推广、社会倡议、互助支持等方式，为更多弱势群体
+      提供支持，呼吁全社会共同关注和参与。
     </p>
   </section>
 
-  <!-- Programs / 第3板块 -->
+  <!-- Programs / 第3屏 -->
   <section class="section-programs" id="programs">
-    <h2>核心理念</h2>
+    <h2>项目与活动</h2>
     <div class="programs-grid">
       <div class="program-item">
-        <h3>理性</h3>
-        <p>任何的在这个组织的讨论都应理性、严肃。我们认为这是对于讨论对象的尊重。</p>
-        <p>通过严肃和理性的讨论，更好地交流、理解、包容</p>
+        <h3>教育推广</h3>
+        <p>走进校园与社区，开展多元文化的主题讲座，提升公众对差异与包容的认知。</p>
       </div>
       <div class="program-item">
-        <h3>多元</h3>
-        <p>我们认为我们应互相尊重，尊重对方的人格、取向、追求</p>
-        <p>这样的讨论才会更丰富，更全面</p>
+        <h3>社会倡议</h3>
+        <p>与媒体、社群合作，发起关于平等、自由与多元的公共讨论，凝聚更多社会关注。</p>
       </div>
+      <div class="program-item">
+        <h3>互助支持</h3>
+        <p>为少数或弱势群体提供资源、心理援助及联络平台，增进他们的安全感与自信。</p>
+      </div>
+      <div class="program-item">
+        <h3>国际合作</h3>
+        <p>与海外高校、非营利组织携手，推进跨文化理解，共同推动多元化议题。</p>
+      </div>
+    </div>
   </section>
 
-  <!-- CTA / 第4板块 -->
+  <!-- CTA / 第4屏 -->
   <section class="section-cta" id="cta">
     <h2>让我们一起创造更多可能</h2>
     <p>
-      无论你是个人、企业还是其他组织，都可以加入FDO的讨论，或者仅了解我们的动向。  
+      无论你是个人、企业还是其他组织，都可以成为FDO的一份子。  
       让我们共同努力，为打造更加自由、多元、包容的未来贡献力量。
     </p>
-    <!-- 原先href="#footer" -> 改为 /join -->
-    <a href="/join" class="btn-primary">立即加入讨论</a>
+    <!-- 立即加入改为 /join -->
+    <a href="/join" class="btn-primary">立即加入</a>
   </section>
 
-  <!-- Footer / 第5板块 -->
+  <!-- Footer / 第5屏 -->
   <footer id="footer">
     <p>
       &copy; 2025 FDO - Freedom and Diversity foster Organization.<br />
       共建包容与多元的世界，让每个人都能自由绽放。
     </p>
+    <span>京ICP备XXXXXXX号</span>
   </footer>
 
-  <!-- Intersection Observer + 动画脚本 -->
+  <!-- ========== Intersection Observer + 动画脚本 ========== -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const sections = document.querySelectorAll('section');
       const programItems = document.querySelectorAll('.program-item');
 
-      // 按顺序给板块指定动画
+      // 给板块指定动画
       const sectionAnimations = [
         'slide-in-left', // Hero
         'slide-in-up',   // About
