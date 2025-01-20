@@ -5,8 +5,9 @@
   <meta name="description" content="FDO - 文章列表" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FDO - 文章列表</title>
+
   <style>
-    /* ===== 全局基础 & 暗色模式 ===== */
+    /* ====== 通用基础 & 暗色模式 ====== */
     * {
       margin: 0;
       padding: 0;
@@ -26,7 +27,7 @@
       }
     }
 
-    /* ===== 按钮、链接 ===== */
+    /* ====== 按钮、链接通用样式 ====== */
     a {
       text-decoration: none;
       color: inherit;
@@ -37,8 +38,8 @@
     }
     .btn {
       display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background-color: #000;
+      padding: 0.75rem 1.5rem;
+      background-color: #000; 
       color: #fff;
       border-radius: 4px;
       font-weight: bold;
@@ -57,7 +58,7 @@
       }
     }
 
-    /* ===== 顶部Hero区域：黑色背景 + 圆形装饰 ===== */
+    /* ====== 顶部Hero区域 ====== */
     .articles-hero {
       position: relative;
       min-height: 40vh;
@@ -71,7 +72,7 @@
     }
     @media (prefers-color-scheme: dark) {
       .articles-hero {
-        background-color: #181818; /* 深色模式下略浅一些 */
+        background-color: #181818;
       }
     }
     .circle-black {
@@ -124,7 +125,7 @@
       margin-bottom: 1rem;
     }
 
-    /* ===== 主体区：文章列表 ===== */
+    /* ====== 主体区容器 ====== */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -145,20 +146,17 @@
       }
     }
 
-    /* 一行固定显示三篇文章，多了就自动换行。
-       每行高度固定 200px (可根据需求改)，若要更多行数亦可继续往下排。 */
+    /* ====== 文章列表：3列网格 + 无限行 ====== */
     .articles-list {
       display: grid;
-      /* 三列布局 */
+      /* 固定 3 列，每列1fr */
       grid-template-columns: repeat(3, 1fr);
-      /* 行数不限，自动往下延伸 */
-      grid-auto-rows: 200px; 
-      /* 让较高的卡片能“压实”网格布局 */
-      grid-auto-flow: dense; 
-      gap: 2rem;
+      /* 行数无限，按顺序自动往下排 */
+      gap: 2rem; 
     }
+    /* 不设置 grid-auto-rows: ... ，让每行高度自适应最大内容 */
 
-    /* 文章卡片 */
+    /* ====== 文章卡片样式 ====== */
     .article-card {
       background-color: #f9f9f9;
       border-radius: 4px;
@@ -168,7 +166,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      overflow: hidden; /* 避免内部内容撑破 */
     }
     .article-card:hover {
       transform: translateY(-3px);
@@ -183,19 +180,12 @@
       font-size: 0.95rem;
       color: #333;
       line-height: 1.6;
-      /* 也可以在此处使用多行省略、clamp等方式控制文本，但这里先不做 */
     }
     .article-meta {
       font-size: 0.85rem;
       color: #666;
       margin-bottom: 1rem;
     }
-
-    /* 文本太多时，可让卡片占两行(高度=200px*2=400px) */
-    .span-2 {
-      grid-row: span 2;
-    }
-
     @media (prefers-color-scheme: dark) {
       .article-card {
         background-color: #2a2a2a;
@@ -211,11 +201,12 @@
         color: #888;
       }
     }
+
   </style>
 </head>
 <body>
 
-  <!-- 文章列表页面顶部Hero -->
+  <!-- 顶部 Hero -->
   <section class="articles-hero">
     <div class="circle-black"></div>
     <div class="circle-gray"></div>
@@ -232,15 +223,15 @@
       <a href="/">返回主页</a>
     </div>
 
-    <!-- 只保留一个 articles-list 容器，文章数量不限制 -->
+    <!-- 只需一个 .articles-list, 放无限多篇文章 -->
     <div class="articles-list">
-      <!-- 示例文章1（内容短） -->
+      <!-- 第1篇文章 -->
       <div class="article-card">
         <div>
           <h3>测试示例文章1</h3>
           <div class="article-meta">2025-02-12 | FDO 技术</div>
           <p>
-            这一篇文章内容比较短。回顾了近半年在各大校园与社区开展的多元文化推广活动。
+            这一篇文章内容比较短，主要回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体。
           </p>
         </div>
         <div style="margin-top:1rem;">
@@ -248,15 +239,13 @@
         </div>
       </div>
 
-      <!-- 示例文章2（内容较长，演示自动占两行） -->
+      <!-- 第2篇文章（文字较多，行高会随之增大，但不影响后续行的布局） -->
       <div class="article-card">
         <div>
           <h3>测试示例文章2</h3>
           <div class="article-meta">2025-02-15 | FDO 社群</div>
           <p>
-            这一篇文章我们将聚焦“技术与公益”的结合，并深入探讨如何利用现代化数字工具来提升社区公益活动的效率与影响力。
-            具体而言，会从数据分析、信息传递、平台搭建以及资源对接等多个方面展开阐述，希望能为相关机构或志愿者群体提供新的视角与思考。
-            随着社会和技术的不断发展，我们也需要与时俱进，积极拥抱数字化转型，以更好地服务于多元化的社会需求与公益使命。
+            这一篇文章我们将聚焦“技术与公益”的结合，并深入探讨如何利用数字化工具来提升社区公益活动的效率与影响力。详细而言，会从数据分析、信息传递、平台搭建以及资源对接等多个方面展开阐述，希望能为相关机构或志愿者群体提供新的视角与思考。与此同时，我们也将分享相关案例，来说明在实际场景中如何有效调动社会资源，以实现更广泛的公益成果。
           </p>
         </div>
         <div style="margin-top:1rem;">
@@ -264,7 +253,7 @@
         </div>
       </div>
 
-      <!-- 示例文章3（内容中等） -->
+      <!-- 第3篇文章 -->
       <div class="article-card">
         <div>
           <h3>测试示例文章3</h3>
@@ -278,61 +267,13 @@
         </div>
       </div>
 
-          <div class="articles-list">
-      <!-- 示例文章1（内容短） -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章1</h3>
-          <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>
-            这一篇文章内容比较短。回顾了近半年在各大校园与社区开展的多元文化推广活动。
-          </p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa.html">阅读更多</a>
-        </div>
-      </div>
-
-                <div class="articles-list">
-      <!-- 示例文章1（内容短） -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章1</h3>
-          <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>
-            这一篇文章内容比较短。回顾了近半年在各大校园与社区开展的多元文化推广活动。
-          </p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa.html">阅读更多</a>
-        </div>
-      </div>
-
-      <!-- 你可以继续添加更多文章卡片 .article-card -->
+      <!-- 后续可无限添加文章4,5,6... -->
+      <!--
+      <div class="article-card"> ... </div>
+      <div class="article-card"> ... </div>
+      -->
     </div>
   </div>
-
-  <script>
-    // 在页面加载后，根据文本长度决定是否需要占两行
-    document.addEventListener("DOMContentLoaded", function() {
-      const articleCards = document.querySelectorAll(".article-card");
-      // 设定文字长度阈值，超出就占两行
-      const MAX_LENGTH_FOR_ONE_ROW = 180;
-
-      articleCards.forEach(card => {
-        const textEl = card.querySelector("p");
-        if (!textEl) return;
-
-        // 获取文本长度
-        const textLength = textEl.textContent.trim().length;
-
-        // 若超过阈值，则加 .span-2（使其占两行）
-        if (textLength > MAX_LENGTH_FOR_ONE_ROW) {
-          card.classList.add("span-2");
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
