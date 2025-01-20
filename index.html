@@ -14,7 +14,7 @@
     }
     html {
       scroll-behavior: smooth;
-      scroll-snap-type: y mandatory; /* 垂直滚动吸附 */
+      scroll-snap-type: y mandatory;
     }
     body {
       font-family: sans-serif;
@@ -24,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* 每个板块：最少占满一屏高；scroll-snap吸附；初始动画前的状态(不透明度0) */
+    /* 每个板块：最少100vh，scroll-snap对齐开始，初始动画前不透明度为0 */
     section {
       min-height: 100vh;
       scroll-snap-align: start;
@@ -35,7 +35,7 @@
       justify-content: center;
       align-items: flex-start;
       padding: 2rem;
-      opacity: 0; /* Intersection Observer 进入视口时添加动画类 */
+      opacity: 0; 
     }
 
     /* ========== 2. 暗色模式 ========== */
@@ -54,6 +54,7 @@
       .circle-gray {
         background: #666;
       }
+      /* 按钮在暗色模式下也可自动变成白底黑字 */
       .btn-primary {
         background-color: #fff;
         color: #000;
@@ -76,24 +77,22 @@
 
     /* ========== 3. 顶部导航 ========== */
     header {
-      position: sticky;  /* 桌面端：粘性在顶部 */
+      position: sticky;  
       top: 0;
       z-index: 999;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 80px;      /* 导航栏高度 */
+      height: 80px;
       padding: 0 2rem;
       background-color: rgba(255,255,255,0.8);
       border-bottom: 1px solid #ccc;
     }
-    /* PC端LOGO */
     .logo-desktop {
       font-size: 1rem;
       font-weight: bold;
       color: #000;
     }
-    /* 移动端LOGO（默认隐藏） */
     .logo-mobile {
       font-size: 1rem;
       font-weight: bold;
@@ -115,15 +114,14 @@
       color: #888;
     }
 
-    /* ========== 4. 新增: 移动端仅保留“加入”按钮 & 名称 (FD Orgnization) ========== */
-    /* 这里用一个类 .mobile-nav-wrapper 来演示你仅保留一个"加入"按钮的思路 */
+    /* 移动端仅保留“加入”按钮与名称 (FD Orgnization) */
     .mobile-nav-wrapper {
-      display: none; /* PC端隐藏 */
+      display: none;
       gap: 1rem;
       align-items: center;
     }
     .mobile-join-btn {
-      background-color: #000;
+      background-color: #000;  /* 浅色模式下：黑底白字 */
       color: #fff;
       padding: 0.5rem 1rem;
       border-radius: 4px;
@@ -135,7 +133,22 @@
       background-color: #333;
     }
 
-    /* ========== 5. 自定义动画(简洁美观) ========== */
+    /* ========== 4. 按钮与动画 ========== */
+    /* 默认.btn-primary: 如果背景区也是黑色，会看不清，故让按钮在普通模式下是白底黑字 */
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #fff; /* 修复：白底 */
+      color: #000;           /* 黑字 */
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #ddd; 
+    }
+
     @keyframes slideInUp {
       0% {
         opacity: 0;
@@ -156,21 +169,18 @@
         transform: translateX(0);
       }
     }
-
-    /* 当元素需要“从下往上滑入”时，会添加此类 */
     .slide-in-up {
       animation: slideInUp 1s ease forwards;
     }
-    /* 当元素需要“从左往右滑入”时，会添加此类 */
     .slide-in-left {
       animation: slideInLeft 1s ease forwards;
     }
 
-    /* ========== 6. Hero(首屏)板块 ========== */
+    /* ========== 5. 首屏(Hero) ========== */
     .hero {
       align-items: flex-start;
       text-align: left;
-      padding-top: 15vh; /* 桌面端让文字更下移 */
+      padding-top: 15vh; 
     }
     .circle-black {
       position: absolute;
@@ -197,7 +207,7 @@
       position: relative;
       z-index: 3;
       max-width: 600px;
-      margin-left: calc(100vw * 0.15); /* 桌面端：左偏移15% */
+      margin-left: calc(100vw * 0.15);
     }
     .hero-content h1 {
       font-size: 2.5rem;
@@ -212,9 +222,6 @@
       color: #f0f0f0;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
     }
-    /* 已移除“了解更多”按钮 */
-
-    /* 波浪线 */
     .wave-line {
       position: absolute;
       bottom: 0;
@@ -234,7 +241,7 @@
       z-index: 4;
     }
 
-    /* ========== 7. About 板块 ========== */
+    /* ========== 6. About 板块 ========== */
     .section-about {
       background-color: #fff;
       color: #000;
@@ -252,7 +259,7 @@
       color: #333;
     }
 
-    /* ========== 8. Programs 板块 ========== */
+    /* ========== 7. Programs 板块 ========== */
     .section-programs {
       background-color: #f9f9f9;
       color: #000;
@@ -277,15 +284,15 @@
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       transition: transform 0.2s;
-      opacity: 0; /* 初始不可见 */
+      opacity: 0;
     }
     .program-item:hover {
       transform: translateY(-3px);
     }
 
-    /* ========== 9. CTA 板块 ========== */
+    /* ========== 8. CTA 板块 ========== */
     .section-cta {
-      background-color: #000;
+      background-color: #000;  /* 黑色背景 */
       color: #fff;
       text-align: center;
       align-items: center;
@@ -302,8 +309,9 @@
       line-height: 1.8;
       font-size: 1rem;
     }
+    /* 修复：按钮在黑底下若也是黑色，就无法看清。已在 .btn-primary 设为白底黑字 */
 
-    /* ========== 10. Footer 板块 ========== */
+    /* ========== 9. Footer 板块 ========== */
     footer {
       background-color: #f0f0f0;
       color: #888;
@@ -323,9 +331,9 @@
       font-size: 0.9rem;
     }
 
-    /* ========== 11. 移动端适配（max-width: 768px） ========== */
+    /* ========== 10. 移动端适配（max-width: 768px） ========== */
     @media (max-width: 768px) {
-      /* 导航固定顶部，简化，只保留LOGO + 加入按钮 */
+      /* 导航固定顶部，只保留名称 + 加入按钮 */
       header {
         position: fixed;
         top: 0;
@@ -335,28 +343,26 @@
         padding: 0 1rem;
         justify-content: space-between;
       }
-      /* PC端LOGO隐藏；移动端LOGO显示 */
       .logo-desktop {
         display: none;
       }
       .logo-mobile {
         display: inline-block;
       }
-      /* PC端菜单隐藏 */
+      /* 隐藏PC端菜单 */
       nav ul {
         display: none;
       }
-      /* 显示移动端“加入”按钮 */
       .mobile-nav-wrapper {
         display: flex;
       }
 
-      /* 让板块整屏覆盖(扣除导航高度) */
+      /* 移动端每个板块整屏覆盖(减去导航高度) */
       section {
         height: 100vh;
         margin: 0;
         padding: 0 1rem;
-        padding-top: 60px; /* 防止导航遮盖内容 */
+        padding-top: 60px;
       }
 
       /* 首屏 - 手机端文字居右 */
@@ -378,7 +384,7 @@
         font-size: 0.95rem;
       }
 
-      /* About / Programs / CTA 同理简化排版 */
+      /* About / Programs / CTA */
       .section-about, .section-programs, .section-cta {
         align-items: flex-start;
         padding-top: 60px;
@@ -392,12 +398,12 @@
       .section-cta p {
         max-width: 100%;
       }
-      /* Programs板块在移动端也不会错位 */
+      /* Programs板块在手机端 */
       .programs-grid {
         margin-top: 1rem;
       }
       .program-item {
-        margin: 0 auto; /* 居中 */
+        margin: 0 auto; 
       }
 
       /* Footer同理 */
@@ -418,8 +424,7 @@
       <!-- 移动端LOGO -->
       <span class="logo-mobile">FD Orgnization</span>
     </div>
-
-    <!-- 桌面端原有菜单 -->
+    <!-- 桌面端菜单(完整) -->
     <nav>
       <ul>
         <li><a href="#hero">首页</a></li>
@@ -429,14 +434,13 @@
         <li><a href="#footer">联系我们</a></li>
       </ul>
     </nav>
-
-    <!-- 移动端只保留"加入"按钮 -->
+    <!-- 移动端只保留“加入”按钮 -->
     <div class="mobile-nav-wrapper">
       <a href="#cta" class="mobile-join-btn">加入</a>
     </div>
   </header>
 
-  <!-- Hero / 第1板块 -->
+  <!-- Hero / 第1屏 -->
   <section class="hero" id="hero">
     <div class="circle-black"></div>
     <div class="circle-gray"></div>
@@ -448,7 +452,7 @@
     <div class="wave-line"></div>
   </section>
 
-  <!-- About / 第2板块 -->
+  <!-- About / 第2屏 -->
   <section class="section-about" id="about">
     <h2>我们的使命</h2>
     <p>
@@ -459,7 +463,7 @@
     </p>
   </section>
 
-  <!-- Programs / 第3板块 -->
+  <!-- Programs / 第3屏 -->
   <section class="section-programs" id="programs">
     <h2>项目与活动</h2>
     <div class="programs-grid">
@@ -482,18 +486,18 @@
     </div>
   </section>
 
-  <!-- CTA / 第4板块 -->
+  <!-- CTA / 第4屏 -->
   <section class="section-cta" id="cta">
     <h2>让我们一起创造更多可能</h2>
     <p>
       无论你是个人、企业还是其他组织，都可以成为FDO的一份子。  
       让我们共同努力，为打造更加自由、多元、包容的未来贡献力量。
     </p>
-    <!-- 桌面端CTA也保留按钮 -->
+    <!-- 修复后：在深色背景下按钮为白底黑字，鼠标悬停可见变色 -->
     <a href="#footer" class="btn-primary">立即加入</a>
   </section>
 
-  <!-- Footer / 第5板块 -->
+  <!-- Footer / 第5屏 -->
   <footer id="footer">
     <p>
       &copy; 2025 FDO - Freedom and Diversity foster Organization.<br />
@@ -502,7 +506,7 @@
     <span>京ICP备XXXXXXX号</span>
   </footer>
 
-  <!-- ========== Intersection Observer + 自定义动画 ========== -->
+  <!-- ========== 触发动画的脚本 ========== -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const sections = document.querySelectorAll('section');
@@ -510,23 +514,21 @@
 
       /* 
         简单示例： 
-        第1板块(Hero) -> slideInLeft 
-        第2板块(About) -> slideInUp
-        第3板块(Programs) -> slideInUp
-        第4板块(CTA) -> slideInLeft
-        第5板块(Footer) -> slideInUp
+        Hero -> slideInLeft
+        About -> slideInUp
+        Programs -> slideInUp
+        CTA -> slideInLeft
+        Footer -> slideInUp
       */
       const sectionAnimations = [
-        'slide-in-left',  // Hero
-        'slide-in-up',    // About
-        'slide-in-up',    // Programs
-        'slide-in-left',  // CTA
-        'slide-in-up'     // Footer
+        'slide-in-left',
+        'slide-in-up',
+        'slide-in-up',
+        'slide-in-left',
+        'slide-in-up'
       ];
 
-      // 配置 IntersectionObserver
       const options = { threshold: 0.3 };
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -535,7 +537,6 @@
               const animClass = sectionAnimations[index] || 'slide-in-up';
               entry.target.classList.add(animClass);
             } else if (entry.target.classList.contains('program-item')) {
-              // 项目卡片统一用slide-in-up或fade-in之类
               entry.target.classList.add('slide-in-up');
             }
           }
