@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="FDO - Single Page with Snap Scrolling and Animations" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FDO - Single Page Refined</title>
+  <style>
+    /* ========== 1. 全局基础 ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;               /* 滚动更平滑 */
+      scroll-snap-type: y mandatory;         /* 垂直滚动吸附 */
+    }
+    body {
+      font-family: sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* 每个板块至少占满一屏，并在scroll-snap中对齐开始位置 */
+    section {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      /* 初始状态下的动画样式（将由JS动态移除） */
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    /* 当板块进入视口时，会加上 .in-view，触发淡入上移动画 */
+    section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== 2. 暗色模式切换 ========== */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #000000;
+        color: #ffffff;
+      }
+      header {
+        background-color: #000;
+        border-bottom: 1px solid #444;
+      }
+      .circle-black {
+        background: #cccccc;  /* 让黑色圆在暗色模式下变浅，对比度更明显 */
+      }
+      .circle-gray {
+        background: #666666;
+      }
+      .btn-primary {
+        background-color: #fff;
+        color: #000;
+      }
+      .btn-primary:hover {
+        background-color: #ddd;
+      }
+      .section-programs {
+        background-color: #111; /* 稍深 */
+      }
+      .program-item {
+        background-color: #222;
+        color: #ccc;
+      }
+      footer {
+        background-color: #222;
+        color: #ccc;
+      }
+    }
+
+    /* ========== 3. 顶部导航（固定） ========== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+    }
+    .logo-desktop {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #000;
+    }
+    .logo-mobile {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #000;
+      display: none; /* 默认隐藏 */
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #000;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #888;
+    }
+    /* 小屏幕：隐藏全称logo，显示简称 */
+    @media (max-width: 768px) {
+      .logo-desktop {
+        display: none;
+      }
+      .logo-mobile {
+        display: inline-block;
+      }
+    }
+
+    /* ========== 4. Hero ========== */
+    .hero {
+      /* 调整：左侧对齐，顶部留白足够 */
+      justify-content: flex-start;
+      align-items: center;
+      text-align: left;
+    }
+    /* 大黑圆(背景) */
+    .circle-black {
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 80vw;
+      height: 80vw;
+      background: #000000;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    /* 半透明灰圆(背景) */
+    .circle-gray {
+      position: absolute;
+      top: 0;
+      right: -30%;
+      width: 80vw;
+      height: 80vw;
+      background: #888888;
+      opacity: 0.2;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    /* hero-content 在黄金分割线处：大约 38.2% */
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 600px;
+      margin-left: calc(100vw * 0.382); /* 关键：将文字偏移至黄金分割线 */
+    }
+    /* Hero 白色文字 */
+    .hero-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+    .hero-content p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #f0f0f0;
+    }
+    /* 按钮：黑底白字 */
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #000;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #333;
+    }
+    /* 波浪线/网格背景模拟 */
+    .wave-line {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 200px;
+      background: radial-gradient(
+        circle at center,
+        transparent 20%,
+        #000 20%,
+        transparent 21%,
+        transparent 100%
+      );
+      background-size: 10px 10px;
+      opacity: 0.1;
+      z-index: 4;
+    }
+
+    /* ========== 5. About ========== */
+    .section-about {
+      background-color: #fff;
+      color: #000;
+      align-items: center; /* 垂直居中 */
+      text-align: left;    /* 保持左对齐 */
+    }
+    .section-about h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .section-about p {
+      max-width: 700px;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    /* ========== 6. Programs ========== */
+    .section-programs {
+      background-color: #f9f9f9; 
+      color: #000;
+      align-items: flex-start;
+    }
+    .section-programs h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .programs-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .program-item {
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+      /* 动画初始值 */
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .program-item.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s ease;
+    }
+    .program-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #000;
+    }
+    .program-item p {
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.6;
+    }
+    .program-item:hover {
+      transform: translateY(-3px);
+    }
+
+    /* ========== 7. CTA ========== */
+    .section-cta {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    .section-cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .section-cta p {
+      max-width: 700px;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    /* ========== 8. Footer ========== */
+    footer {
+      background-color: #f0f0f0;
+      color: #888;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      /* 保持一屏高度，若不想全屏，可改为 auto */
+      min-height: 100vh;
+    }
+    footer p {
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    footer span {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <header>
+    <div class="logo">
+      <!-- 宽屏：全称；窄屏：简称 -->
+      <span class="logo-desktop">Freedom and Diversity foster Organization</span>
+      <span class="logo-mobile">FDO</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#hero">首页</a></li>
+        <li><a href="#about">关于FDO</a></li>
+        <li><a href="#programs">项目与活动</a></li>
+        <li><a href="#cta">加入我们</a></li>
+        <li><a href="#footer">联系我们</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero / 第1板块 -->
+  <section class="hero" id="hero">
+    <div class="circle-black"></div>
+    <div class="circle-gray"></div>
+    <div class="hero-content">
+      <h1>Freedom & Diversity foster Organization</h1>
+      <p>倡导自由与多元的公益组织，推动包容性社会建设</p>
+      <a href="#about" class="btn-primary">了解更多</a>
+    </div>
+    <div class="wave-line"></div>
+  </section>
+
+  <!-- About / 第2板块 -->
+  <section class="section-about" id="about">
+    <h2>我们的使命</h2>
+    <p>
+      FDO（Freedom and Diversity foster Organization）一直专注于在社会层面
+      推动“自由”与“多元”的理念。我们相信，唯有包容和尊重差异，才能让社会保持
+      活力与创造力。我们通过教育推广、社会倡议、互助支持等方式，为更多弱势群体
+      提供支持，呼吁全社会共同关注和参与。
+    </p>
+  </section>
+
+  <!-- Programs / 第3板块 -->
+  <section class="section-programs" id="programs">
+    <h2>项目与活动</h2>
+    <div class="programs-grid">
+      <div class="program-item">
+        <h3>教育推广</h3>
+        <p>走进校园与社区，开展多元文化的主题讲座和交流，提升公众对差异与包容的认知。</p>
+      </div>
+      <div class="program-item">
+        <h3>社会倡议</h3>
+        <p>与媒体、社群合作，发起针对平等、自由与多元的公共讨论与倡议，凝聚更多社会关注。</p>
+      </div>
+      <div class="program-item">
+        <h3>互助支持</h3>
+        <p>为少数群体或弱势人群提供资源、心理援助及联络平台，增进他们的安全感与自信。</p>
+      </div>
+      <div class="program-item">
+        <h3>国际合作</h3>
+        <p>与海外高校、非营利组织等跨国合作，促进跨文化理解，共同推动多元化议题。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / 第4板块 -->
+  <section class="section-cta" id="cta">
+    <h2>让我们一起创造更多可能</h2>
+    <p>
+      无论你是个人、企业还是其他组织，都可以成为FDO的一份子。  
+      让我们共同努力，为打造更加自由、多元、包容的未来贡献力量。
+    </p>
+    <a href="#footer" class="btn-primary">加入我们</a>
+  </section>
+
+  <!-- Footer / 第5板块 -->
+  <footer id="footer">
+    <p>
+      &copy; 2025 FDO - Freedom and Diversity foster Organization.<br />
+      共建包容与多元的世界，让每个人都能自由绽放。
+    </p>
+    <span>京ICP备XXXXXXX号</span>
+  </footer>
+
+  <!-- ========== 触发动画的脚本: Intersection Observer ========== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('section');
+      const programItems = document.querySelectorAll('.program-item');
+
+      // 配置IntersectionObserver，当元素50%面积进入视口时执行
+      const options = { threshold: 0.5 };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, options);
+
+      // 观察每个板块
+      sections.forEach(section => observer.observe(section));
+      // 观察每个program item
+      programItems.forEach(item => observer.observe(item));
+    });
+  </script>
+</body>
+</html>
