@@ -37,11 +37,10 @@
     }
     .btn {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #000; /* 黑底 */
+      padding: 0.6rem 1.2rem;
+      background-color: #000;
       color: #fff;
       border-radius: 4px;
-      text-decoration: none;
       font-weight: bold;
       transition: background-color 0.3s;
     }
@@ -146,15 +145,20 @@
       }
     }
 
-    /* 一行固定显示三篇文章，多了就自动换行；
-       每行高度 200px，若有卡片要占两行则200*2=400px */
+    /* 一行固定显示三篇文章，多了就自动换行。
+       每行高度固定 200px (可根据需求改)，若要更多行数亦可继续往下排。 */
     .articles-list {
       display: grid;
+      /* 三列布局 */
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 200px; /* 可以根据需要做调整 */
+      /* 行数不限，自动往下延伸 */
+      grid-auto-rows: 200px; 
+      /* 让较高的卡片能“压实”网格布局 */
+      grid-auto-flow: dense; 
       gap: 2rem;
     }
 
+    /* 文章卡片 */
     .article-card {
       background-color: #f9f9f9;
       border-radius: 4px;
@@ -164,12 +168,11 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      overflow: hidden; /* 为了避免内文撑开卡片 */
+      overflow: hidden; /* 避免内部内容撑破 */
     }
     .article-card:hover {
       transform: translateY(-3px);
     }
-
     .article-card h3 {
       font-size: 1.2rem;
       font-weight: bold;
@@ -180,7 +183,7 @@
       font-size: 0.95rem;
       color: #333;
       line-height: 1.6;
-      /* flex-grow: 1; 如果希望文本区把卡片撑大，可视情况保留 */
+      /* 也可以在此处使用多行省略、clamp等方式控制文本，但这里先不做 */
     }
     .article-meta {
       font-size: 0.85rem;
@@ -188,12 +191,11 @@
       margin-bottom: 1rem;
     }
 
-    /* 卡片如果内容多，需要占两行时加上 .span-2 */
+    /* 文本太多时，可让卡片占两行(高度=200px*2=400px) */
     .span-2 {
       grid-row: span 2;
     }
 
-    /* 暗色模式下的文章卡片颜色 */
     @media (prefers-color-scheme: dark) {
       .article-card {
         background-color: #2a2a2a;
@@ -223,23 +225,22 @@
     </div>
   </section>
 
-  <!-- 文章列表主体 -->
+  <!-- 主体容器 -->
   <div class="container">
     <!-- 返回主页等链接 -->
     <div class="top-links">
       <a href="/">返回主页</a>
-      <!-- 也可以再添加别的链接，如 <a href="/join">加入我们</a> 等 -->
     </div>
 
-    <!-- 只保留一个 articles-list 容器，将所有文章都放在这里 -->
+    <!-- 只保留一个 articles-list 容器，文章数量不限制 -->
     <div class="articles-list">
-      <!-- 示例文章1 -->
+      <!-- 示例文章1（内容短） -->
       <div class="article-card">
         <div>
           <h3>测试示例文章1</h3>
           <div class="article-meta">2025-02-12 | FDO 技术</div>
           <p>
-            这一篇文章内容比较短。回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体。
+            这一篇文章内容比较短。回顾了近半年在各大校园与社区开展的多元文化推广活动。
           </p>
         </div>
         <div style="margin-top:1rem;">
@@ -247,7 +248,7 @@
         </div>
       </div>
 
-      <!-- 示例文章2（示例：文字较多） -->
+      <!-- 示例文章2（内容较长，演示自动占两行） -->
       <div class="article-card">
         <div>
           <h3>测试示例文章2</h3>
@@ -263,7 +264,7 @@
         </div>
       </div>
 
-      <!-- 示例文章3 -->
+      <!-- 示例文章3（内容中等） -->
       <div class="article-card">
         <div>
           <h3>测试示例文章3</h3>
@@ -277,25 +278,25 @@
         </div>
       </div>
 
-      <!-- 可以继续新增更多 .article-card -->
+      <!-- 你可以继续添加更多文章卡片 .article-card -->
     </div>
   </div>
 
-  <!-- 根据文本长度，自动设置是否需要占两行 -->
   <script>
+    // 在页面加载后，根据文本长度决定是否需要占两行
     document.addEventListener("DOMContentLoaded", function() {
       const articleCards = document.querySelectorAll(".article-card");
-      // 自定义阈值: 若文章介绍文本长度超过这个数，就让它占2行
-      const MAX_LENGTH_FOR_ONE_ROW = 200;
+      // 设定文字长度阈值，超出就占两行
+      const MAX_LENGTH_FOR_ONE_ROW = 180;
 
       articleCards.forEach(card => {
         const textEl = card.querySelector("p");
         if (!textEl) return;
 
-        // 获取介绍文本的字符数（也可以改成 textEl.innerText.length 之类）
+        // 获取文本长度
         const textLength = textEl.textContent.trim().length;
 
-        // 超过阈值就加 .span-2 （最多占两行）
+        // 若超过阈值，则加 .span-2（使其占两行）
         if (textLength > MAX_LENGTH_FOR_ONE_ROW) {
           card.classList.add("span-2");
         }
