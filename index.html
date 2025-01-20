@@ -2,19 +2,19 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="FDO - Single Page with Snap Scrolling and Animations" />
+  <meta name="description" content="FDO - Single Page with Snap Scrolling, Stagger Animations & Mobile Enhanced" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FDO - Single Page Refined</title>
   <style>
-    /* ========== 1. 全局基础 ========== */
+    /* ======================== 1. 全局基础与滚动吸附 ======================== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     html {
-      scroll-behavior: smooth;               /* 滚动更平滑 */
-      scroll-snap-type: y mandatory;         /* 垂直滚动吸附 */
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory; /* 纵向滚动吸附 */
     }
     body {
       font-family: sans-serif;
@@ -23,43 +23,37 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-
-    /* 每个板块至少占满一屏，并在scroll-snap中对齐开始位置 */
+    /* 每个板块默认：最少100vh，并在scroll-snap对齐开始位置 */
     section {
       min-height: 100vh;
       scroll-snap-align: start;
+      scroll-snap-stop: always; /* 更强制的吸附行为 */
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
       padding: 2rem;
-      /* 初始状态下的动画样式（将由JS动态移除） */
+
+      /* 初始动画状态（由JS给它加相关动画类） */
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    /* 当板块进入视口时，会加上 .in-view，触发淡入上移动画 */
-    section.in-view {
-      opacity: 1;
-      transform: translateY(0);
     }
 
-    /* ========== 2. 暗色模式切换 ========== */
+    /* ======================== 2. 暗色模式 ======================== */
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #000000;
         color: #ffffff;
       }
       header {
-        background-color: #000;
+        background-color: rgba(0,0,0,0.8);
         border-bottom: 1px solid #444;
       }
       .circle-black {
-        background: #cccccc;  /* 让黑色圆在暗色模式下变浅，对比度更明显 */
+        background: #444;
       }
       .circle-gray {
-        background: #666666;
+        background: #666;
       }
       .btn-primary {
         background-color: #fff;
@@ -69,7 +63,7 @@
         background-color: #ddd;
       }
       .section-programs {
-        background-color: #111; /* 稍深 */
+        background-color: #111;
       }
       .program-item {
         background-color: #222;
@@ -81,29 +75,33 @@
       }
     }
 
-    /* ========== 3. 顶部导航（固定） ========== */
+    /* ======================== 3. 顶部导航 (PC端) ======================== */
     header {
-      position: sticky;
+      position: sticky; /* 在桌面端粘性 */
       top: 0;
       z-index: 999;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
+      height: 80px;
+      padding: 0 2rem;
+      background-color: rgba(255,255,255,0.8);
       border-bottom: 1px solid #ccc;
     }
+    /* 桌面端LOGO文本 */
     .logo-desktop {
       font-size: 1rem;
       font-weight: bold;
       color: #000;
     }
+    /* 移动端LOGO文本 */
     .logo-mobile {
       font-size: 1rem;
       font-weight: bold;
       color: #000;
-      display: none; /* 默认隐藏 */
+      display: none; /* 默认在PC端不显示 */
     }
+    /* 桌面端菜单 */
     nav ul {
       list-style: none;
       display: flex;
@@ -117,66 +115,98 @@
     nav a:hover {
       color: #888;
     }
-    /* 小屏幕：隐藏全称logo，显示简称 */
-    @media (max-width: 768px) {
-      .logo-desktop {
-        display: none;
+
+    /* ======================== 4. 自定义动画 keyframes ======================== */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
       }
-      .logo-mobile {
-        display: inline-block;
+      100% {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes slideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    /* 其他动画可自由扩充 */
+
+    /* ========== 通用动画类(由JS动态添加) ========== */
+    .fade-in-up {
+      animation: fadeInUp 1s ease forwards;
+    }
+    .slide-in-left {
+      animation: slideInLeft 1s ease forwards;
+    }
+    .slide-in-right {
+      animation: slideInRight 1s ease forwards;
     }
 
-    /* ========== 4. Hero ========== */
+    /* ======================== 5. Hero板块 (桌面端) ======================== */
     .hero {
-      /* 调整：左侧对齐，顶部留白足够 */
-      justify-content: flex-start;
-      align-items: center;
+      align-items: flex-start;
       text-align: left;
+      /* 在桌面下，让文字再往下，避免过于贴顶 */
+      padding-top: 15vh;
     }
-    /* 大黑圆(背景) */
     .circle-black {
       position: absolute;
       top: -20%;
       left: -30%;
       width: 80vw;
       height: 80vw;
-      background: #000000;
+      background: #222; 
       border-radius: 50%;
       z-index: 1;
     }
-    /* 半透明灰圆(背景) */
     .circle-gray {
       position: absolute;
       top: 0;
       right: -30%;
       width: 80vw;
       height: 80vw;
-      background: #888888;
+      background: #888;
       opacity: 0.2;
       border-radius: 50%;
       z-index: 2;
     }
-    /* hero-content 在黄金分割线处：大约 38.2% */
     .hero-content {
       position: relative;
       z-index: 3;
       max-width: 600px;
-      margin-left: calc(100vw * 0.382); /* 关键：将文字偏移至黄金分割线 */
+      margin-left: calc(100vw * 0.1); /* 大屏文本稍微贴左 */
     }
-    /* Hero 白色文字 */
     .hero-content h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
       font-weight: bold;
-      color: #ffffff;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
     }
     .hero-content p {
       font-size: 1rem;
       margin-bottom: 1.5rem;
       color: #f0f0f0;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
     }
-    /* 按钮：黑底白字 */
     .btn-primary {
       display: inline-block;
       padding: 0.75rem 1.5rem;
@@ -190,7 +220,6 @@
     .btn-primary:hover {
       background-color: #333;
     }
-    /* 波浪线/网格背景模拟 */
     .wave-line {
       position: absolute;
       bottom: 0;
@@ -210,12 +239,12 @@
       z-index: 4;
     }
 
-    /* ========== 5. About ========== */
+    /* ======================== 6. About板块 ======================== */
     .section-about {
       background-color: #fff;
       color: #000;
-      align-items: center; /* 垂直居中 */
-      text-align: left;    /* 保持左对齐 */
+      align-items: center; 
+      text-align: left;
     }
     .section-about h2 {
       font-size: 2rem;
@@ -228,9 +257,9 @@
       color: #333;
     }
 
-    /* ========== 6. Programs ========== */
+    /* ======================== 7. Programs板块 (含 program-item stagger) ======================== */
     .section-programs {
-      background-color: #f9f9f9; 
+      background-color: #f9f9f9;
       color: #000;
       align-items: flex-start;
     }
@@ -253,31 +282,13 @@
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       transition: transform 0.2s;
-      /* 动画初始值 */
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    .program-item.in-view {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease;
-    }
-    .program-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      font-weight: bold;
-      color: #000;
-    }
-    .program-item p {
-      font-size: 0.95rem;
-      color: #333;
-      line-height: 1.6;
+      opacity: 0; /* 初始不可见; JS接管控制 */
     }
     .program-item:hover {
       transform: translateY(-3px);
     }
 
-    /* ========== 7. CTA ========== */
+    /* ======================== 8. CTA板块 ======================== */
     .section-cta {
       background-color: #000;
       color: #fff;
@@ -297,7 +308,7 @@
       font-size: 1rem;
     }
 
-    /* ========== 8. Footer ========== */
+    /* ======================== 9. Footer板块 ======================== */
     footer {
       background-color: #f0f0f0;
       color: #888;
@@ -305,7 +316,6 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      /* 保持一屏高度，若不想全屏，可改为 auto */
       min-height: 100vh;
     }
     footer p {
@@ -318,25 +328,112 @@
       font-size: 0.9rem;
     }
 
+    /* ======================== 10. 移动端适配 (max-width: 768px) ======================== */
+    @media (max-width: 768px) {
+      /* 导航固定在顶部，精简只保留：FD Orgnization + 加入按钮 */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        padding: 0 1rem;
+      }
+      .logo-desktop {
+        display: none;
+      }
+      .logo-mobile {
+        display: inline-block;
+        font-size: 1rem;
+      }
+      nav ul {
+        display: none; /* 隐藏桌面菜单 */
+      }
+      /* 可在这里添加一个专门的“加入”按钮，放在右侧 */
+      .mobile-join-btn {
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #000;
+        font-weight: bold;
+        background: #ccc; /* 或者更深色 */
+        border-radius: 4px;
+        padding: 0.3rem 0.8rem;
+        text-decoration: none;
+        margin-left: auto; /* 推到右侧 */
+      }
+
+      /* 让每个板块在手机上完全占满可视区(减去导航条高度) */
+      section {
+        height: 100vh;
+        margin: 0;
+        padding: 0 1rem;
+        padding-top: 60px; /* 让内容不被导航遮住 */
+      }
+
+      /* 首屏 - 手机端文字靠右 (需求：居右显示) */
+      .hero {
+        align-items: center;
+        justify-content: flex-end;  /* 内容靠右 */
+        padding-top: 60px;
+      }
+      .hero-content {
+        margin-left: 0;      
+        margin-right: 1rem;  /* 靠右留点空隙 */
+        max-width: 90%;
+        text-align: right;   /* 文字右对齐 */
+      }
+      .hero-content h1 {
+        font-size: 1.6rem;
+      }
+      .hero-content p {
+        font-size: 0.95rem;
+      }
+
+      /* About / Programs / CTA等简化排版 */
+      .section-about, .section-programs, .section-cta {
+        align-items: flex-start;
+        padding-top: 60px;
+      }
+
+      /* Programs区在手机端不再错位 */
+      .programs-grid {
+        margin-top: 1rem;
+      }
+      .program-item {
+        margin: 0 auto; 
+      }
+
+      /* Footer 同理 */
+      footer {
+        height: 100vh;
+        padding-top: 60px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- 顶部导航 -->
+
+  <!-- 顶部导航：桌面端=全菜单，手机端=FD Orgnization + 加入按钮 -->
   <header>
     <div class="logo">
-      <!-- 宽屏：全称；窄屏：简称 -->
+      <!-- PC端全称，移动端简化: FD Orgnization -->
       <span class="logo-desktop">Freedom and Diversity foster Organization</span>
-      <span class="logo-mobile">FDO</span>
+      <span class="logo-mobile">FD Orgnization</span>
     </div>
+    
+    <!-- 桌面端完整菜单 -->
     <nav>
       <ul>
         <li><a href="#hero">首页</a></li>
         <li><a href="#about">关于FDO</a></li>
-        <li><a href="#programs">项目与活动</a></li>
-        <li><a href="#cta">加入我们</a></li>
+        <li><a href="#programs">项目</a></li>
+        <li><a href="#cta">加入</a></li>
         <li><a href="#footer">联系我们</a></li>
       </ul>
     </nav>
+
+    <!-- 手机端右侧 - 只显示“加入”按钮 -->
+    <a href="#cta" class="mobile-join-btn">加入</a>
   </header>
 
   <!-- Hero / 第1板块 -->
@@ -368,7 +465,7 @@
     <div class="programs-grid">
       <div class="program-item">
         <h3>教育推广</h3>
-        <p>走进校园与社区，开展多元文化的主题讲座和交流，提升公众对差异与包容的认知。</p>
+        <p>走进校园与社区，开展多元文化的主题讲座，提升公众对差异与包容的认知。</p>
       </div>
       <div class="program-item">
         <h3>社会倡议</h3>
@@ -376,11 +473,11 @@
       </div>
       <div class="program-item">
         <h3>互助支持</h3>
-        <p>为少数群体或弱势人群提供资源、心理援助及联络平台，增进他们的安全感与自信。</p>
+        <p>为少数或弱势群体提供资源、心理援助及联络平台，增进他们的安全感与自信。</p>
       </div>
       <div class="program-item">
         <h3>国际合作</h3>
-        <p>与海外高校、非营利组织等跨国合作，促进跨文化理解，共同推动多元化议题。</p>
+        <p>与海外高校、非营利组织携手，推进跨文化理解，共同推动多元化议题。</p>
       </div>
     </div>
   </section>
@@ -404,19 +501,38 @@
     <span>京ICP备XXXXXXX号</span>
   </footer>
 
-  <!-- ========== 触发动画的脚本: Intersection Observer ========== -->
+  <!-- ======================== JS: Intersection Observer + Stagger动画 ======================== -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const sections = document.querySelectorAll('section');
       const programItems = document.querySelectorAll('.program-item');
 
-      // 配置IntersectionObserver，当元素50%面积进入视口时执行
-      const options = { threshold: 0.5 };
+      // 为SECTION定义想要的动画序列
+      const sectionAnimations = [
+        'slide-in-left', // Hero
+        'fade-in-up',    // About
+        'fade-in-up',    // Programs
+        'slide-in-right',// CTA
+        'fade-in-up'     // Footer
+      ];
 
+      // 配置IntersectionObserver
+      const options = { threshold: 0.3 };
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
+          if(entry.isIntersecting) {
+            // 1) 针对section
+            if (entry.target.tagName.toLowerCase() === 'section') {
+              const index = Array.from(sections).indexOf(entry.target);
+              const animClass = sectionAnimations[index] || 'fade-in-up';
+              entry.target.classList.add(animClass);
+            } 
+            // 2) 针对program-item (应用stagger延迟)
+            else if(entry.target.classList.contains('program-item')) {
+              const i = Array.from(programItems).indexOf(entry.target);
+              // 每个条目延时0.15s*(i+1)，再执行fadeInUp
+              entry.target.style.animation = `fadeInUp 0.8s ease forwards ${0.15 * (i+1)}s`;
+            }
           }
         });
       }, options);
