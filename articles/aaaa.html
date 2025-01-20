@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="FDO - 单篇文章" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FDO - 单篇文章</title>
+  <style>
+    /* ===== 全局基础 & 暗色模式 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: #eeeeee;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s;
+    }
+    a:hover {
+      color: #888;
+    }
+    /* ===== 按钮 ===== */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #000;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #333;
+    }
+    @media (prefers-color-scheme: dark) {
+      .btn {
+        background-color: #fff;
+        color: #000;
+      }
+      .btn:hover {
+        background-color: #ddd;
+      }
+    }
+
+    /* ===== 文章顶部Hero - 与列表保持风格一致 ===== */
+    .article-hero {
+      position: relative;
+      min-height: 40vh;
+      background-color: #000; 
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    @media (prefers-color-scheme: dark) {
+      .article-hero {
+        background-color: #181818;
+      }
+    }
+    .circle-black {
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 70vw;
+      height: 70vw;
+      background: #222; 
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.8;
+    }
+    @media (prefers-color-scheme: dark) {
+      .circle-black {
+        background: #444;
+      }
+    }
+    .circle-gray {
+      position: absolute;
+      top: 0;
+      right: -30%;
+      width: 70vw;
+      height: 70vw;
+      background: #888;
+      opacity: 0.2;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    @media (prefers-color-scheme: dark) {
+      .circle-gray {
+        background: #666;
+      }
+    }
+    .article-hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+    }
+    .article-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .article-meta {
+      font-size: 0.9rem;
+      color: #f0f0f0;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== 文章主体内容区 ===== */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* 返回列表链接 */
+    .back-link {
+      margin-bottom: 2rem;
+      display: inline-block;
+      font-size: 0.95rem;
+      text-decoration: underline;
+    }
+    @media (prefers-color-scheme: dark) {
+      .back-link {
+        color: #ccc;
+      }
+    }
+    .article-content {
+      line-height: 1.8;
+      color: #333;
+    }
+    @media (prefers-color-scheme: dark) {
+      .article-content {
+        color: #ccc;
+      }
+    }
+
+    .article-content h2 {
+      font-size: 1.4rem;
+      margin: 1.5rem 0 1rem;
+      font-weight: bold;
+    }
+    .article-content p {
+      margin-bottom: 1rem;
+    }
+    /* 也可添加更多排版，如 blockquote, img, code 等 */
+
+  </style>
+</head>
+<body>
+
+  <!-- 单篇文章顶部Hero -->
+  <section class="article-hero">
+    <div class="circle-black"></div>
+    <div class="circle-gray"></div>
+    <div class="article-hero-content">
+      <h1>示例文章标题</h1>
+      <div class="article-meta">发布日期：2025-02-12 | 作者：FDO 教育部</div>
+    </div>
+  </section>
+
+  <!-- 文章内容 -->
+  <div class="container">
+    <!-- 返回文章列表链接 -->
+    <a href="articles.html" class="back-link">返回文章列表</a>
+
+    <div class="article-content">
+      <!-- 以下是示例段落，可自行替换为实际文章内容 -->
+      <p>
+        欢迎来到FDO单篇文章页面。本篇文章将向你介绍在过去半年中，我们在教育推广活动中总结的关键亮点。
+        随着社会对多元与包容的理解不断提升，教育在其中扮演着至关重要的作用。
+      </p>
+
+      <h2>1. 校园与社区活动的回顾</h2>
+      <p>
+        在此期间，我们共走访了十所高校与五个社区中心，通过主题演讲、互动工作坊等方式，让年轻人和社区居民体验并了解多元文化的魅力。
+      </p>
+
+      <h2>2. 未来规划与合作</h2>
+      <p>
+        我们计划在未来继续加强与高校社团的合作，同时邀请更多社会机构和公益伙伴，为不同背景的学生与居民提供更丰富的学习与交流机会。
+      </p>
+
+      <p>
+        感谢所有为这次活动付出与支持的志愿者、合作单位以及参与者。让我们携手努力，创造一个自由多元、彼此尊重、互相包容的社会环境。
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
