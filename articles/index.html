@@ -146,10 +146,12 @@
       }
     }
 
-    /* 一行固定显示三篇文章，多了就自动换行 */
+    /* 一行固定显示三篇文章，多了就自动换行；
+       每行高度 200px，若有卡片要占两行则200*2=400px */
     .articles-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px; /* 可以根据需要做调整 */
       gap: 2rem;
     }
 
@@ -162,10 +164,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow: hidden; /* 为了避免内文撑开卡片 */
     }
     .article-card:hover {
       transform: translateY(-3px);
     }
+
     .article-card h3 {
       font-size: 1.2rem;
       font-weight: bold;
@@ -176,13 +180,20 @@
       font-size: 0.95rem;
       color: #333;
       line-height: 1.6;
-      flex-grow: 1;
+      /* flex-grow: 1; 如果希望文本区把卡片撑大，可视情况保留 */
     }
     .article-meta {
       font-size: 0.85rem;
       color: #666;
       margin-bottom: 1rem;
     }
+
+    /* 卡片如果内容多，需要占两行时加上 .span-2 */
+    .span-2 {
+      grid-row: span 2;
+    }
+
+    /* 暗色模式下的文章卡片颜色 */
     @media (prefers-color-scheme: dark) {
       .article-card {
         background-color: #2a2a2a;
@@ -227,19 +238,25 @@
         <div>
           <h3>测试示例文章1</h3>
           <div class="article-meta">2025-02-12 | FDO 技术</div>
-          <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
+          <p>
+            这一篇文章内容比较短。回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体。
+          </p>
         </div>
         <div style="margin-top:1rem;">
           <a class="btn" href="aaaa.html">阅读更多</a>
         </div>
       </div>
 
-      <!-- 示例文章2 -->
+      <!-- 示例文章2（示例：文字较多） -->
       <div class="article-card">
         <div>
           <h3>测试示例文章2</h3>
           <div class="article-meta">2025-02-15 | FDO 社群</div>
-          <p>这一篇文章我们将聚焦技术与公益的结合，希望能带来新的视角...</p>
+          <p>
+            这一篇文章我们将聚焦“技术与公益”的结合，并深入探讨如何利用现代化数字工具来提升社区公益活动的效率与影响力。
+            具体而言，会从数据分析、信息传递、平台搭建以及资源对接等多个方面展开阐述，希望能为相关机构或志愿者群体提供新的视角与思考。
+            随着社会和技术的不断发展，我们也需要与时俱进，积极拥抱数字化转型，以更好地服务于多元化的社会需求与公益使命。
+          </p>
         </div>
         <div style="margin-top:1rem;">
           <a class="btn" href="aaaa2.html">阅读更多</a>
@@ -251,39 +268,40 @@
         <div>
           <h3>测试示例文章3</h3>
           <div class="article-meta">2025-02-16 | FDO 活动</div>
-          <p>探讨如何在校园组织多元化活动，并在社会上营造良好的包容氛围...</p>
+          <p>
+            探讨如何在校园组织多元化活动，并在社会上营造良好的包容氛围...
+          </p>
         </div>
         <div style="margin-top:1rem;">
           <a class="btn" href="aaaa3.html">阅读更多</a>
         </div>
       </div>
 
-      <!-- 示例文章4 -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章4</h3>
-          <div class="article-meta">2025-02-20 | FDO 观点</div>
-          <p>持续关注社会议题，我们呼吁更多人参与到社区发展事务之中...</p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa4.html">阅读更多</a>
-        </div>
-      </div>
-
-      <!-- 示例文章5 -->
-      <div class="article-card">
-        <div>
-          <h3>测试示例文章5</h3>
-          <div class="article-meta">2025-02-22 | FDO 研究</div>
-          <p>结合不同领域专家观点，分享我们在公益创新方面的思考与见解...</p>
-        </div>
-        <div style="margin-top:1rem;">
-          <a class="btn" href="aaaa5.html">阅读更多</a>
-        </div>
-      </div>
       <!-- 可以继续新增更多 .article-card -->
     </div>
   </div>
+
+  <!-- 根据文本长度，自动设置是否需要占两行 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const articleCards = document.querySelectorAll(".article-card");
+      // 自定义阈值: 若文章介绍文本长度超过这个数，就让它占2行
+      const MAX_LENGTH_FOR_ONE_ROW = 200;
+
+      articleCards.forEach(card => {
+        const textEl = card.querySelector("p");
+        if (!textEl) return;
+
+        // 获取介绍文本的字符数（也可以改成 textEl.innerText.length 之类）
+        const textLength = textEl.textContent.trim().length;
+
+        // 超过阈值就加 .span-2 （最多占两行）
+        if (textLength > MAX_LENGTH_FOR_ONE_ROW) {
+          card.classList.add("span-2");
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
