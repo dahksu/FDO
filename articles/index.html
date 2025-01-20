@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FDO - 文章列表</title>
   <style>
-    /* ========== 1. 全局基础 & 暗色模式(黑白灰) ========== */
+    /* ===== 全局基础 & 暗色模式 ===== */
     * {
       margin: 0;
       padding: 0;
@@ -24,16 +24,33 @@
         background-color: #121212;
         color: #eeeeee;
       }
-      header {
-        background-color: rgba(18,18,18,0.8);
-        border-bottom: 1px solid #333;
-      }
-      .article-list .article-item {
-        background-color: #1c1c1c;
-        color: #dddddd;
-      }
+    }
+
+    /* ===== 按钮、链接 ===== */
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s;
+    }
+    a:hover {
+      color: #888;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #000; /* 黑底 */
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #333;
+    }
+    @media (prefers-color-scheme: dark) {
       .btn {
-        background-color: #f1f1f1;
+        background-color: #fff;
         color: #000;
       }
       .btn:hover {
@@ -41,69 +58,100 @@
       }
     }
 
-    /* ========== 2. 顶部导航栏 ========== */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px; /* 略微缩小高度 */
-      padding: 0 1.5rem;
-      background-color: rgba(255,255,255,0.8);
-      border-bottom: 1px solid #ccc;
-    }
-    .logo {
-      font-size: 1rem;
-      font-weight: bold;
-      color: inherit;  /* 适配暗色模式 */
-    }
-    /* 返回主网页按钮 */
-    .back-home-btn {
-      text-decoration: none;
+    /* ===== 顶部Hero区域：黑色背景 + 圆形装饰 ===== */
+    .articles-hero {
+      position: relative;
+      min-height: 40vh;
       background-color: #000;
       color: #fff;
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .back-home-btn:hover {
-      background-color: #333;
-    }
-
-    /* ========== 3. Hero 区域 (文章列表头部介绍) ========== */
-    .hero-section {
-      min-height: 30vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 2rem;
-      background-color: #000;
-      color: #fff;
+      overflow: hidden;
     }
-    .hero-section h1 {
-      font-size: 2rem;
+    @media (prefers-color-scheme: dark) {
+      .articles-hero {
+        background-color: #181818; /* 深色模式下略浅一些 */
+      }
+    }
+    .circle-black {
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 70vw;
+      height: 70vw;
+      background: #222; 
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.8;
+    }
+    @media (prefers-color-scheme: dark) {
+      .circle-black {
+        background: #444;
+      }
+    }
+    .circle-gray {
+      position: absolute;
+      top: 0;
+      right: -30%;
+      width: 70vw;
+      height: 70vw;
+      background: #888;
+      opacity: 0.2;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    @media (prefers-color-scheme: dark) {
+      .circle-gray {
+        background: #666;
+      }
+    }
+    .articles-hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+    }
+    .articles-hero h1 {
+      font-size: 2.2rem;
       margin-bottom: 1rem;
       font-weight: bold;
     }
-    .hero-section p {
+    .articles-hero p {
+      font-size: 1rem;
+      color: #f0f0f0;
       max-width: 600px;
       line-height: 1.8;
-      color: #f0f0f0;
+      margin-bottom: 1rem;
     }
 
-    /* ========== 4. 文章列表区 ========== */
-    .article-list {
+    /* ===== 主体区：文章列表 ===== */
+    .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 2rem;
+    }
+    .top-links {
+      margin-bottom: 2rem;
+    }
+    .top-links a {
+      margin-right: 1rem;
+      color: #000;
+      font-size: 0.95rem;
+      text-decoration: underline;
+    }
+    @media (prefers-color-scheme: dark) {
+      .top-links a {
+        color: #ccc;
+      }
+    }
+
+    .articles-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
       gap: 2rem;
     }
-    .article-item {
+    .article-card {
       background-color: #f9f9f9;
       border-radius: 4px;
       padding: 1.5rem;
@@ -113,93 +161,101 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .article-item h3 {
-      font-size: 1.1rem;
+    .article-card:hover {
+      transform: translateY(-3px);
+    }
+    .article-card h3 {
+      font-size: 1.2rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
       color: #000;
     }
-    .article-item p {
+    .article-card p {
       font-size: 0.95rem;
       color: #333;
-      flex-grow: 1; /* 摇撑占位 */
-      margin-bottom: 1rem;
       line-height: 1.6;
+      flex-grow: 1;
     }
-    .article-item:hover {
-      transform: translateY(-3px);
+    .article-meta {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 1rem;
     }
-    /* 阅读更多按钮 */
-    .btn {
-      text-decoration: none;
-      background-color: #000;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #333;
-    }
-
-    /* ========== 5. 小屏适配 ========== */
-    @media (max-width: 768px) {
-      header {
-        height: 50px;
-        padding: 0 1rem;
+    @media (prefers-color-scheme: dark) {
+      .article-card {
+        background-color: #2a2a2a;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
       }
-      .hero-section h1 {
-        font-size: 1.6rem;
+      .article-card h3 {
+        color: #eee;
       }
-      .article-list {
-        grid-template-columns: 1fr; 
+      .article-card p {
+        color: #ccc;
+      }
+      .article-meta {
+        color: #888;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 顶部导航栏 -->
-  <header>
-    <div class="logo">FDO - 文章列表</div>
-    <!-- 返回主网页按钮 (跳转 /) -->
-    <a href="/" class="back-home-btn">返回主页</a>
-  </header>
 
-  <!-- Hero展示文章列表介绍 -->
-  <section class="hero-section">
-    <h1>FDO的文章与资讯</h1>
-    <p>
-      在这里，你可以浏览我们所撰写的相关文章、经验分享和深度思考。  
-      欢迎点击阅读更多，了解FDO的公益理念与实践成果。
-    </p>
+  <!-- 文章列表页面顶部Hero -->
+  <section class="articles-hero">
+    <div class="circle-black"></div>
+    <div class="circle-gray"></div>
+    <div class="articles-hero-content">
+      <h1>FDO 文章列表</h1>
+      <p>在这里，你可以查看我们最新的观察与思考，深入了解FDO的活动、理念与社会洞察。</p>
+    </div>
   </section>
 
-  <!-- 文章列表区 -->
-  <div class="article-list">
-
-    <!-- 示例文章1 -->
-    <div class="article-item">
-      <h3>多元文化的校园教育：从理论到实践</h3>
-      <p>
-        我们与多所高校、社区合作，开展多元文化主题教育，
-        在青少年群体中推动对差异的尊重与理解，下面就...
-      </p>
-      <!-- 阅读更多 -> 跳转到 article.html?slug=1 (仅示例) -->
-      <a href="/article" class="btn">阅读更多</a>
+  <!-- 文章列表主体 -->
+  <div class="container">
+    <!-- 返回主页等链接 -->
+    <div class="top-links">
+      <a href="/">返回主页</a>
+      <!-- 也可以再添加别的链接，如 <a href="/join">加入我们</a> 等 -->
     </div>
 
-    <!-- 示例文章2 -->
-    <div class="article-item">
-      <h3>社会倡议如何影响公众舆论</h3>
-      <p>
-        FDO在过去一年发起了数次社会倡议活动，包括线上签名、
-        媒体宣传与论坛探讨，推动更多人关注弱势群体的议题...
-      </p>
-      <a href="/article" class="btn">阅读更多</a>
+    <div class="articles-list">
+      <!-- 示例文章1 -->
+      <div class="article-card">
+        <div>
+          <h3>教育推广活动总结</h3>
+          <div class="article-meta">2025-02-12 | FDO 教育部</div>
+          <p>回顾了近半年在各大校园与社区开展的多元文化推广活动，让公众更好地理解并接纳不同群体...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="article.html">阅读更多</a>
+        </div>
+      </div>
+
+      <!-- 示例文章2 -->
+      <div class="article-card">
+        <div>
+          <h3>国际合作新进展</h3>
+          <div class="article-meta">2025-01-28 | FDO 国际部</div>
+          <p>与海外高校及非营利组织建立新的合作伙伴关系，面向跨文化交流推出了一系列项目计划...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="article.html">阅读更多</a>
+        </div>
+      </div>
+
+      <!-- 示例文章3 -->
+      <div class="article-card">
+        <div>
+          <h3>社会倡议：多元共融</h3>
+          <div class="article-meta">2025-01-15 | FDO 研究部</div>
+          <p>从媒体宣传到公益论坛，一步步推动社会大众对于多元化与包容性的理解，让更多人愿意加入并贡献力量...</p>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="article.html">阅读更多</a>
+        </div>
+      </div>
+
     </div>
-
-
   </div>
 
 </body>
