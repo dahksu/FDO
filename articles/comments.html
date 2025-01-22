@@ -196,7 +196,7 @@
         function setCommentTheme() {
           const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
           const theme = isDarkMode ? 'dark' : 'light';
-          commentIframe.src = `https://comments.cf-test-b74.workers.dev/embed/area/aaaa?lang=zh-CN&theme=${theme}`;
+          commentIframe.src = `https://comments.cf-test-b74.workers.dev/embed/area/comments?lang=zh-CN&theme=${theme}`;
         }
 
         // 初始化主题
