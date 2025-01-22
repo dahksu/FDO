@@ -326,28 +326,41 @@
 
       <h2>评论区</h2>
       <iframe
-        id="comment-frame"  <!-- 给 iframe 添加一个 ID -->
+        id="comment-iframe"
+        src="https://comments.cf-test-b74.workers.dev/embed/area/aaaa?lang=zh-CN"
         width="100%"
         height="600px"
         frameborder="0"
         allowfullscreen
       ></iframe>
+
+      <script>
+        const commentIframe = document.getElementById('comment-iframe');
+
+        function setCommentTheme() {
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = isDarkMode ? 'dark' : 'light';
+          commentIframe.src = `https://comments.cf-test-b74.workers.dev/embed/area/aaaa?lang=zh-CN&theme=${theme}`;
+        }
+
+        // 初始化主题
+        setCommentTheme();
+
+        // 监听主题变化 (可选，如果需要实时跟随系统主题切换)
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setCommentTheme);
+
+
+        window.addEventListener('message', function(event) {
+          if (event.origin === 'https://comments.cf-test-b74.workers.dev') { // 确保消息来源安全
+            if (event.data && event.data.type === 'setHeight') {
+              commentIframe.style.height = event.data.height + 'px';
+            }
+          }
+        });
+      </script>
+
     </div>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const commentFrame = document.getElementById('comment-frame');
-      let iframeSrc = "https://comments.cf-test-b74.workers.dev/embed/area/aaaa?lang=zh-CN"; // 基础 URL
-
-      // 检查是否用户偏好暗色模式
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        iframeSrc += "&theme=dark"; // 如果是暗色模式，添加 theme=dark 参数
-      }
-
-      commentFrame.src = iframeSrc; // 设置 iframe 的 src 属性
-    });
-  </script>
 
 </body>
 </html>
