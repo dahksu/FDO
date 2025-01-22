@@ -61,7 +61,7 @@
     .article-hero {
       position: relative;
       min-height: 40vh;
-      background-color: #000; 
+      background-color: #000;
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -80,7 +80,7 @@
       left: -30%;
       width: 70vw;
       height: 70vw;
-      background: #222; 
+      background: #222;
       border-radius: 50%;
       z-index: 1;
       opacity: 0.8;
@@ -263,9 +263,9 @@
 <li><strong>进入仓库代码页面</strong>，点击 <code>index.html</code> 文件名。</li>
 <li>点击右上角的 <strong>铅笔图标</strong> (手机端是省略号，选择 “Edit this file”)。</li>
 <li><strong>滑动页面</strong>，找到以下内容，你可以修改它们：<ul>
-<li><strong>第一段中文文本</strong>:  <code>&lt;title&gt;这里是网页名称&lt;/title&gt;</code>，  <code>&lt;/title&gt;</code> 前面的内容是网页名称，显示在浏览器标签页的标题栏。</li>
-<li><strong>第二段中文文本</strong>: <code>&lt;h1&gt;这里是文章标题&lt;/h1&gt;</code> ，<code>&lt;/h1&gt;</code> 前面的内容是文章标题，显示在网页的大字标题部分。</li>
-<li><strong>第三段中文文本</strong>:  <code>&lt;p&gt;这里是正文内容&lt;/p&gt;</code>，  <code>&lt;/p&gt;</code> 前面的内容是文章的正文内容。</li>
+<li><strong>第一段中文文本</strong>:  <code><title>这里是网页名称</title></code>，  <code></title></code> 前面的内容是网页名称，显示在浏览器标签页的标题栏。</li>
+<li><strong>第二段中文文本</strong>: <code><h1>这里是文章标题</h1></code> ，<code></h1></code> 前面的内容是文章标题，显示在网页的大字标题部分。</li>
+<li><strong>第三段中文文本</strong>:  <code><p>这里是正文内容</p></code>，  <code></p></code> 前面的内容是文章的正文内容。</li>
 </ul>
 </li>
 </ol>
@@ -318,11 +318,46 @@
 <ul>
 <li><strong>目录结构：</strong> <code>你的用户名.github.io/cn/A</code> 中， <code>cn</code> 是你的一个文件夹，<code>A</code> 是 <code>cn</code> 下的一个文件夹， <code>index.html</code> 放置在 <code>A</code> 文件夹下。</li>
 <li><strong>多级目录：</strong> 你可以在 <code>A</code> 文件夹下继续创建多级目录和 <code>index.html</code> 文件，来组织更复杂的内容。例如 <code>你的用户名.github.io/cn/A/subpage</code>。</li>
-<li><strong>资源链接：</strong>  如果你在分支网站中引用图片或其他资源，确保你的链接是相对于当前页面的路径，或者使用绝对路径。例如，如果你在 <code>A/index.html</code> 中要引用同目录下的图片 <code>image.jpg</code>，可以使用 <code>&lt;img src="image.jpg"&gt;</code>。</li>
+<li><strong>资源链接：</strong>  如果你在分支网站中引用图片或其他资源，确保你的链接是相对于当前页面的路径，或者使用绝对路径。例如，如果你在 <code>A/index.html</code> 中要引用同目录下的图片 <code>image.jpg</code>，可以使用 <code><img src="image.jpg"></code>。</li>
 <li><strong>Cloudflare 支持</strong>: 如果你使用 Cloudflare 加速，以上的分支网站也会被正确部署，访问路径与 GitHub Pages 相同。</li>
 </ul>
 <h2>总结</h2>
 <p>通过以上步骤，你就拥有了自己的个人网站和分支网站，快去尝试构建吧！</p>
+
+      <h2>评论区</h2>
+      <iframe
+        id="comment-iframe"
+        src="https://comments.cf-test-b74.workers.dev/embed/area/aaaa?lang=zh-CN"
+        width="100%"
+        height="600px"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+
+      <script>
+        const commentIframe = document.getElementById('comment-iframe');
+
+        function setCommentTheme() {
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = isDarkMode ? 'dark' : 'light';
+          commentIframe.src = `https://comments.cf-test-b74.workers.dev/embed/area/aaaa?lang=zh-CN&theme=${theme}`;
+        }
+
+        // 初始化主题
+        setCommentTheme();
+
+        // 监听主题变化 (可选，如果需要实时跟随系统主题切换)
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setCommentTheme);
+
+
+        window.addEventListener('message', function(event) {
+          if (event.origin === 'https://comments.cf-test-b74.workers.dev') { // 确保消息来源安全
+            if (event.data && event.data.type === 'setHeight') {
+              commentIframe.style.height = event.data.height + 'px';
+            }
+          }
+        });
+      </script>
 
     </div>
   </div>
