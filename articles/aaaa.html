@@ -229,7 +229,6 @@
       <li><code>index.html</code>:  默认主页文件 (简洁黑白风格)。</li>
       <li><code>homepage.html</code>: 蓝绿色毛玻璃效果主页文件。</li>
       <li><code>articlepage.html</code>: 蓝绿色毛玻璃效果文章页文件。</li>
-      <li><code>succinct_home_page.html</code>: 简洁黑白风格主页文件 (与 <code>index.html</code> 内容相同)。</li>
       <li><code>succinct_article_page.html</code>: 简洁黑白风格文章页文件。</li>
       <li><code>css</code> 文件夹: 存放 CSS 样式文件。</li>
       <li><code>images</code> 文件夹:  存放示例图片。</li>
@@ -240,10 +239,10 @@
   <li>
     <strong>滑动页面</strong>，找到以下内容，你可以修改它们：
     <ul>
-      <li><strong>网页标题</strong>:  <code><title>这里是网页名称</title></code>，  <code></title></code> 前面的内容是网页名称，显示在浏览器标签页的标题栏。</li>
-      <li><strong>主页大标题</strong>: <code><h1>这里是主页标题</h1></code> ，<code></h1></code> 前面的内容是主页的大字标题部分。</li>
-      <li><strong>主页副标题/介绍</strong>:  <code><p>这里是网站的描述或介绍</p></code>，  <code></p></code> 前面的内容是主页的副标题或个人介绍。</li>
-      <li><strong>文章列表或链接</strong>:  你可以在 <code><div class="content"></code> 区域下添加你的文章列表或链接。 模板中已有一些示例链接。</li>
+      <li><strong>网页标题</strong>:  <code>&lttitle>这里是网页名称&lt/title></code>，  <code>&lt/title></code> 前面的内容是网页名称，显示在浏览器标签页的标题栏。</li>
+      <li><strong>主页大标题</strong>: <code>&lth1>这里是主页标题&lt/h1></code> ，<code></h1>&lt/code> 前面的内容是主页的大字标题部分。</li>
+      <li><strong>主页副标题/介绍</strong>:  <code>&ltp>这里是网站的描述或介绍&lt/p></code>，  <code>&lt/p></code> 前面的内容是主页的副标题或个人介绍。</li>
+      <li><strong>文章列表或链接</strong>:  你可以在 <code>&ltdiv class="content"></code> 区域下添加你的文章列表或链接。 模板中已有一些示例链接。</li>
     </ul>
   </li>
   <li><strong>修改完成后，拉到页面底部，填写 Commit message (更新说明)，然后点击绿色的 "Commit changes" 按钮</strong> 保存修改。</li>
@@ -305,8 +304,8 @@
     <strong>引用链接</strong>: 使用 <code>[link:显示文字](链接地址)</code> 格式，如 <code>[link:我的博客](https://example.com)</code>。
   </li>
 
-  <li><strong>换行</strong>: 在正文中使用 <code><p></p></code> 来换行。</li>
-  <li><strong>文章格式转换</strong>: 如果觉得手动换行麻烦，可以使用 <a href="https://fdo-page.github.io/words/">这个网站</a> 来转换你的文章格式。</li>
+  <li><strong>换行</strong>: 在正文中使用 <code>&ltp>&lt/p></code> 来换行。</li>
+  <li><strong>文章格式转换</strong>: 如果觉得手动换行麻烦，可以使用 <a href="https://fdo-page.github.io/words/">这个网站</a> 来转换你的文章格式(从markdown到HTML)。</li>
  </p>
   <p><b>引用图片法一：</b></p>
   <ol>
@@ -327,9 +326,9 @@
     <li>
       <b>在网页中引用图片:</b>
       <ul>
-        <li>使用标准的 HTML 图片标签 <code><img></code> 来插入图片。 语法为： <code><code><img src="图片路径" alt="图片描述"></code></code> 例如：
+        <li>使用标准的 HTML 图片标签 <code><img></code> 来插入图片。 语法为： <code><code>&ltimg src="图片路径" alt="图片描述"></code></code> 例如：
           <ul>
-            <li>如果图片在 <code>images</code> 子目录下： <code><code><img src="images/myimage.jpg" alt="我的图片"></code></code></li>
+            <li>如果图片在 <code>images</code> 子目录下： <code><code>&ltimg src="images/myimage.jpg" alt="我的图片"></code></code></li>
           </ul>
         </li>
         <li><code>src</code> 属性指定图片的路径 (URL 或相对路径)。</li>
@@ -340,10 +339,10 @@
        </p>
       <p><b>法二：使用图床(更简单)</b></p>
       <ul>
-        <li><strong>引用图片</strong>: 使用标准的 HTML 图片标签 <code><img></code> 标签，语法为： <code><code><img src="图片链接" alt="图片描述"></code></code> 例如： <code><code><img src="https://example.com/image.jpg" alt="我的图片"></code></code>。
+        <li><strong>引用图片</strong>: 使用标准的 HTML 图片标签 <code><img></code> 标签，语法为： <code><code>&ltimg src="图片链接" alt="图片描述"></code></code> 例如： <code><code>&ltimg src="https://example.com/image.jpg" alt="我的图片"></code></code>。
           <ul>
             <li><strong>图床选择</strong>: 你需要使用图床服务来托管图片并获取图片链接。 推荐使用 <a href="https://sm.ms">sm.ms</a>，它免费且在国内访问速度相对较快。 当然，你也可以选择其他图床服务。</li>
-            <li><strong>获取图片链接</strong>: 将图片上传到图床后，你会得到一个以图片格式结尾的 URL（例如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code> 等）。 将这个 URL 复制到 <code><code><img src="..."></code></code> 标签的 <code>src</code> 属性中。</li>
+            <li><strong>获取图片链接</strong>: 将图片上传到图床后，你会得到一个以图片格式结尾的 URL（例如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code> 等）。 将这个 URL 复制到 <code><code>&ltimg src="..."></code></code> 标签的 <code>src</code> 属性中。</li>
             <li><strong>检查图片链接</strong>: 确保图片链接以图片格式（如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code>）结尾。 如果不是，请检查你的图床链接是否复制正确，或者图片上传是否成功。</li>
             <li><code>alt</code> 属性是替代文本，与方法一相同，用于在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述。 务必为你的图片添加有意义的 <code>alt</code> 文本。</li>
           </ul>
@@ -398,7 +397,7 @@
 <ul>
   <li><strong>目录结构：</strong> <code>你的用户名.github.io/website-templates/B/C</code> 中， <code>B</code> 是你的一个文件夹，<code>C</code> 是 <code>B</code> 下的一个文件夹， <code>index.html</code> 放置在 <code>C</code> 文件夹下。</li>
   <li><strong>多级目录：</strong> 你可以在 <code>C</code> 文件夹下继续创建多级目录和 <code>index.html</code> 文件，来组织更复杂的内容。例如 <code>你的用户名.github.io/website-templates/B/C/subpage</code>。</li>
-  <li><strong>资源链接：</strong>  如果你在分支网站中引用图片或其他资源，确保你的链接是相对于当前页面的路径，或者使用绝对路径。例如，如果你在 <code>C/index.html</code> 中要引用同目录下的图片 <code>image.jpg</code>，可以使用 <code><img src="image.jpg"></code>。</li>
+  <li><strong>资源链接：</strong>  如果你在分支网站中引用图片或其他资源，确保你的链接是相对于当前页面的路径，或者使用绝对路径。例如，如果你在 <code>C/index.html</code> 中要引用同目录下的图片 <code>image.jpg</code>，可以使用 <code>&ltimg src="image.jpg"></code>。</li>
   <li><strong>Cloudflare 支持</strong>: 如果你使用 Cloudflare 加速，以上的分支网站也会被正确部署，访问路径与 GitHub Pages 相同。</li>
 </ul>
 
