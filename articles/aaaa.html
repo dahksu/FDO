@@ -181,192 +181,245 @@
 
     <div class="article-content">
 <p>想要拥有一个展示个人文章、作品或作为个人主页的网站作为FDO的分支网站吗？静态网站是一个不错的选择，它不仅搭建简单，而且完全免费。本文将引导你通过已有的网站框架，快速搭建一个FDO的分支网站（当然也可以用于属于你自己的展示型网站）。</p>
+
 <h2>准备工作</h2>
+
 <p>在开始之前，你需要做好以下准备：</p>
+
 <ol>
-<li><strong>GitHub 账号</strong>: 这是构建网站的基础平台。<ul>
-<li>推荐使用 <a href="github.com">GitHub 网页版</a>，而非客户端，以确保所有功能可用。</li>
-<li>GitHub 是一个国外平台，无需担心内容审查，但连接速度可能不稳定。建议在网络条件允许的情况下使用，或考虑开启代理。</li>
-<li>可以使用任何邮箱注册，但为了安全起见，<strong>建议避免使用国内邮箱</strong>。如果你有使用代理，可以先注册一个 <a href="https://mail.proton.me/">Proton 邮箱</a>，再用它来注册 GitHub。</li>
-<li><strong>注意：</strong> 你在 GitHub 上设置的用户名会影响你最终的网站地址，所以尽量选择一个好记的用户名。</li>
-</ul>
-</li>
-<li><strong>浏览器</strong>: 建议同时打开本教程页面和 GitHub 页面，并确保 GitHub 账号已登录。</li>
+  <li>
+    <strong>GitHub 账号</strong>: 这是构建网站的基础平台。
+    <ul>
+      <li>推荐使用 <a href="github.com">GitHub 网页版</a>，而非客户端，以确保所有功能可用。</li>
+      <li>GitHub 是一个国外平台，无需担心内容审查，但连接速度可能不稳定。建议在网络条件允许的情况下使用，或考虑开启代理。</li>
+      <li>可以使用任何邮箱注册，但为了安全起见，<strong>建议避免使用国内邮箱</strong>。如果你有使用代理，可以先注册一个 <a href="https://mail.proton.me/">Proton 邮箱</a>，再用它来注册 GitHub。</li>
+      <li><strong>注意：</strong> 你在 GitHub 上设置的用户名会影响你最终的网站地址，所以尽量选择一个好记的用户名。</li>
+    </ul>
+  </li>
+  <li>
+    <strong>浏览器</strong>: 建议同时打开本教程页面和 GitHub 页面，并确保 GitHub 账号已登录。
+  </li>
 </ol>
+
 <h2>选择网站风格</h2>
+
 <p>首先，选择你喜欢的网站风格。我们提供了两种风格的模板：</p>
+
 <ul>
-<li><strong>蓝绿色毛玻璃效果</strong>:<ul>
-<li><a href="https://github.com/FDO-page/jiaocheng/blob/main/homepage.html">主页模板</a></li>
-<li><a href="https://github.com/FDO-page/jiaocheng/blob/main/articlepage.html">文章页模板</a></li>
+  <li>
+    <strong>蓝绿色毛玻璃效果</strong>:
+    <ul>
+      <li><a href="https://github.com/FDO-page/jiaocheng/blob/main/homepage.html">主页模板</a></li>
+      <li><a href="https://github.com/FDO-page/jiaocheng/blob/main/articlepage.html">文章页模板</a></li>
+    </ul>
+  </li>
+  <li>
+    <strong>简洁黑白风格</strong>:
+    <ul>
+      <li><a href="https://github.com/FDO-page/jiaocheng/blob/main/succinct_home_page.html">主页模板</a></li>
+      <li><a href="https://github.com/FDO-page/jiaocheng/blob/main/succinct_article_page.html">文章页模板</a></li>
+    </ul>
+  </li>
 </ul>
-</li>
-<li><strong>简洁黑白风格</strong>:<ul>
-<li><a href="https://github.com/FDO-page/jiaocheng/blob/main/succinct_home_page.html">主页模板</a></li>
-<li><a href="https://github.com/FDO-page/jiaocheng/blob/main/succinct_article_page.html">文章页模板</a></li>
-</ul>
-</li>
-</ul>
+
 <p>请分别打开你选择的<strong>主页</strong>和<strong>文章页</strong>模板链接，以便后续复制代码。</p>
+
 <h2>创建 GitHub 仓库</h2>
+
 <ol>
-<li><strong>返回 GitHub 主页</strong>，确保你已登录。</li>
-<li><strong>点击 "Create a new repository"</strong> 按钮（绿色的按钮）。</li>
-<li>在 "name your repository" 输入框中，<strong>输入你的仓库名称</strong>。<ul>
-<li><strong>注意：</strong> 仓库名称也会影响你最终的网站地址，所以尽量选择好记的名称。</li>
-<li>仓库名称的格式通常是：<code>你的用户名.github.io</code>，例如 <code>example.github.io</code>。</li>
-</ul>
-</li>
-<li><strong>将仓库设置为 "Public"</strong>，因为免费的 GitHub Actions 在私有仓库中有使用限制。</li>
-<li><strong>点击 "Create repository"</strong> 创建仓库。</li>
+  <li><strong>返回 GitHub 主页</strong>，确保你已登录。</li>
+  <li><strong>点击 "Create a new repository" 按钮</strong>（绿色的按钮）。</li>
+  <li>
+    在 "name your repository" 输入框中，<strong>输入你的仓库名称</strong>。
+    <ul>
+      <li><strong>注意：</strong> 仓库名称也会影响你最终的网站地址，所以尽量选择好记的名称。</li>
+      <li>仓库名称的格式通常是：<code>你的用户名.github.io</code>，例如 <code>example.github.io</code>。</li>
+    </ul>
+  </li>
+  <li><strong>将仓库设置为 "Public"</strong>，因为免费的 GitHub Actions 在私有仓库中有使用限制。</li>
+  <li><strong>点击 "Create repository"</strong> 创建仓库。</li>
 </ol>
+
 <h2>创建 HTML 文件</h2>
+
 <ol>
-<li>进入你创建的仓库页面。此时仓库是空的，会出现一些提示信息，不用担心。</li>
-<li>找到 <strong>浅蓝色面板</strong> 中的 “creating a new file” (通常是第一条蓝色文字链接)，点击它。</li>
-<li>在 “name your file” 输入框中，<strong>输入 <code>index.html</code></strong>。<ul>
-<li><code>index.html</code> 是网站的默认首页文件名，<strong>必须使用这个名称</strong>。</li>
-</ul>
-</li>
-<li><strong>复制</strong> 你之前选择的<strong>主页模板</strong>的代码，并 <strong>粘贴</strong> 到代码编辑框中。</li>
-<li><strong>点击右上方绿色的 "Commit new file" 按钮</strong> 保存文件。</li>
-<li>在下一个页面，再次点击绿色的 “Commit new file” 按钮。<ul>
-<li>这个页面是填写更新日志的，可选择不填写直接保存。</li>
-</ul>
-</li>
-<li>如果成功跳转到仓库主页，说明文件已成功保存。即使有提示信息，也可以忽略。</li>
+  <li>进入你创建的仓库页面。此时仓库是空的，会出现一些提示信息，不用担心。</li>
+  <li>找到 <strong>浅蓝色面板</strong> 中的 “creating a new file” (通常是第一条蓝色文字链接)，点击它。</li>
+  <li>
+    在 “name your file” 输入框中，<strong>输入 <code>index.html</code></strong>。
+    <ul>
+      <li><code>index.html</code> 是网站的默认首页文件名，<strong>必须使用这个名称</strong>。</li>
+    </ul>
+  </li>
+  <li><strong>复制</strong> 你之前选择的<strong>主页模板</strong>的代码，并 <strong>粘贴</strong> 到代码编辑框中。</li>
+  <li><strong>点击右上方绿色的 "Commit new file" 按钮</strong> 保存文件。</li>
+  <li>
+    在下一个页面，再次点击绿色的 “Commit new file” 按钮。
+    <ul>
+      <li>这个页面是填写更新日志的，可选择不填写直接保存。</li>
+    </ul>
+  </li>
+  <li>如果成功跳转到仓库主页，说明文件已成功保存。即使有提示信息，也可以忽略。</li>
 </ol>
+
 <h2>创建文章页面</h2>
+
 <p>重复以上步骤，创建第二个仓库和 <code>index.html</code> 文件，这次 <strong>粘贴文章页模板的代码</strong>。</p>
 <ul>
-<li><strong>注意：</strong>  仓库名称不可重复，但不同仓库中的 <code>index.html</code> 文件名可以重复。</li>
+  <li><strong>注意：</strong>  仓库名称不可重复，但不同仓库中的 <code>index.html</code> 文件名可以重复。</li>
 </ul>
+
 <h2>部署 GitHub Pages</h2>
+
 <ol>
-<li><strong>打开一个仓库</strong>，点击右上角的省略号 (电脑端不用) ，再点击 “Settings” 按钮。</li>
-<li>在左侧导航栏中，找到 “Pages” 并点击。<ul>
-<li>手机端可能需要向下滑动才能看到 “Pages” 选项。</li>
-</ul>
-</li>
-<li>在 “Source” 部分，找到 “None” 按钮并点击，选择 “main” 分支。<ul>
-<li>表示将你的网站文件部署在 main 分支下。如果创建了其他分支，也可以选择其他分支。</li>
-</ul>
-</li>
-<li><strong>点击右边的 "Save" 按钮</strong> 保存设置。</li>
-<li><strong>刷新几次页面</strong>，稍等片刻 (通常一分钟左右)，你会看到一个以 "Your site is live at" 开头的链接，这就是你的网站地址。</li>
-<li><strong>点击链接右边的 “Visit site” 按钮</strong>，检查你的网站是否正常显示。</li>
-<li><strong>重复以上步骤，</strong> 将另一个仓库也开启 GitHub Pages 功能。</li>
+  <li><strong>打开一个仓库</strong>，点击右上角的省略号 (电脑端不用) ，再点击 “Settings” 按钮。</li>
+  <li>
+    在左侧导航栏中，找到 “Pages” 并点击。
+    <ul>
+      <li>手机端可能需要向下滑动才能看到 “Pages” 选项。</li>
+    </ul>
+  </li>
+  <li>
+    在 “Source” 部分，找到 “None” 按钮并点击，选择 “main” 分支。
+    <ul>
+      <li>表示将你的网站文件部署在 main 分支下。如果创建了其他分支，也可以选择其他分支。</li>
+    </ul>
+  </li>
+  <li><strong>点击右边的 "Save" 按钮</strong> 保存设置。</li>
+  <li><strong>刷新几次页面</strong>，稍等片刻 (通常一分钟左右)，你会看到一个以 "Your site is live at" 开头的链接，这就是你的网站地址。</li>
+  <li><strong>点击链接右边的 “Visit site” 按钮</strong>，检查你的网站是否正常显示。</li>
+  <li><strong>重复以上步骤，</strong> 将另一个仓库也开启 GitHub Pages 功能。</li>
 </ol>
+
 <h2>自定义网站内容</h2>
+
 <p>现在你已经有了自己的网站，可以通过以下方式修改内容：</p>
+
 <ol>
-<li><strong>进入仓库代码页面</strong>，点击 <code>index.html</code> 文件名。</li>
-<li>点击右上角的 <strong>铅笔图标</strong> (手机端是省略号，选择 “Edit this file”)。</li>
-<li><strong>滑动页面</strong>，找到以下内容，你可以修改它们：<ul>
-<li><strong>第一段中文文本</strong>:  <code><title>这里是网页名称</title></code>，  <code></title></code> 前面的内容是网页名称，显示在浏览器标签页的标题栏。</li>
-<li><strong>第二段中文文本</strong>: <code><h1>这里是文章标题</h1></code> ，<code></h1></code> 前面的内容是文章标题，显示在网页的大字标题部分。</li>
-<li><strong>第三段中文文本</strong>:  <code><p>这里是正文内容</p></code>，  <code></p></code> 前面的内容是文章的正文内容。</li>
-</ul>
-</li>
+  <li><strong>进入仓库代码页面</strong>，点击 <code>index.html</code> 文件名。</li>
+  <li>点击右上角的 <strong>铅笔图标</strong> (手机端是省略号，选择 “Edit this file”)。</li>
+  <li>
+    <strong>滑动页面</strong>，找到以下内容，你可以修改它们：
+    <ul>
+      <li><strong>第一段中文文本</strong>:  <code><title>这里是网页名称</title></code>，  <code></title></code> 前面的内容是网页名称，显示在浏览器标签页的标题栏。</li>
+      <li><strong>第二段中文文本</strong>: <code><h1>这里是文章标题</h1></code> ，<code></h1></code> 前面的内容是文章标题，显示在网页的大字标题部分。</li>
+      <li><strong>第三段中文文本</strong>:  <code><p>这里是正文内容</p></code>，  <code></p></code> 前面的内容是文章的正文内容。</li>
+    </ul>
+  </li>
 </ol>
+
 <h3>代码说明</h3>
-<ul>
-<li><strong>引用链接</strong>: 使用 <code>[link:显示文字](链接地址)</code> 格式，如 <code>[link:我的博客](https://example.com)</code>。</li>
 
-<p><b>引用图片法一：</b></p>
-<ol>
-<li>
-<b>上传图片到 GitHub 仓库:</b>
 <ul>
-<li>在你的 GitHub 仓库中，创建一个文件夹（例如 <code>images</code>）用于存放图片。</li>
-<li>将你的图片文件上传到这个文件夹中。</li>
-<li>确保图片文件以常见的图片格式（如 <code>.jpg</code>，<code>.png</code>，<code>.gif</code>）结尾。</li>
-</ul>
-</li>
-<li>
-<b>获取图片路径:</b>
-<ul>
-<li>如果你将图片放在了与 HTML 文件相同的目录下，可以直接使用文件名（例如 <code>myimage.jpg</code>）。</li>
-<li>如果你将图片放在了名为 <code>images</code> 的子目录下，可以使用相对路径（例如 <code>images/myimage.jpg</code>）。</li>
-</ul>
-</li>
-<li>
-<b>在网页中引用图片:</b>
-<ul>
-<li>使用标准的 HTML <code>&lt;img&gt;</code> 标签来插入图片。 语法为： <code>&lt;img src="图片路径" alt="图片描述"&gt;</code> 例如：
-<ul>
-<li>如果图片和 HTML 文件在**同一目录**： <code>&lt;img src="myimage.jpg" alt="我的图片"&gt;</code></li>
-<li>如果图片在名为 <code>images</code> 的**子目录**下： <code>&lt;img src="images/myimage.jpg" alt="我的图片"&gt;</code></li>
-</ul>
-</li>
-<li><code>src</code> 属性指定图片的路径 (URL 或相对路径)。</li>
-<li><code>alt</code> 属性是**替代文本**，非常重要！它在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述，有助于提升网页可访问性。</li>
-</ul>
-</li>
-<li>
-<p><b>法二：使用图床</b></p>
-<ul>
-<li><strong>引用图片</strong>: 使用标准的 HTML <code>&lt;img&gt;</code> 标签，语法为： <code>&lt;img src="图片链接" alt="图片描述"&gt;</code> 例如： <code>&lt;img src="https://example.com/image.jpg" alt="我的图片"&gt;</code>。
-<ul>
-<li><strong>图床选择</strong>: 你需要使用图床服务来托管图片并获取图片链接。 推荐使用 <a href="https://sm.ms">sm.ms</a>，它免费且在国内访问速度相对较快。 当然，你也可以选择其他图床服务。</li>
-<li><strong>获取图片链接</strong>: 将图片上传到图床后，你会得到一个**以图片格式结尾的 URL**（例如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code> 等）。 将这个 URL 复制到 <code>&lt;img src="..."&gt;</code> 标签的 <code>src</code> 属性中。</li>
-<li><strong>检查图片链接</strong>: 确保图片链接以图片格式（如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code>）结尾。 如果不是，请检查你的图床链接是否复制正确，或者图片上传是否成功。</li>
-<li><code>alt</code> 属性是替代文本，与方法一相同，用于在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述。 务必为你的图片添加有意义的 <code>alt</code> 文本。</li>
-</ul>
-</li>
-</ul></li>
-</ol>
-
-
+  <li>
+    <strong>引用链接</strong>: 使用 <code>[link:显示文字](链接地址)</code> 格式，如 <code>[link:我的博客](https://example.com)</code>。
+  </li>
   
+  <li><strong>换行</strong>: 在正文中使用 <code>&ltp>&lt/p></code> 来换行。</li>
+  <li><strong>文章格式转换</strong>: 如果觉得手动换行麻烦，可以使用 <a href="https://fdo-page.github.io/words/">这个网站</a> 来转换你的文章格式。</li>
+
+  <p><b>引用图片法一：</b></p>
+  <ol>
+    <li>
+      <b>上传图片到 GitHub 仓库:</b>
+      <ul>
+        <li>在你的 GitHub 仓库中，创建一个文件夹（例如 <code>images</code>）用于存放图片。</li>
+        <li>将你的图片文件上传到这个文件夹中。</li>
+        <li>确保图片文件以常见的图片格式（如 <code>.jpg</code>，<code>.png</code>，<code>.gif</code>）结尾。</li>
+      </ul>
+    </li>
+    <li>
+      <b>获取图片路径:</b>
+      <ul>
+        <li>如果你将图片放在了与 HTML 文件相同的目录下，可以直接使用文件名（例如 <code>myimage.jpg</code>）。</li>
+        <li>如果你将图片放在了名为 <code>images</code> 的子目录下，可以使用相对路径（例如 <code>images/myimage.jpg</code>）。</li>
+      </ul>
+    </li>
+    <li>
+      <b>在网页中引用图片:</b>
+      <ul>
+        <li>使用标准的 HTML 图片标签 <code><img></code> 来插入图片。 语法为： <code><code>&lt;img src="图片路径" alt="图片描述"&gt;</code></code> 例如：
+          <ul>
+            <li>如果图片和 HTML 文件在**同一目录**： <code><code>&lt;img src="myimage.jpg" alt="我的图片"&gt;</code></code></li>
+            <li>如果图片在名为 <code>images</code> 的**子目录**下： <code><code>&lt;img src="images/myimage.jpg" alt="我的图片"&gt;</code></code></li>
+          </ul>
+        </li>
+        <li><code>src</code> 属性指定图片的路径 (URL 或相对路径)。</li>
+        <li><code>alt</code> 属性是**替代文本**，非常重要！它在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述，有助于提升网页可访问性。</li>
+      </ul>
+    </li>
+    <li>
+      <p><b>法二：使用图床</b></p>
+      <ul>
+        <li><strong>引用图片</strong>: 使用标准的 HTML 图片标签 <code><img></code> 标签，语法为： <code><code>&lt;img src="图片链接" alt="图片描述"&gt;</code></code> 例如： <code><code>&lt;img src="https://example.com/image.jpg" alt="我的图片"&gt;</code></code>。
+          <ul>
+            <li><strong>图床选择</strong>: 你需要使用图床服务来托管图片并获取图片链接。 推荐使用 <a href="https://sm.ms">sm.ms</a>，它免费且在国内访问速度相对较快。 当然，你也可以选择其他图床服务。</li>
+            <li><strong>获取图片链接</strong>: 将图片上传到图床后，你会得到一个**以图片格式结尾的 URL**（例如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code> 等）。 将这个 URL 复制到 <code><code>&lt;img src="..."&gt;</code></code> 标签的 <code>src</code> 属性中。</li>
+            <li><strong>检查图片链接</strong>: 确保图片链接以图片格式（如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code>）结尾。 如果不是，请检查你的图床链接是否复制正确，或者图片上传是否成功。</li>
+            <li><code>alt</code> 属性是替代文本，与方法一相同，用于在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述。 务必为你的图片添加有意义的 <code>alt</code> 文本。</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  </li>
 </ul>
-</li>
-<li><strong>换行</strong>: 在正文中使用 <code>\n</code> 来换行。</li>
-<li><strong>文章格式转换</strong>: 如果觉得手动换行麻烦，可以使用 <a href="https://fdo-page.github.io/words/">这个网站</a> 来转换你的文章格式。</li>
-</ul>
+
 <h2>使用 Cloudflare 加速访问（可选）</h2>
+
 <p>如果你的网站访问不稳定，可以考虑使用 <a href="cloudflare.com">Cloudflare</a> 加速访问。对于静态网站，Cloudflare 提供免费的部署服务。</p>
+
 <h3>Cloudflare 部署步骤</h3>
+
 <ol>
-<li>使用你注册 GitHub 的邮箱注册并登录 Cloudflare 账号。（也可以使用其他邮箱，但关联 GitHub 账号会麻烦一些）</li>
-<li>下滑找到 “start building” 按钮并点击。</li>
-<li>选择第一个 “Build” 开头的选项。</li>
-<li>Cloudflare 会检查你的邮箱，打开邮箱找到验证邮件，并点击其中的链接。</li>
-<li>点击 “Pages” 选项。</li>
-<li>点击 “Connect to git” 按钮。</li>
-<li>在跳转的页面中，点击 “Connect GitHub”。</li>
-<li>在接下来的页面中，直接下滑并点击绿色的 “Install” 按钮。</li>
-<li>登录你的 GitHub 账号。</li>
-<li>选择你要部署的仓库，并点击。</li>
-<li>输入项目名称，注意，这个名称也会影响你的 Cloudflare 免费网址，尽量选择简短好记且和 Cloudflare 提供的网址不同的名称。</li>
-<li>滑动到页面底部，点击蓝色的 "Save" 按钮。</li>
-<li>等待部署完成后，点击右下角蓝色按钮退出，你会看到你部署的网站，点击右上方的 “Visit Site” 按钮进行检查。</li>
-<li>如果有其他 GitHub 仓库需要部署，点击左上角的 "Workers" 重复以上步骤。</li>
+  <li>使用你注册 GitHub 的邮箱注册并登录 Cloudflare 账号。（也可以使用其他邮箱，但关联 GitHub 账号会麻烦一些）</li>
+  <li>下滑找到 “start building” 按钮并点击。</li>
+  <li>选择第一个 “Build” 开头的选项。</li>
+  <li>Cloudflare 会检查你的邮箱，打开邮箱找到验证邮件，并点击其中的链接。</li>
+  <li>点击 “Pages” 选项。</li>
+  <li>点击 “Connect to git” 按钮。</li>
+  <li>在跳转的页面中，点击 “Connect GitHub”。</li>
+  <li>在接下来的页面中，直接下滑并点击绿色的 “Install” 按钮。</li>
+  <li>登录你的 GitHub 账号。</li>
+  <li>选择你要部署的仓库，并点击。</li>
+  <li>输入项目名称，注意，这个名称也会影响你的 Cloudflare 免费网址，尽量选择简短好记且和 Cloudflare 提供的网址不同的名称。</li>
+  <li>滑动到页面底部，点击蓝色的 "Save" 按钮。</li>
+  <li>等待部署完成后，点击右下角蓝色按钮退出，你会看到你部署的网站，点击右上方的 “Visit Site” 按钮进行检查。</li>
+  <li>如果有其他 GitHub 仓库需要部署，点击左上角的 "Workers" 重复以上步骤。</li>
 </ol>
+
 <h2>创建分支网站（子目录）</h2>
+
 <p>如果你想创建类似于 <code>A.com/B/C</code> 这样的分支网站，可以使用以下步骤：</p>
+
 <ol>
-<li><strong>在你的 GitHub 仓库中创建一个新的文件夹()</strong>， 例如 <code>B</code>。</li>
-<li><strong>在 <code>cn</code> 文件夹中，创建另一个文件夹</strong>，例如 <code>C</code>。</li>
-<li><strong>在 <code>A</code> 文件夹中，创建一个 <code>index.html</code> 文件</strong>，并将你想要展示的内容（如文章页模板代码）粘贴进去。<ul>
-<li>这个 <code>index.html</code> 文件就是你的分支网站页面。</li>
-<li>不仅可以通过文件夹来实现子网页，也可以通过给予不同的网页文件不同的命名比如A.html</li>
-<li>你可以根据需要，在 <code>B</code>或<code>C</code> 文件夹下创建多个子文件夹 (如 <code>D</code>, <code>E</code>, ...) 来组织不同的子网站内容。</li>
-</ul>
-</li>
-<li><strong>提交 (Commit) 这些更改</strong> 到你的 GitHub 仓库。</li>
-<li><strong>确保你的 GitHub Pages 设置</strong> 指向 <code>main</code> 分支（或者你实际使用的分支）。</li>
-<li><strong>稍等片刻</strong>，让 GitHub Pages 部署新的更改。</li>
-<li><strong>访问你的分支网站</strong>，地址为 “<code>你的用户名.github.io/A/B</code>。”</li>
+  <li><strong>在你的 GitHub 仓库中创建一个新的文件夹()</strong>， 例如 <code>B</code>。</li>
+  <li><strong>在 <code>B</code> 文件夹中，创建另一个文件夹</strong>，例如 <code>C</code>。</li>
+  <li>
+    <strong>在 <code>C</code> 文件夹中，创建一个 <code>index.html</code> 文件</strong>，并将你想要展示的内容（如文章页模板代码）粘贴进去。
+    <ul>
+      <li>这个 <code>index.html</code> 文件就是你的分支网站页面。</li>
+      <li>不仅可以通过文件夹来实现子网页，也可以通过给予不同的网页文件不同的命名比如A.html</li>
+      <li>你可以根据需要，在 <code>B</code>或<code>C</code> 文件夹下创建多个子文件夹 (如 <code>D</code>, <code>E</code>, ...) 来组织不同的子网站内容。</li>
+    </ul>
+  </li>
+  <li><strong>提交 (Commit) 这些更改</strong> 到你的 GitHub 仓库。</li>
+  <li><strong>确保你的 GitHub Pages 设置</strong> 指向 <code>main</code> 分支（或者你实际使用的分支）。</li>
+  <li><strong>稍等片刻</strong>，让 GitHub Pages 部署新的更改。</li>
+  <li><strong>访问你的分支网站</strong>，地址为 “<code>你的用户名.github.io/B/C</code>。”</li>
 </ol>
+
 <p><strong>注意事项:</strong></p>
+
 <ul>
-<li><strong>目录结构：</strong> <code>你的用户名.github.io/cn/A</code> 中， <code>cn</code> 是你的一个文件夹，<code>A</code> 是 <code>cn</code> 下的一个文件夹， <code>index.html</code> 放置在 <code>A</code> 文件夹下。</li>
-<li><strong>多级目录：</strong> 你可以在 <code>A</code> 文件夹下继续创建多级目录和 <code>index.html</code> 文件，来组织更复杂的内容。例如 <code>你的用户名.github.io/cn/A/subpage</code>。</li>
-<li><strong>资源链接：</strong>  如果你在分支网站中引用图片或其他资源，确保你的链接是相对于当前页面的路径，或者使用绝对路径。例如，如果你在 <code>A/index.html</code> 中要引用同目录下的图片 <code>image.jpg</code>，可以使用 <code><img src="image.jpg"></code>。</li>
-<li><strong>Cloudflare 支持</strong>: 如果你使用 Cloudflare 加速，以上的分支网站也会被正确部署，访问路径与 GitHub Pages 相同。</li>
+  <li><strong>目录结构：</strong> <code>你的用户名.github.io/B/C</code> 中， <code>B</code> 是你的一个文件夹，<code>C</code> 是 <code>B</code> 下的一个文件夹， <code>index.html</code> 放置在 <code>C</code> 文件夹下。</li>
+  <li><strong>多级目录：</strong> 你可以在 <code>C</code> 文件夹下继续创建多级目录和 <code>index.html</code> 文件，来组织更复杂的内容。例如 <code>你的用户名.github.io/B/C/subpage</code>。</li>
+  <li><strong>资源链接：</strong>  如果你在分支网站中引用图片或其他资源，确保你的链接是相对于当前页面的路径，或者使用绝对路径。例如，如果你在 <code>C/index.html</code> 中要引用同目录下的图片 <code>image.jpg</code>，可以使用 <code><img src="image.jpg"></code>。</li>
+  <li><strong>Cloudflare 支持</strong>: 如果你使用 Cloudflare 加速，以上的分支网站也会被正确部署，访问路径与 GitHub Pages 相同。</li>
 </ul>
+
 <h2>总结</h2>
+
 <p>通过以上步骤，你就拥有了自己的个人网站和分支网站，快去尝试构建吧！</p>
 
 
