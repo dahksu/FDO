@@ -272,9 +272,53 @@
 <h3>代码说明</h3>
 <ul>
 <li><strong>引用链接</strong>: 使用 <code>[link:显示文字](链接地址)</code> 格式，如 <code>[link:我的博客](https://example.com)</code>。</li>
-<li><strong>引用图片</strong>: 使用 <code>[image:图片链接]</code> 格式，如 <code>[image:https://example.com/image.jpg]</code>。<ul>
-<li>需要使用图床来获取图片链接，推荐使用 <a href="sm.ms">sm.ms</a>，免费且国内访问速度较快。</li>
-<li><strong>注意</strong>: 确保图片链接以图片格式（如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code>）结尾，如果不是，请检查你的图片链接是否正确。</li>
+
+<p><b>引用图片法一：</b></p>
+<ol>
+<li>
+<b>上传图片到 GitHub 仓库:</b>
+<ul>
+<li>在你的 GitHub 仓库中，创建一个文件夹（例如 <code>images</code>）用于存放图片。</li>
+<li>将你的图片文件上传到这个文件夹中。</li>
+<li>确保图片文件以常见的图片格式（如 <code>.jpg</code>，<code>.png</code>，<code>.gif</code>）结尾。</li>
+</ul>
+</li>
+<li>
+<b>获取图片路径:</b>
+<ul>
+<li>如果你将图片放在了与 HTML 文件相同的目录下，可以直接使用文件名（例如 <code>myimage.jpg</code>）。</li>
+<li>如果你将图片放在了名为 <code>images</code> 的子目录下，可以使用相对路径（例如 <code>images/myimage.jpg</code>）。</li>
+</ul>
+</li>
+<li>
+<b>在网页中引用图片:</b>
+<ul>
+<li>使用标准的 HTML <code>&lt;img&gt;</code> 标签来插入图片。 语法为： <code>&lt;img src="图片路径" alt="图片描述"&gt;</code> 例如：
+<ul>
+<li>如果图片和 HTML 文件在**同一目录**： <code>&lt;img src="myimage.jpg" alt="我的图片"&gt;</code></li>
+<li>如果图片在名为 <code>images</code> 的**子目录**下： <code>&lt;img src="images/myimage.jpg" alt="我的图片"&gt;</code></li>
+</ul>
+</li>
+<li><code>src</code> 属性指定图片的路径 (URL 或相对路径)。</li>
+<li><code>alt</code> 属性是**替代文本**，非常重要！它在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述，有助于提升网页可访问性。</li>
+</ul>
+</li>
+<li>
+<p><b>法二：使用图床</b></p>
+<ul>
+<li><strong>引用图片</strong>: 使用标准的 HTML <code>&lt;img&gt;</code> 标签，语法为： <code>&lt;img src="图片链接" alt="图片描述"&gt;</code> 例如： <code>&lt;img src="https://example.com/image.jpg" alt="我的图片"&gt;</code>。
+<ul>
+<li><strong>图床选择</strong>: 你需要使用图床服务来托管图片并获取图片链接。 推荐使用 <a href="https://sm.ms">sm.ms</a>，它免费且在国内访问速度相对较快。 当然，你也可以选择其他图床服务。</li>
+<li><strong>获取图片链接</strong>: 将图片上传到图床后，你会得到一个**以图片格式结尾的 URL**（例如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code> 等）。 将这个 URL 复制到 <code>&lt;img src="..."&gt;</code> 标签的 <code>src</code> 属性中。</li>
+<li><strong>检查图片链接</strong>: 确保图片链接以图片格式（如 <code>.jpg</code>, <code>.png</code>, <code>.gif</code>）结尾。 如果不是，请检查你的图床链接是否复制正确，或者图片上传是否成功。</li>
+<li><code>alt</code> 属性是替代文本，与方法一相同，用于在图片无法加载时显示，并为使用屏幕阅读器的用户提供图片描述。 务必为你的图片添加有意义的 <code>alt</code> 文本。</li>
+</ul>
+</li>
+</ul></li>
+</ol>
+
+
+  
 </ul>
 </li>
 <li><strong>换行</strong>: 在正文中使用 <code>\n</code> 来换行。</li>
@@ -300,19 +344,20 @@
 <li>如果有其他 GitHub 仓库需要部署，点击左上角的 "Workers" 重复以上步骤。</li>
 </ol>
 <h2>创建分支网站（子目录）</h2>
-<p>如果你想创建类似于 <code>joyance.page/cn/A</code> 这样的分支网站，可以使用以下步骤：</p>
+<p>如果你想创建类似于 <code>A.com/B/C</code> 这样的分支网站，可以使用以下步骤：</p>
 <ol>
-<li><strong>在你的 GitHub 仓库中创建一个新的文件夹</strong>， 例如 <code>cn</code>。</li>
-<li><strong>在 <code>cn</code> 文件夹中，创建另一个文件夹</strong>，例如 <code>A</code>。</li>
+<li><strong>在你的 GitHub 仓库中创建一个新的文件夹()</strong>， 例如 <code>B</code>。</li>
+<li><strong>在 <code>cn</code> 文件夹中，创建另一个文件夹</strong>，例如 <code>C</code>。</li>
 <li><strong>在 <code>A</code> 文件夹中，创建一个 <code>index.html</code> 文件</strong>，并将你想要展示的内容（如文章页模板代码）粘贴进去。<ul>
 <li>这个 <code>index.html</code> 文件就是你的分支网站页面。</li>
-<li>你可以根据需要，在 <code>cn</code> 文件夹下创建多个子文件夹 (如 <code>B</code>, <code>C</code>, ...) 来组织不同的分支网站内容。</li>
+<li>不仅可以通过文件夹来实现子网页，也可以通过给予不同的网页文件不同的命名比如A.html</li>
+<li>你可以根据需要，在 <code>B</code>或<code>C</code> 文件夹下创建多个子文件夹 (如 <code>D</code>, <code>E</code>, ...) 来组织不同的子网站内容。</li>
 </ul>
 </li>
 <li><strong>提交 (Commit) 这些更改</strong> 到你的 GitHub 仓库。</li>
 <li><strong>确保你的 GitHub Pages 设置</strong> 指向 <code>main</code> 分支（或者你实际使用的分支）。</li>
 <li><strong>稍等片刻</strong>，让 GitHub Pages 部署新的更改。</li>
-<li><strong>访问你的分支网站</strong>，地址为 <code>你的用户名.github.io/cn/A</code>。</li>
+<li><strong>访问你的分支网站</strong>，地址为 “<code>你的用户名.github.io/A/B</code>。”</li>
 </ol>
 <p><strong>注意事项:</strong></p>
 <ul>
