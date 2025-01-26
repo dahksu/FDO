@@ -105,30 +105,35 @@
     /* ===== 按钮/链接通用样式 ===== */
     .btn {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #000; /* 黑底 */
-      color: #fff;            /* 白字 */
-      border-radius: 4px;
+      padding: 0.8rem 2rem; /* 调整后的内边距 */
+      background-color: #000;
+      color: #fff;
+      border-radius: 8px; /* 更圆润的圆角 */
       text-decoration: none;
       font-weight: bold;
-      transition: background-color 0.3s;
-      cursor: pointer; /* 鼠标悬停样式 */
-      margin-top: 1rem; /* 新增：与 Signal 按钮保持一致 */
+      transition: background-color 0.3s, box-shadow 0.3s; /* 添加阴影过渡 */
+      cursor: pointer;
+      margin-top: 1rem;
+      border: none; /* 去除默认边框 */
+      box-shadow: 0 0 0 rgba(0,0,0,0); /* 初始无阴影 */
     }
     .btn:hover {
       background-color: #333;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 悬停时添加轻微阴影 */
     }
 
      /* ===== 按钮禁用时的视觉反馈 ===== */
     .btn:disabled {
       background-color: #666;
-      cursor: not-allowed; /* 不允许的指针样式 */
+      cursor: not-allowed;
+      box-shadow: none; /* 禁用状态移除阴影 */
     }
 
      /* ===== 复制成功时的视觉反馈 ===== */
-    .copy-btn.copied .btn {
+    .copied {
       background-color: #4caf50; /* 复制成功时按钮背景颜色 */
     }
+
     /* ===== 二维码预览(替换为真实二维码) ===== */
     .qr-image {
       max-width: 150px;
