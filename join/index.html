@@ -61,7 +61,7 @@
       left: -30%;
       width: 60vw;
       height: 60vw;
-      background: #222;
+      background: #222; 
       border-radius: 50%;
       z-index: 1;
       opacity: 0.8;
@@ -111,28 +111,15 @@
       border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
-      text-align: center; /* 确保文本居中 */
-      transition: background-color 0.3s, transform 0.3s; /* 增加点击反馈动画 */
-      cursor: pointer; /* 鼠标悬停样式 */
-      margin-top: 1rem; /* 新增：与 Signal 按钮保持一致 */
-      font-size: 1rem; /* 设置统一字体大小 */
+      transition: background-color 0.3s;
     }
-
     .btn:hover {
       background-color: #333;
-      transform: scale(1.05); /* 鼠标悬停时按钮放大 */
     }
 
-    /* ===== 按钮禁用时的视觉反馈 ===== */
-    .btn:disabled {
-      background-color: #666;
-      cursor: not-allowed; /* 不允许的指针样式 */
-    }
-
-    /* ===== 复制成功时的视觉反馈 ===== */
-    .copy-btn.copied .btn {
-      background-color: #4caf50; /* 复制成功时按钮背景颜色 */
-      transform: scale(1); /* 去除复制后的放大效果 */
+    /* ===== 针对 Signal 卡片里的链接按钮 ===== */
+    .signal-btn {
+      margin-top: 1rem;
     }
 
     /* ===== 二维码预览(替换为真实二维码) ===== */
@@ -141,7 +128,7 @@
       margin: 1rem auto;
       display: block;
       /* 作为占位，可用真实二维码图替换 */
-      background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat;
+      background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat; 
       border-radius: 8px;
     }
 
@@ -157,24 +144,21 @@
         flex-direction: column; /* 垂直堆叠 */
       }
     }
-
   </style>
 </head>
 <body>
 
   <!-- 加入我们 - 英文: Join Us-->
-
   <section class="join-hero">
     <div class="circle-decor"></div>
     <div class="join-hero-content">
       <h1>加入我们</h1>
       <p>欢迎加入 FDO 的交流社区。我们提供两种群聊方式，供你灵活选择：  
-         一种是更安全的 Signal 群组，另一种是更传统的邮箱链接。</p>
+         一种是更安全的 Signal 群组，另一种是国内常用的微信群聊。</p>
     </div>
   </section>
 
   <!-- 群聊卡片区 -->
-
   <div class="container">
     <div class="groups-section">
 
@@ -193,51 +177,19 @@
         </a>
       </div>
 
-      <!-- 2) 邮箱 -->
+      <!-- 2) 微信群聊 -->
       <div class="group-card">
-        <h3>邮箱</h3>
-        <p>如果你更习惯使用邮箱，可以向我们的邮箱发送投稿或交流。</p>
+        <h3>微信群聊</h3>
+        <p>如果你更习惯使用微信，可以扫描下方二维码进入我们的微信群，与其他成员一起互动讨论。</p>
+
+        <!-- 预留一个二维码图片(示例占位图)。可替换为真实二维码 -->
         <div class="qr-image"></div>
-        <!-- 复制按钮 -->
-        <button class="btn" id="copy-email-btn" data-email="example@fdo.org">
-           复制邮箱
-        </button>
+        <!-- 若需要，也可提供外链按钮 -->
+        <!-- <a href="#" class="btn">下载二维码</a> 或者其他选项 -->
       </div>
 
     </div>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const copyEmailBtn = document.getElementById('copy-email-btn');
-
-      copyEmailBtn.addEventListener('click', function() {
-        const emailToCopy = this.getAttribute('data-email');
-        const tempTextArea = document.createElement('textarea');
-        tempTextArea.value = emailToCopy;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-
-        try {
-          document.execCommand('copy');
-          copyEmailBtn.classList.add('copied');
-          copyEmailBtn.textContent = "已复制"; //改变文本为“已复制”
-          setTimeout(() => {
-            copyEmailBtn.textContent = "复制邮箱"; // 延迟恢复为原始文本
-            copyEmailBtn.classList.remove('copied');
-          }, 1500); //1.5秒后，恢复原始文本并移除样式
-        } catch (err) {
-          console.error('无法复制邮箱地址: ', err);
-          copyEmailBtn.textContent = "复制失败";
-          setTimeout(() => {
-            copyEmailBtn.textContent = "复制邮箱";
-          }, 1500);
-        } finally {
-          document.body.removeChild(tempTextArea);
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
