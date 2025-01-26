@@ -61,7 +61,7 @@
       left: -30%;
       width: 60vw;
       height: 60vw;
-      background: #222; 
+      background: #222;
       border-radius: 50%;
       z-index: 1;
       opacity: 0.8;
@@ -118,39 +118,22 @@
       background-color: #333;
     }
 
-     /* ===== 复制按钮样式 ===== */
+    /* ===== 复制按钮样式 ===== */
     .copy-btn {
       margin-top: 1rem;
-      display: inline-flex; /* 横向排列文本和icon */
-      align-items: center; /* 垂直居中对齐 */
     }
-
-    .copy-btn span{
-      margin-right: 0.5rem; /* 文本和icon之间的间距 */
-    }
-
-    .copy-btn svg {
-      width: 16px;
-      height: 16px;
-      fill: #fff; /* icon颜色 */
-    }
-
-     /* ===== 按钮禁用时的视觉反馈 ===== */
+    
+    /* ===== 按钮禁用时的视觉反馈 ===== */
     .btn:disabled {
       background-color: #666;
       cursor: not-allowed; /* 不允许的指针样式 */
     }
-    
-    /* ===== 复制成功时的视觉反馈 ===== */
+
+     /* ===== 复制成功时的视觉反馈 ===== */
     .copy-btn.copied .btn {
       background-color: #4caf50; /* 复制成功时按钮背景颜色 */
     }
-
-    .copy-btn.copied svg {
-        fill: #fff; /* 复制成功时icon颜色 */
-    }
-     
-     /* ===== 二维码预览(替换为真实二维码) ===== */
+    /* ===== 二维码预览(替换为真实二维码) ===== */
     .qr-image {
       max-width: 150px;
       margin: 1rem auto;
@@ -213,8 +196,7 @@
             <!-- 复制按钮 -->
             <div class="copy-btn">
               <button class="btn" id="copy-email-btn" data-email="example@fdo.org">
-                 <span>复制邮箱</span>
-                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H7C5.9 5 5 5.9 5 7v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H7V7h12v14z"/></svg>
+                 复制邮箱
               </button>
             </div>
         </div>
