@@ -110,10 +110,12 @@
       color: #fff;            /* 白字 */
       border-radius: 4px;
       text-decoration: none;
-      font-weight: bold;
+        font-weight: bold;      /* 确保字体加粗 */
+        font-size: 1rem;        /* 确保字体大小统一 */
       transition: background-color 0.3s;
       cursor: pointer; /* 鼠标悬停样式 */
-        margin-top: 1rem; /* 新增：与 Signal 按钮保持一致 */
+        margin-top: 1rem;        /* 确保外边距统一 */
+         text-align: center; /*确保文字居中*/
     }
     .btn:hover {
       background-color: #333;
@@ -126,7 +128,7 @@
     }
 
      /* ===== 复制成功时的视觉反馈 ===== */
-    .copy-btn.copied .btn {
+    .btn.copied {
       background-color: #4caf50; /* 复制成功时按钮背景颜色 */
     }
     /* ===== 二维码预览(替换为真实二维码) ===== */
