@@ -105,33 +105,34 @@
     /* ===== 按钮/链接通用样式 ===== */
     .btn {
       display: inline-block;
-      padding: 0.8rem 2rem; /* 调整后的内边距 */
-      background-color: #000;
-      color: #fff;
-      border-radius: 8px; /* 更圆润的圆角 */
+      padding: 0.75rem 1.5rem;
+      background-color: #000; /* 黑底 */
+      color: #fff;            /* 白字 */
+      border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
-      transition: background-color 0.3s, box-shadow 0.3s; /* 添加阴影过渡 */
-      cursor: pointer;
-      margin-top: 1rem;
-      border: none; /* 去除默认边框 */
-      box-shadow: 0 0 0 rgba(0,0,0,0); /* 初始无阴影 */
+      text-align: center; /* 确保文本居中 */
+      transition: background-color 0.3s, transform 0.3s; /* 增加点击反馈动画 */
+      cursor: pointer; /* 鼠标悬停样式 */
+      margin-top: 1rem; /* 新增：与 Signal 按钮保持一致 */
+      font-size: 1rem; /* 设置统一字体大小 */
     }
+
     .btn:hover {
       background-color: #333;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 悬停时添加轻微阴影 */
+      transform: scale(1.05); /* 鼠标悬停时按钮放大 */
     }
 
-     /* ===== 按钮禁用时的视觉反馈 ===== */
+    /* ===== 按钮禁用时的视觉反馈 ===== */
     .btn:disabled {
       background-color: #666;
-      cursor: not-allowed;
-      box-shadow: none; /* 禁用状态移除阴影 */
+      cursor: not-allowed; /* 不允许的指针样式 */
     }
 
-     /* ===== 复制成功时的视觉反馈 ===== */
-    .copied {
+    /* ===== 复制成功时的视觉反馈 ===== */
+    .copy-btn.copied .btn {
       background-color: #4caf50; /* 复制成功时按钮背景颜色 */
+      transform: scale(1); /* 去除复制后的放大效果 */
     }
 
     /* ===== 二维码预览(替换为真实二维码) ===== */
@@ -140,8 +141,8 @@
       margin: 1rem auto;
       display: block;
       /* 作为占位，可用真实二维码图替换 */
-       background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat;
-       border-radius: 8px;
+      background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat;
+      border-radius: 8px;
     }
 
     /* ===== 小屏幕适配 ===== */
@@ -156,11 +157,13 @@
         flex-direction: column; /* 垂直堆叠 */
       }
     }
+
   </style>
 </head>
 <body>
 
   <!-- 加入我们 - 英文: Join Us-->
+
   <section class="join-hero">
     <div class="circle-decor"></div>
     <div class="join-hero-content">
@@ -171,6 +174,7 @@
   </section>
 
   <!-- 群聊卡片区 -->
+
   <div class="container">
     <div class="groups-section">
 
@@ -181,7 +185,7 @@
            点击下方按钮直接加入我们的Signal群聊。</p>
 
         <!-- 加入按钮，直接跳转Signal群聊链接 -->
-        <a class="btn" 
+        <a class="btn signal-btn" 
            href="https://signal.group/#CjQKIIfoJV7Aemx6dbOzHD7dSI6ZDpEO0XaWP56CH2d-cPnfEhDOL3HTEVQOKsR9Sb2IRaKY"
            target="_blank" 
            rel="noopener noreferrer">
@@ -189,23 +193,22 @@
         </a>
       </div>
 
-       <!-- 2) 邮箱 -->
-       <div class="group-card">
-            <h3>邮箱</h3>
-            <p>如果你更习惯使用邮箱，可以向我们的邮箱发送投稿或交流。</p>
-            <div class="qr-image"></div>
-            <!-- 复制按钮 -->
-         </p>
-              <button class="btn" id="copy-email-btn" data-email="example@fdo.org">
-                 复制邮箱
-              </button>
-        </div>
+      <!-- 2) 邮箱 -->
+      <div class="group-card">
+        <h3>邮箱</h3>
+        <p>如果你更习惯使用邮箱，可以向我们的邮箱发送投稿或交流。</p>
+        <div class="qr-image"></div>
+        <!-- 复制按钮 -->
+        <button class="btn" id="copy-email-btn" data-email="example@fdo.org">
+           复制邮箱
+        </button>
+      </div>
 
     </div>
   </div>
 
   <script>
-      document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
       const copyEmailBtn = document.getElementById('copy-email-btn');
 
       copyEmailBtn.addEventListener('click', function() {
@@ -218,22 +221,23 @@
         try {
           document.execCommand('copy');
           copyEmailBtn.classList.add('copied');
-            copyEmailBtn.textContent = "已复制"; //改变文本为“已复制”
-             setTimeout(() => {
-                copyEmailBtn.textContent = "复制邮箱"; // 延迟恢复为原始文本
-                copyEmailBtn.classList.remove('copied');
-            }, 1500); //1.5秒后，恢复原始文本并移除样式
+          copyEmailBtn.textContent = "已复制"; //改变文本为“已复制”
+          setTimeout(() => {
+            copyEmailBtn.textContent = "复制邮箱"; // 延迟恢复为原始文本
+            copyEmailBtn.classList.remove('copied');
+          }, 1500); //1.5秒后，恢复原始文本并移除样式
         } catch (err) {
-            console.error('无法复制邮箱地址: ', err);
-            copyEmailBtn.textContent = "复制失败";
-             setTimeout(() => {
-                copyEmailBtn.textContent = "复制邮箱";
-            }, 1500);
+          console.error('无法复制邮箱地址: ', err);
+          copyEmailBtn.textContent = "复制失败";
+          setTimeout(() => {
+            copyEmailBtn.textContent = "复制邮箱";
+          }, 1500);
         } finally {
-           document.body.removeChild(tempTextArea);
+          document.body.removeChild(tempTextArea);
         }
       });
     });
   </script>
+
 </body>
 </html>
