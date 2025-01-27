@@ -7,120 +7,121 @@
   <title>FDO - 文章列表</title>
 
   <style>
-    /* ====== 通用基础 & 暗色模式 ====== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: sans-serif;
-      background-color: #ffffff;
-      color: #000000;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        color: #eeeeee;
-      }
-    }
+/* ====== 通用基础 & 暗色模式 ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #eeeeee;
+  }
+}
 
-    /* ====== 按钮、链接通用样式 ====== */
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.3s;
-    }
-    a:hover {
-      color: #888;
-    }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #000;
-      color: #fff;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #333;
-    }
-    @media (prefers-color-scheme: dark) {
-      .btn {
-        background-color: #fff;
-        color: #000;
-      }
-      .btn:hover {
-        background-color: #ddd;
-      }
-    }
+/* ====== 按钮、链接通用样式 ====== */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #888;
+}
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.btn:hover {
+  background-color: #333;
+}
+@media (prefers-color-scheme: dark) {
+  .btn {
+    background-color: #fff;
+    color: #000;
+  }
+  .btn:hover {
+    background-color: #ddd;
+  }
+}
 
-    /* ====== 顶部Hero区域 ====== */
-    .articles-hero {
-      position: relative;
-      min-height: 40vh;
-      background-color: #000;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 2rem;
-      overflow: hidden;
-        text-align: center; /* 居中文本 */
-    }
-    @media (prefers-color-scheme: dark) {
-      .articles-hero {
-        background-color: #181818;
-      }
-    }
-    .circle-black {
-      position: absolute;
-      top: -20%;
-      left: -30%;
-        width: 100vw;
-        height: 100vw;
-      background: #222;
-      border-radius: 50%;
-      z-index: 1;
-      opacity: 0.8;
-    }
-    @media (prefers-color-scheme: dark) {
-      .circle-black {
-        background: #444;
-      }
-    }
-    .circle-gray {
-      position: absolute;
-      top: 0;
-      right: -30%;
-        width: 100vw;
-        height: 100vw;
-      background: #888;
-      opacity: 0.2;
-      border-radius: 50%;
-      z-index: 2;
-    }
-    @media (prefers-color-scheme: dark) {
-      .circle-gray {
-        background: #666;
-      }
-    }
-    .articles-hero-content {
-      position: relative;
-      z-index: 3;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    .articles-hero h1 {
+/* ====== 顶部Hero区域 ====== */
+.articles-hero {
+  position: relative;
+  min-height: 40vh;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  overflow: hidden;
+    text-align: center; /* 居中文本 */
+}
+@media (prefers-color-scheme: dark) {
+  .articles-hero {
+    background-color: #181818;
+  }
+}
+.circle-black {
+  position: absolute;
+  top: -20%;
+  left: -30%;
+    width: 100vw;
+    height: 100vw;
+  background: #222;
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0.8;
+}
+@media (prefers-color-scheme: dark) {
+  .circle-black {
+    background: #444;
+  }
+}
+.circle-gray {
+  position: absolute;
+  top: 0;
+  right: -30%;
+    width: 100vw;
+    height: 100vw;
+  background: #888;
+  opacity: 0.2;
+  border-radius: 50%;
+  z-index: 2;
+}
+@media (prefers-color-scheme: dark) {
+  .circle-gray {
+    background: #666;
+  }
+}
+.articles-hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+    
+.articles-hero h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
       font-weight: bold;
     }
-    .articles-hero p {
+.articles-hero p {
       font-size: 1rem;
       color: #f0f0f0;
       max-width: 600px;
@@ -128,87 +129,103 @@
       margin-bottom: 1rem;
     }
 
-    /* ====== 主体区容器 ====== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
+/* 电脑屏幕，标题居左 */
+@media (min-width: 768px) {
+    .articles-hero {
+        text-align: left; /* 电脑屏幕左对齐文本 */
     }
-    .top-links {
-      margin-bottom: 2rem;
-    }
-    .top-links a {
-      margin-right: 1rem;
-      color: #000;
-      font-size: 0.95rem;
-      text-decoration: underline;
-    }
-    @media (prefers-color-scheme: dark) {
-      .top-links a {
-        color: #ccc;
-      }
-    }
-
-    /* ====== 文章列表：响应式网格 ====== */
-    .articles-list {
-      display: grid;
-        gap: 2rem;
-      /* 默认3列 */
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    /* 小屏幕调整为单列布局 */
-    @media (max-width: 768px) {
-        .articles-list {
-            grid-template-columns: 1fr;
+        .articles-hero-content {
+        margin-left: 0; /* 移除居中 */
+        margin-right: auto; /* 内容靠左，需要和上面的text-align: left;配合 */
         }
+    .articles-hero h1{
+        text-align: left;
     }
+    .articles-hero p {
+        text-align: left;
+    }
+}
+/* ====== 主体区容器 ====== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.top-links {
+  margin-bottom: 2rem;
+}
+.top-links a {
+  margin-right: 1rem;
+  color: #000;
+  font-size: 0.95rem;
+  text-decoration: underline;
+}
+@media (prefers-color-scheme: dark) {
+  .top-links a {
+    color: #ccc;
+  }
+}
 
-    /* ====== 文章卡片样式 ====== */
-    .article-card {
-      background-color: #f9f9f9;
-      border-radius: 4px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+/* ====== 文章列表：响应式网格 ====== */
+.articles-list {
+  display: grid;
+    gap: 2rem;
+  /* 默认3列 */
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 小屏幕调整为单列布局 */
+@media (max-width: 768px) {
+    .articles-list {
+        grid-template-columns: 1fr;
     }
-    .article-card:hover {
-      transform: translateY(-3px);
-    }
-    .article-card h3 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: #000;
-    }
-    .article-card p {
-      font-size: 0.95rem;
-      color: #333;
-      line-height: 1.6;
-    }
-    .article-meta {
-      font-size: 0.85rem;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-    @media (prefers-color-scheme: dark) {
-      .article-card {
-        background-color: #2a2a2a;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-      }
-      .article-card h3 {
-        color: #eee;
-      }
-      .article-card p {
-        color: #ccc;
-      }
-      .article-meta {
-        color: #888;
-      }
-    }
+}
+
+/* ====== 文章卡片样式 ====== */
+.article-card {
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.article-card:hover {
+  transform: translateY(-3px);
+}
+.article-card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+.article-card p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.6;
+}
+.article-meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+@media (prefers-color-scheme: dark) {
+  .article-card {
+    background-color: #2a2a2a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  }
+  .article-card h3 {
+    color: #eee;
+  }
+  .article-card p {
+    color: #ccc;
+  }
+  .article-meta {
+    color: #888;
+  }
+}
 
   </style>
 </head>
