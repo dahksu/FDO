@@ -39,7 +39,7 @@
     .btn {
       display: inline-block;
       padding: 0.75rem 1.5rem;
-      background-color: #000; 
+      background-color: #000;
       color: #fff;
       border-radius: 4px;
       font-weight: bold;
@@ -69,6 +69,7 @@
       justify-content: center;
       padding: 2rem;
       overflow: hidden;
+        text-align: center; /* 居中文本 */
     }
     @media (prefers-color-scheme: dark) {
       .articles-hero {
@@ -79,9 +80,9 @@
       position: absolute;
       top: -20%;
       left: -30%;
-      width: 70vw;
-      height: 70vw;
-      background: #222; 
+        width: 100vw;
+        height: 100vw;
+      background: #222;
       border-radius: 50%;
       z-index: 1;
       opacity: 0.8;
@@ -95,8 +96,8 @@
       position: absolute;
       top: 0;
       right: -30%;
-      width: 70vw;
-      height: 70vw;
+        width: 100vw;
+        height: 100vw;
       background: #888;
       opacity: 0.2;
       border-radius: 50%;
@@ -111,9 +112,11 @@
       position: relative;
       z-index: 3;
       max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
     }
     .articles-hero h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
       font-weight: bold;
     }
@@ -146,15 +149,20 @@
       }
     }
 
-    /* ====== 文章列表：3列网格 + 无限行 ====== */
+    /* ====== 文章列表：响应式网格 ====== */
     .articles-list {
       display: grid;
-      /* 固定 3 列，每列1fr */
+        gap: 2rem;
+      /* 默认3列 */
       grid-template-columns: repeat(3, 1fr);
-      /* 行数无限，按顺序自动往下排 */
-      gap: 2rem; 
     }
-    /* 不设置 grid-auto-rows: ... ，让每行高度自适应最大内容 */
+
+    /* 小屏幕调整为单列布局 */
+    @media (max-width: 768px) {
+        .articles-list {
+            grid-template-columns: 1fr;
+        }
+    }
 
     /* ====== 文章卡片样式 ====== */
     .article-card {
