@@ -188,23 +188,16 @@
         <h3>微信群聊</h3>
         <p>如果你更习惯使用微信，可以扫描下方二维码进入我们的微信群，与其他成员一起互动讨论。</p>
 
-        <button class="btn signal-btn" onclick="copyLink('https://weixin.qq.com/g/CQYAAIIPX0g6Dfu5TivoSBXcH_d1Z9wymOVRiKRv4PGjEeFTfRZXmMcnOqsro7Ls')">
-          复制链接
-        </button>
+        <a class="btn signal-btn" 
+           href="https://weixin.qq.com/g/CQYAAIIPX0g6Dfu5TivoSBXcH_d1Z9wymOVRiKRv4PGjEeFTfRZXmMcnOqsro7Ls"
+           target="_blank" 
+           rel="noopener noreferrer">
+          加入微信群（目前无效，微信只支持扫码）
+        </a>
       </div>
 
     </div>
   </div>
-
-  <script>
-     function copyLink(link) {
-      navigator.clipboard.writeText(link).then(function() {
-        alert("链接已复制到剪贴板: " + link);
-      }, function(err) {
-        alert("复制链接失败，请手动复制: " + link);
-      });
-    }
-  </script>
 
 </body>
 </html>
