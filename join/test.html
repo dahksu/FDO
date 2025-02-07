@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FDO 答题</title>
     <style>
-        /* 全局样式 */
+        /* (样式与之前相同，保持不变) */
         body {
             font-family: sans-serif;
             margin: 0;
@@ -165,7 +165,7 @@
     </div>
 
     <script>
-        // 文件三的内容（作为字符串）
+        // (除了 checkAnswersAndProceed 函数，其余 JS 代码与之前相同)
         const file3Content = `
             FDO交流群内部发言原则（群规试行稿）
 
@@ -188,211 +188,6 @@
             引述事实：在引述事实时最好选择维基百科，或者其他的可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。
 
             引用本方针简称 #T方针 或 #T
-        `;
-       const file2Content = `
-        <!DOCTYPE html>
-        <html lang="zh-CN">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="description" content="FDO - Join Us Page">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>FDO - 加入我们</title>
-          <style>
-            /* ===== 全局基础：黑白灰极简风格 ===== */
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
-            body {
-              font-family: sans-serif;
-              background-color: #fff;
-              color: #000;
-              line-height: 1.6;
-              overflow-x: hidden;
-            }
-            /* 如果有暗色模式需求，可以添加 @media (prefers-color-scheme: dark) { ... } 逻辑 */
-
-            /* ===== 页面容器 ===== */
-            .container {
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 2rem;
-            }
-
-            /* ===== 标题区（Hero风格）===== */
-            .join-hero {
-              min-height: 50vh;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: flex-start;
-              background-color: #000; /* 黑色背景，突出对比 */
-              color: #fff;            /* 白字 */
-              padding: 2rem;
-              position: relative;
-              overflow: hidden;
-              text-align: left;       /* 文字左对齐 */
-            }
-            .join-hero h1 {
-              font-size: 2.5rem;
-              margin-bottom: 1rem;
-              font-weight: bold;
-            }
-            .join-hero p {
-              max-width: 600px;
-              margin-bottom: 1rem;
-              line-height: 1.8;
-              color: #f0f0f0;
-            }
-
-            /* ===== 圆形装饰(与之前类似) ===== */
-            .circle-decor {
-              position: absolute;
-              top: -20%;
-              left: -30%;
-              width: 60vw;
-              height: 60vw;
-              background: #222; 
-              border-radius: 50%;
-              z-index: 1;
-              opacity: 0.8;
-            }
-            .join-hero-content {
-              position: relative;
-              z-index: 2; /* 文字内容在装饰圆之上 */
-              max-width: 700px;
-            }
-
-            /* ===== 群聊展示区 ===== */
-            .groups-section {
-              margin-top: 3rem;
-              display: flex;
-              gap: 2rem;
-              flex-wrap: wrap; /* 移动端可自动换行 */
-            }
-            .group-card {
-              flex: 1 1 300px;
-              background-color: #f9f9f9;
-              border-radius: 4px;
-              padding: 2rem;
-              text-align: center;
-              box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-              position: relative;
-              overflow: hidden;
-            }
-            .group-card h3 {
-              font-size: 1.2rem;
-              margin-bottom: 1rem;
-              font-weight: bold;
-              color: #000;
-            }
-            .group-card p {
-              font-size: 0.95rem;
-              color: #333;
-              margin-bottom: 1.5rem;
-              line-height: 1.6;
-            }
-
-            /* ===== 按钮/链接通用样式 ===== */
-            .btn {
-              display: inline-block;
-              padding: 0.75rem 1.5rem;
-              background-color: #000; /* 黑底 */
-              color: #fff;            /* 白字 */
-              border-radius: 4px;
-              text-decoration: none;
-              font-weight: bold;
-              transition: background-color 0.3s;
-            }
-            .btn:hover {
-              background-color: #333;
-            }
-
-            /* ===== 针对 Signal 卡片里的链接按钮 ===== */
-            .signal-btn {
-              margin-top: 1rem;
-            }
-
-            /* ===== 二维码预览(替换为真实二维码) ===== */
-            .qr-image {
-              max-width: 150px;
-              margin: 1rem auto;
-              display: block;
-              /* 作为占位，可用真实二维码图替换 */
-              background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat; 
-              border-radius: 8px;
-            }
-
-            /* ===== 小屏幕适配 ===== */
-            @media (max-width: 768px) {
-              .join-hero h1 {
-                font-size: 2rem;
-              }
-              .join-hero p {
-                font-size: 0.95rem;
-              }
-              .groups-section {
-                flex-direction: column; /* 垂直堆叠 */
-              }
-            }
-          </style>
-        </head>
-        <body>
-
-          <!-- 加入我们 - 英文: Join Us-->
-          <section class="join-hero">
-            <div class="circle-decor"></div>
-            <div class="join-hero-content">
-              <h1>加入我们</h1>
-              <p>欢迎加入 FDO 的交流社区。我们目前有一种群聊方式，供你选择：  
-                更安全的 Signal 群组，和另一种国内常用的微信群聊（未完工）</p>
-            </div>
-          </section>
-
-          <!-- 群聊卡片区 -->
-          <div class="container">
-            <div class="groups-section">
-
-              <!-- 1) Signal 群聊 -->
-              <div class="group-card">
-                <h3>Signal 群聊</h3>
-                <p>Signal是一款注重隐私与安全的通讯软件，推荐给注重数据安全的朋友。  
-                  点击下方按钮添加管理员账号，申请后加群。</p>
-
-                <!-- 加入按钮，直接跳转Signal群聊链接 -->
-                <a class="btn signal-btn" 
-                  href="https://signal.me/#eu/R2rbboAC3bTHOSOLTd1XfCRr6DHFJdoUaTqnmrUNdQYEY7OfyR1An6R6OJA3Rl7c"
-                  target="_blank" 
-                  rel="noopener noreferrer">
-                  管理员X
-                </a>
-                <a class="btn signal-btn" 
-                  href="https://signal.me/#eu/cJlJRG03jbrTps5-ajGuds2XUJ-dbN5ZM5S0qIqaZt6zrjxVnlFMq67cieKyTRay"
-                  target="_blank" 
-                  rel="noopener noreferrer">
-                  管理员J
-                </a>
-              </div>
-
-              <!-- 2) 微信群聊 -->
-              <div class="group-card">
-                <h3>微信群聊</h3>
-                <p>如果你更习惯使用微信，可以扫描下方二维码进入我们的微信群，与其他成员一起互动讨论。</p>
-
-                <a class="btn signal-btn" 
-                  href="https://weixin.qq.com/g/CQYAAIIPX0g6Dfu5TivoSBXcH_d1Z9wymOVRiKRv4PGjEeFTfRZXmMcnOqsro7Ls"
-                  target="_blank" 
-                  rel="noopener noreferrer">
-                  加入微信群（目前无效，微信只支持扫码）
-                </a>
-              </div>
-
-            </div>
-          </div>
-
-        </body>
-        </html>
         `;
 
         // 题目数据
@@ -521,7 +316,7 @@
         }
 
 
-        // 检查答案并跳转
+        // 检查答案并跳转 *修改的部分*
         function checkAnswersAndProceed() {
             let correctCount = 0;
             for (let i = 0; i < questions.length; i++) {
@@ -531,14 +326,9 @@
             }
 
             if (correctCount >= questions.length - 1) {
-                // 过关，显示文件二
-                contentArea.innerHTML = file2Content;
-                quizArea.innerHTML = "<h2>恭喜你通过测试！</h2>";
-                quizArea.classList.add('completed');
-                // 移除按钮
-                prevButton.remove();
-                nextButton.remove();
-                submitButton.remove();
+                // 过关，设置 Cookie 并跳转
+                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7); // 7天有效期
+                window.location.href = "/join";
 
             } else {
                 // 未过关，重置
@@ -546,6 +336,7 @@
                 resetQuiz();
             }
         }
+
 
         // 重置测验
         function resetQuiz() {
