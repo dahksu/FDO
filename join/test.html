@@ -113,7 +113,7 @@
             cursor: pointer;
             margin-right: 10px;
             font-size: 1rem;
-            transition: background-color: 0.2s;
+            transition: background-color 0.2s;
         }
 
         .button:disabled {
@@ -423,42 +423,51 @@
             return shuffled.slice(0, n);
         }
 
-       // 显示题目 (保持滚动位置)
+// 显示题目 (使用 MutationObserver)
         function displayQuestion(index) {
-          const question = currentQuestions[index];
-          let questionHTML = `
-              <div class="question" id="question-${index}">
-                  <h3>${index + 1}. ${question.text}</h3>
-                  <div class="options">
-          `;
+            const question = currentQuestions[index];
+            let questionHTML = `
+                <div class="question" id="question-${index}">
+                    <h3>${index + 1}. ${question.text}</h3>
+                    <div class="options">
+            `;
 
-          const shuffledOptions = shuffleArray(question.options);
-          shuffledOptions.forEach(option => {
-              questionHTML += `
-                  <label>
-                      <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
-                      <span>${option}</span>
-                  </label>
-              `;
-          });
+            const shuffledOptions = shuffleArray(question.options);
+            shuffledOptions.forEach(option => {
+                questionHTML += `
+                    <label>
+                        <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
+                        <span>${option}</span>
+                    </label>
+                `;
+            });
 
-          questionHTML += `</div></div>`;
+            questionHTML += `</div></div>`;
 
-          // ********** 保持滚动位置 **********
-          const scrollPosition = contentArea.scrollTop; // 记录当前滚动位置
+            // 记录当前滚动位置
+            const scrollPosition = contentArea.scrollTop;
 
-          questionsContainer.innerHTML = questionHTML;
-          updateButtonStates(index);
+            // 更新题目 HTML
+            questionsContainer.innerHTML = questionHTML;
+            updateButtonStates(index);
 
-          contentArea.scrollTop = scrollPosition; // 恢复滚动位置
-          // ********** 保持滚动位置 **********
 
-          const fileContentDiv = document.getElementById(question.file);
+            // 创建 MutationObserver
+            const observer = new MutationObserver(() => {
+                // DOM 更新后，恢复滚动位置
+                contentArea.scrollTop = scrollPosition;
+                observer.disconnect(); // 只需监听一次
+            });
+
+            // 配置并启动 MutationObserver
+            observer.observe(questionsContainer, { childList: true }); // 监听子节点变化
+
+
+            const fileContentDiv = document.getElementById(question.file);
             if (fileContentDiv) {
                 fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-      }
-
+        }
         function updateButtonStates(index) {
             prevButton.disabled = index === 0;
             hasAnswered = !!userAnswers[index];
