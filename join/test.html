@@ -90,7 +90,7 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 4px;
-            transition: background-color 0.2s;
+            transition: background-color: 0.2s;
             color: #555;
         }
 
@@ -113,7 +113,7 @@
             cursor: pointer;
             margin-right: 10px;
             font-size: 1rem;
-            transition: background-color 0.2s;
+            transition: background-color: 0.2s;
         }
 
         .button:disabled {
@@ -295,7 +295,7 @@
             <p>完整引用本方针简称 #C方针 或 #C</p>
         `;
 
-        // 题库 (增加了更多题目)
+// 题库 (增加了更多题目)
         const questions = [
           {
             text: "根据FDO群规，以下哪种行为是不被允许的？",
@@ -389,6 +389,7 @@
           }
         ];
 
+
         let currentQuestionIndex = 0;
         let userAnswers = [];
         let hasAnswered = false;
@@ -400,7 +401,6 @@
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
         const submitButton = document.getElementById('submit-button');
-        const quizArea = document.getElementById('quiz-area');
 
         file3ContentDiv.innerHTML = file3Content;
 
@@ -413,47 +413,45 @@
         }
 
         function getRandomQuestions(questions, n) {
-            const shuffled = shuffleArray([...questions]);
+            const shuffled = shuffleArray([...questions]); // 创建副本并打乱
             return shuffled.slice(0, n);
         }
 
-        // 显示题目 (修改：无字母，保持滚动位置)
+       // 显示题目 (保持滚动位置)
         function displayQuestion(index) {
-            const question = currentQuestions[index];
-            let questionHTML = `
-                <div class="question" id="question-${index}">
-                    <h3>${index + 1}. ${question.text}</h3>
-                    <div class="options">
-            `;
+          const question = currentQuestions[index];
+          let questionHTML = `
+              <div class="question" id="question-${index}">
+                  <h3>${index + 1}. ${question.text}</h3>
+                  <div class="options">
+          `;
 
-            const shuffledOptions = shuffleArray(question.options);
+          const shuffledOptions = shuffleArray(question.options);
+          shuffledOptions.forEach(option => {
+              questionHTML += `
+                  <label>
+                      <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
+                      <span>${option}</span>
+                  </label>
+              `;
+          });
 
-            // 不再添加字母 (A, B, C, D)
-            shuffledOptions.forEach(option => {
-                questionHTML += `
-                    <label>
-                        <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
-                        <span>${option}</span>
-                    </label>
-                `;
-            });
+          questionHTML += `</div></div>`;
 
-            questionHTML += `</div></div>`;
+          // ********** 保持滚动位置 **********
+          const scrollPosition = contentArea.scrollTop; // 记录当前滚动位置
 
-            // 记录当前滚动位置
-            const scrollPosition = contentArea.scrollTop;
+          questionsContainer.innerHTML = questionHTML;
+          updateButtonStates(index);
 
-            questionsContainer.innerHTML = questionHTML;
-            updateButtonStates(index);
+          contentArea.scrollTop = scrollPosition; // 恢复滚动位置
+          // ********** 保持滚动位置 **********
 
-            // 恢复滚动位置
-            contentArea.scrollTop = scrollPosition;
-
-            const fileContentDiv = document.getElementById(question.file);
+          const fileContentDiv = document.getElementById(question.file);
             if (fileContentDiv) {
                 fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }
+      }
 
         function updateButtonStates(index) {
             prevButton.disabled = index === 0;
@@ -479,27 +477,30 @@
             }
 
             if (correctCount >= currentQuestions.length - 1) {
-                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7);
+                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7); // 7 天后过期
                 window.location.href = "/join";
             } else {
                 alert(`很遗憾，您没有通过测试。答对 ${correctCount} 题，需要答对 ${currentQuestions.length - 1} 题及以上才能通过。请重新作答。`);
                 resetQuiz();
             }
         }
+
         function getCookie(name) {
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
-          // 检查是否有通过测试的 Cookie，如果有，直接跳转
+
+        // 检查是否有通过测试的 Cookie
         if (getCookie('fdo_quiz_passed')) {
             window.location.href = "/join";
         }
+
         function resetQuiz() {
             currentQuestionIndex = 0;
             userAnswers = [];
             hasAnswered = false;
-            currentQuestions = getRandomQuestions(questions, 5);
+            currentQuestions = getRandomQuestions(questions, 5); // 重新抽取
             displayQuestion(currentQuestionIndex);
             file3ContentDiv.innerHTML = file3Content; // 重新加载内容
         }
@@ -536,6 +537,7 @@
             }
         });
 
+        // 初始加载，抽取题目
         currentQuestions = getRandomQuestions(questions, 5);
         displayQuestion(currentQuestionIndex);
     </script>
