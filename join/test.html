@@ -3,142 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FDO 答题</title>
+    <title>FDO 入群测试</title>
     <style>
-        /* (样式与之前相同，保持不变) */
+        /* ----- 全局样式 ----- */
         body {
-            font-family: sans-serif;
+            font-family: 'Helvetica Neue', 'Arial', sans-serif; /* 更现代的字体 */
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #f8f9fa; /* 更柔和的背景色 */
+            color: #343a40; /* 更柔和的文字颜色 */
             line-height: 1.6;
         }
 
-        /* 容器 */
+        /* ----- 容器 ----- */
         .container {
             display: flex;
-            height: 100vh;
+            min-height: 100vh; /* 使用 min-height，允许内容超出 */
         }
 
-        /* 左侧内容区 */
+        /* ----- 左侧内容区 ----- */
         .content-area {
             width: 66.66%;
             overflow-y: auto;
-            padding: 20px;
-            border-right: 1px solid #ccc;
+            padding: 25px; /* 增加内边距 */
+            border-right: 1px solid #dee2e6; /* 更柔和的边框颜色 */
+            background-color: #fff; /* 白色背景 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 添加轻微阴影 */
+        }
+        /* 文件三标题样式 */
+        .content-area h2 {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+            display: inline-block;
         }
 
-        /* 右侧题目区 */
+        .content-area p {
+            margin-bottom: 1rem; /* 段落间距 */
+            text-indent: 2em;   /* 首行缩进 */
+            line-height: 1.8;    /* 增加行高 */
+        }
+        .content-area ul {
+          padding-left: 2em;
+        }
+
+        /* ----- 右侧题目区 ----- */
         .quiz-area {
             width: 33.33%;
             overflow-y: auto;
-            padding: 20px;
+            padding: 25px;
+            background-color: #fff; /* 白色背景 */
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05); /* 左侧阴影 */
         }
 
-        /* 题目样式 */
+        /* ----- 题目样式 ----- */
         .question {
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* 增加题目间距 */
         }
 
         .question h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1.3rem; /* 稍大字号 */
+            margin-bottom: 12px;
+            color: #212529; /* 深色标题 */
+            font-weight: 600; /* 加粗 */
         }
 
         .options label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px; /* 选项间距 */
             cursor: pointer;
+            padding: 8px 12px; /* 选项内边距 */
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .options label:hover {
+            background-color:#f1f1f1;
         }
 
-        /* 按钮样式 */
+        /* 选中状态 */
+        .options input[type="radio"]:checked + span {
+            font-weight: bold;
+            color:#0056b3;
+        }
+
+        /* ----- 按钮样式 ----- */
         .button {
-            background-color: #000;
+            background-color: #007bff; /* 主题色 */
             color: #fff;
-            padding: 10px 15px;
+            padding: 12px 18px; /* 稍大内边距 */
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-right: 10px;
+            font-size: 1rem; /* 稍大字号 */
+            transition: background-color 0.2s;
         }
 
         .button:disabled {
-            background-color: #999;
+            background-color: #ced4da; /* 更柔和的禁用色 */
             cursor: not-allowed;
         }
+        .button:hover:enabled { /* 仅当按钮启用时 */
+          background-color: #0056b3;
+        }
+
 
         /* 提交按钮样式 */
         #submit-button {
-          margin-top: auto; /* 将提交按钮推到底部 */
-          align-self: flex-end; /* 自身对齐到底部 */
-
+            margin-top: auto; /* 将提交按钮推到底部 */
+            align-self: flex-end; /* 自身对齐到底部 */
         }
 
-
-        /* 移动端样式 */
+        /* ----- 移动端样式 ----- */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
-                height: auto;
             }
 
             .content-area {
                 width: 100%;
-                height: 66.66vh;
                 border-right: none;
-                border-bottom: 1px solid #ccc;
-                padding-bottom: 0;
+                border-bottom: 1px solid #dee2e6;
+                padding: 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 底部阴影 */
+                height: auto; /* 移除固定高度 */
+                min-height: 50vh; /* 设置最小高度 */
             }
 
             .quiz-area {
                 width: 100%;
-                height: 33.33vh; /* 固定高度 */
-                overflow-y: visible;
-                position: relative;
-            }
-          .quiz-area.completed {
-                height: auto;
-                overflow-y: auto;
-            }
-
-            .question {
-                margin-bottom: 10px; /* 减少题目间距 */
+                padding: 20px;
+                box-shadow: none; /* 移除阴影 */
+                overflow-y: visible; /* 允许内容溢出 */
+                position: relative; /* 相对定位 */
             }
 
             .buttons-container {
-                position: absolute;
-                bottom: 10px;
-                left: 0; /* 修复水平居中 */
-                width: 100%;
-                display: flex;
-                justify-content: center;
+               margin-top: 1rem;
+               display: flex; /* 使用 Flexbox */
+               justify-content: space-around; /* 按钮均匀分布 */
+               width: 100%; /* 撑满宽度 */
+               padding: 0 20px; /* 左右内边距 */
+            }
+
+            .question {
+                margin-bottom: 15px; /* 减少题目间距 */
             }
             #submit-button{
               display:none;
             }
         }
-      /* 暗色模式 */
-        @media (prefers-color-scheme: dark) {
-          body {
-            background-color: #121212;
-            color: #ddd;
-          }
-
-          .content-area, .quiz-area {
-            border-color: #444;
-          }
-
-          .button {
-            background-color: #fff;
-            color: #000;
-          }
-
-          .button:disabled {
-            background-color: #666;
-          }
+        /* ----- 暗色模式 (可选) ----- */
+         @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #ddd;
+            }
+            .content-area,
+            .quiz-area {
+              background-color: #1e1e1e;
+              border-color: #444;
+              box-shadow: none; /* 暗色模式下通常不需要阴影 */
+            }
+            .content-area h2 {
+                color: #74a9ff;
+                border-color: #74a9ff
+            }
+              .options label:hover {
+                background-color:#515151;
+              }
+            .button {
+                background-color: #3490dc;
+                color: #fff
+            }
+            .button:disabled{
+              background-color: #666;
+            }
+            .options input[type="radio"]:checked+span{
+              color: #fff;
+            }
         }
-
     </style>
 </head>
 <body>
@@ -153,6 +199,7 @@
         <div class="quiz-area" id="quiz-area">
             <!-- 题目 -->
             <div id="questions-container"></div>
+
             <div class="buttons-container">
             <!-- 按钮 -->
             <button id="prev-button" class="button" disabled>上一题</button>
@@ -165,32 +212,31 @@
     </div>
 
     <script>
-        // (除了 checkAnswersAndProceed 函数，其余 JS 代码与之前相同)
+        // 文件三的内容 (格式化)
         const file3Content = `
-            FDO交流群内部发言原则（群规试行稿）
+            <h2>FDO交流群内部发言原则（群规试行稿）</h2>
+            <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
 
-            本群群成员，即FDO成员，在本群的发言需遵守本发言原则。
+            <p><b>本群不是八卦群：</b>本群不是用于八卦，不是各种未被可信来源证实的信息汇聚的地方。任何在本群提出的事实性内容需要可信来源，任何人都可以/应该对他人提出的信息请求可信来源。提出信息者负举出可信来源的责任。可信来源根据#T事实核查原则判断。</p>
 
-            本群不是八卦群：本群不是用于八卦，不是各种未被可信来源证实的信息汇聚的地方。任何在本群提出的事实性内容需要可信来源，任何人都可以/应该对他人提出的信息请求可信来源。提出信息者负举出可信来源的责任。可信来源根据#T事实核查原则判断。
+            <p><b>本群不是饭桌酒席：</b>本群是允许/尊重/鼓励不同观点的群聊，而不只是同温层的交流群。本群内发言不能在没有符合逻辑的论证情况对任何观点下出结论。提出结论者负论证的责任。在本群对待不同观点内要包容、善意推定，对自己已认识到的的错误要及时承认。</p>
 
-            本群不是饭桌酒席：本群是允许/尊重/鼓励不同观点的群聊，而不只是同温层的交流群。本群内发言不能在没有符合逻辑的论证情况对任何观点下出结论。提出结论者负论证的责任。在本群对待不同观点内要包容、善意推定，对自己已认识到的的错误要及时承认。
+            <p><b>本群不是政治游乐场：</b>本群不是用于发泄情绪的群聊。本群讨论内容或该与当前话题有关，或该新起话题，而不应该有离题内容。本群禁止无关表情包/图片/视频。本群内发言不能包含无必要的侮辱性质词语。</p>
 
-            本群不是政治游乐场：本群不是用于发泄情绪的群聊。本群讨论内容或该与当前话题有关，或该新起话题，而不应该有离题内容。本群禁止无关表情包/图片/视频。本群内发言不能包含无必要的侮辱性质词语。
-
-            本群不是新闻媒体：本群提供的不是时时新闻，本群主要目的为互相交流观点，但也不拒绝带有观点评价的新闻。
+            <p><b>本群不是新闻媒体：</b>本群提供的不是时时新闻，本群主要目的为互相交流观点，但也不拒绝带有观点评价的新闻。</p>
 
 
-            FDOrganization事实查证方针（试行稿）
-            简而言之：事实需要可信引证，谁提出谁查证
-
-            个人观点：在表达个人观点时，不需要引证。
-            引述观点：在引述其他人的观点时，需要可靠引证。可靠引证分为两种情况，对于群内人员应直接使用引用功能引用元内容。对于群外人员，需要可信的来源，比如个人认证的社交媒体账号，可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。
-            引述事实：在引述事实时最好选择维基百科，或者其他的可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。
-
-            引用本方针简称 #T方针 或 #T
+            <h2>FDOrganization事实查证方针（试行稿）</h2>
+            <p>简而言之：事实需要可信引证，谁提出谁查证</p>
+            <ul>
+            <li><b>个人观点：</b>在表达个人观点时，不需要引证。</li>
+            <li><b>引述观点：</b>在引述其他人的观点时，需要可靠引证。可靠引证分为两种情况，对于群内人员应直接使用引用功能引用元内容。对于群外人员，需要可信的来源，比如个人认证的社交媒体账号，可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。</li>
+            <li><b>引述事实：</b>在引述事实时最好选择维基百科，或者其他的可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。</li>
+            </ul>
+            <p>引用本方针简称 #T方针 或 #T</p>
         `;
 
-        // 题目数据
+        // 题目数据 (保持不变)
         const questions = [
             {
                 text: "根据FDO群规，以下哪种行为是不被允许的？",
@@ -278,7 +324,7 @@
                 questionHTML += `
                     <label>
                         <input type="radio" name="question-${index}" value="${option[0]}" ${userAnswers[index] === option[0] ? 'checked' : ''}>
-                        ${option}
+                        <span>${option}</span>
                     </label>
                 `;
             });
