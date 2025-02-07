@@ -10,8 +10,8 @@
             font-family: 'Helvetica Neue', 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0; /* 浅灰色背景 */
-            color: #333; /* 深灰色文字 */
+            background-color: #f0f0f0;
+            color: #333;
             line-height: 1.6;
         }
 
@@ -24,17 +24,17 @@
         /* ----- 左侧内容区 (文件三) ----- */
         .content-area {
             width: 66.66%;
-            overflow-y: auto; /* 允许滚动 */
+            overflow-y: auto;
             padding: 25px;
-            background-color: #fff; /* 白色背景 */
+            background-color: #fff;
             border-right: 1px solid #ccc;
         }
 
         .content-area h2 {
             font-size: 1.5rem;
-            color: #000; /* 黑色标题 */
+            color: #000;
             margin-bottom: 1rem;
-            border-bottom: 2px solid #000; /* 黑色下划线 */
+            border-bottom: 2px solid #000;
             padding-bottom: 0.5rem;
             display: inline-block;
         }
@@ -43,7 +43,7 @@
             margin-bottom: 1rem;
             text-indent: 2em;
             line-height: 1.8;
-            color: #555; /* 稍浅的灰色文字 */
+            color: #555;
         }
         .content-area ul {
           padding-left: 2em;
@@ -53,28 +53,43 @@
         .quiz-area {
             width: 33.33%;
             padding: 25px;
-            background-color: #f0f0f0; /* 与 body 相同的背景色 */
+            background-color: #f0f0f0;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* 垂直居中 */
-            align-items: center;    /* 水平居中 (可选) */
-            position: relative; /* 相对定位 */
+            justify-content: center;
+            align-items: center;
+            position: relative; /* 保持相对定位 */
         }
-        .quiz-area-inner{
-                max-height: 80vh;
-                overflow-y: auto;
-                width:100%;
+        /* 内部容器 */
+        .quiz-area-inner {
+            position: sticky; /* 悬浮的关键 */
+            top: 50%;       /* 垂直居中 */
+            transform: translateY(-50%); /* 垂直居中 */
+            width: 100%;
+            max-height: 80vh; /* 最大高度限制 */
+            overflow-y: auto; /* 如果题目内容过多，允许滚动 */
         }
-
         /* ----- 题目样式 ----- */
         .question {
             margin-bottom: 25px;
+              opacity: 1; /* 初始不透明 */
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .question.fade-out {
+          opacity: 0; /* 消失时透明度为0 */
+          filter: blur(5px); /* 模糊效果 */
+        }
+
+        .question.fade-in{
+          opacity: 1;
+          filter: blur(0);
         }
 
         .question h3 {
             font-size: 1.3rem;
             margin-bottom: 12px;
-            color: #000; /* 黑色标题 */
+            color: #000;
             font-weight: 600;
         }
 
@@ -85,21 +100,21 @@
             padding: 8px 12px;
             border-radius: 4px;
             transition: background-color 0.2s;
-            color: #555;       /* 选项文字颜色 */
+            color: #555;
         }
 
         .options label:hover {
-            background-color: #e9ecef; /* 浅灰色悬停背景 */
+            background-color: #e9ecef;
         }
 
         .options input[type="radio"]:checked + span {
             font-weight: bold;
-            color: #000; /* 选中状态为黑色 */
+            color: #000;
         }
 
         /* ----- 按钮样式 ----- */
         .button {
-            background-color: #000; /* 黑色按钮 */
+            background-color: #000;
             color: #fff;
             padding: 12px 18px;
             border: none;
@@ -109,24 +124,23 @@
             font-size: 1rem;
             transition: background-color 0.2s;
         }
-        .button:disabled {
+
+        .button:disabled{
             background-color: #aaa;
             cursor:not-allowed;
         }
-
         .button:hover:enabled {
-            background-color: #333; /* 深灰色悬停 */
+            background-color: #333;
         }
 
         /* 提交按钮样式 */
         #submit-button {
-            margin-top: 20px; /* 与上方按钮的间距 */
-            align-self: center; /* 水平居中 */
+            margin-top: 20px;
+            align-self: center;
         }
 
-
         /* ----- 移动端样式 ----- */
-        @media (max-width: 768px) {
+         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
             }
@@ -138,7 +152,7 @@
                 padding: 20px;
                 height: auto;
                 min-height: 60vh; /* 调整最小高度 */
-                box-sizing: border-box; /* 重要：避免 padding 影响高度计算 */
+                box-sizing: border-box;
 
             }
 
@@ -148,7 +162,6 @@
                 position: fixed; /* 固定定位 */
                 bottom: 0;       /* 底部对齐 */
                 left: 0;        /* 左侧对齐 */
-                /* 根据需要调整高度，确保题目能完整显示，但又不会过高 */
                 max-height: 40vh;  /* 最大高度 */
                 overflow-y: auto;  /* 如果题目内容过多，允许滚动 */
                 justify-content: flex-start; /* 顶部对齐 */
@@ -156,10 +169,11 @@
 
             }
               .quiz-area-inner {
-                max-height: none; /* 移除内部容器的最大高度限制 */
-                overflow-y: visible; /* 允许内部内容溢出 */
+                position: static; /* 取消固定定位 */
+                transform: none;  /* 取消变换 */
+                max-height: none;
+                overflow-y: visible;
                 width: 100%;
-
             }
             .buttons-container{
               display:flex;
@@ -175,8 +189,9 @@
             }
         }
 
+
         /* ----- 暗色模式 (可选) ----- */
-        @media (prefers-color-scheme: dark) {
+       @media (prefers-color-scheme: dark) {
             body {
                 background-color: #121212;
                 color: #ddd;
@@ -247,8 +262,8 @@
     </div>
 
     <script>
-       // (JS 代码与上一版相同, 只需要复制样式部分的修改)
-       // 文件三的内容 (格式化)
+        // (JS 代码有改动，需要复制)
+        // 文件三的内容 (格式化)
         const file3Content = `
             <h2>FDO交流群内部发言原则（群规试行稿）</h2>
             <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
@@ -272,8 +287,8 @@
             <p>引用本方针简称 #T方针 或 #T</p>
         `;
 
-        // 题目数据 (保持不变)
-        const questions = [
+        // 题目数据
+ const questions = [
             {
                 text: "根据FDO群规，以下哪种行为是不被允许的？",
                 options: [
@@ -334,7 +349,7 @@
 
         let currentQuestionIndex = 0;
         let userAnswers = [];
-        let hasAnswered = false; // 标记当前题目是否已作答
+        let hasAnswered = false;
 
         const contentArea = document.getElementById('content-area');
         const file3ContentDiv = document.getElementById('file3-content');
@@ -344,36 +359,62 @@
         const submitButton = document.getElementById('submit-button');
         const quizArea = document.getElementById('quiz-area');
 
-        // 初始加载文件三内容
         file3ContentDiv.innerHTML = file3Content;
 
-        // 显示题目
-        function displayQuestion(index) {
-            const question = questions[index];
-            let questionHTML = `
-                <div class="question" id="question-${index}">
-                    <h3>${index + 1}. ${question.text}</h3>
-                    <div class="options">
-            `;
+        // 显示题目 (修改)
+        function displayQuestion(index, animate = false) {
+          const question = questions[index];
+          let questionHTML = `
+              <div class="question" id="question-${index}">
+                  <h3>${index + 1}. ${question.text}</h3>
+                  <div class="options">
+          `;
 
-            question.options.forEach(option => {
-                questionHTML += `
-                    <label>
-                        <input type="radio" name="question-${index}" value="${option[0]}" ${userAnswers[index] === option[0] ? 'checked' : ''}>
-                        <span>${option}</span>
-                    </label>
-                `;
-            });
+          question.options.forEach(option => {
+              questionHTML += `
+                  <label>
+                      <input type="radio" name="question-${index}" value="${option[0]}" ${userAnswers[index] === option[0] ? 'checked' : ''}>
+                      <span>${option}</span>
+                  </label>
+              `;
+          });
 
-            questionHTML += `</div></div>`;
-            questionsContainer.innerHTML = questionHTML;
+          questionHTML += `</div></div>`;
 
-            // 禁用/启用 上一题 按钮
+          if (animate) {
+            // 先让当前题目淡出
+            const currentQuestionElem = document.querySelector('.question');
+            if (currentQuestionElem) {
+                currentQuestionElem.classList.add('fade-out');
+            }
+
+            // 延迟一段时间，等待淡出动画完成后再显示新题目
+            setTimeout(() => {
+              questionsContainer.innerHTML = questionHTML;
+              const newQuestionElem = document.querySelector('.question');
+              if (newQuestionElem){
+                newQuestionElem.classList.add('fade-in');
+              }
+              updateButtonStates(index); // 更新按钮状态
+            }, 400); //与css动画时间一致
+          } else {
+            questionsContainer.innerHTML = questionHTML; // 直接显示
+            updateButtonStates(index); // 更新按钮状态
+          }
+
+
+          // 更新内容区域
+          const fileContentDiv = document.getElementById(question.file);
+            if (fileContentDiv) {
+              fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // 更新按钮状态 (提取为独立函数)
+        function updateButtonStates(index) {
             prevButton.disabled = index === 0;
-
-            // 检查是否已回答
             hasAnswered = !!userAnswers[index];
-              // 根据是否已回答设置“下一题”按钮状态, 如果是最后一题，隐藏“下一题”按钮，显示“提交”按钮
+
             if (index === questions.length - 1) {
                 nextButton.style.display = 'none';
                 submitButton.style.display = 'inline-block';
@@ -383,22 +424,8 @@
                 submitButton.style.display = 'none';
                 nextButton.disabled = !hasAnswered;
             }
-
-            // 滚动到题目顶部 (移动端)
-            if (window.innerWidth <= 768) {
-              quizArea.scrollTop = 0;
-            }
-
-            // 更新内容区域
-            const fileContentDiv = document.getElementById(question.file);
-             if (fileContentDiv) {
-                // 如果内容已存在，则滚动到该内容
-                fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
         }
 
-
-        // 检查答案并跳转 *修改的部分*
         function checkAnswersAndProceed() {
             let correctCount = 0;
             for (let i = 0; i < questions.length; i++) {
@@ -408,72 +435,55 @@
             }
 
             if (correctCount >= questions.length - 1) {
-                // 过关，设置 Cookie 并跳转
-                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7); // 7天有效期
+                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7);
                 window.location.href = "/join";
-
             } else {
-                // 未过关，重置
                 alert(`很遗憾，您没有通过测试。答对 ${correctCount} 题，需要答对 ${questions.length - 1} 题及以上才能通过。请重新作答。`);
                 resetQuiz();
             }
         }
 
-
-        // 重置测验
         function resetQuiz() {
             currentQuestionIndex = 0;
             userAnswers = [];
             hasAnswered = false;
             displayQuestion(currentQuestionIndex);
-            file3ContentDiv.innerHTML = file3Content;  // 重新加载文件三
+            file3ContentDiv.innerHTML = file3Content;
         }
 
-        // 上一题
         prevButton.addEventListener('click', () => {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
-                displayQuestion(currentQuestionIndex);
+                displayQuestion(currentQuestionIndex, true); // 切换时添加动画
             }
         });
 
-        // 下一题/提交
-         nextButton.addEventListener('click', () => {
+        nextButton.addEventListener('click', () => {
             if (currentQuestionIndex < questions.length - 1 && hasAnswered) {
                 currentQuestionIndex++;
-                displayQuestion(currentQuestionIndex);
+                displayQuestion(currentQuestionIndex, true); // 切换时添加动画
             }
         });
 
-        // 提交
         submitButton.addEventListener('click', () => {
-            if(hasAnswered) {
+            if (hasAnswered) {
                 checkAnswersAndProceed();
             }
         });
 
-        // 监听选项变化
         questionsContainer.addEventListener('change', (event) => {
-          if (event.target.type === 'radio') {
-            const selectedAnswer = event.target.value;
-            userAnswers[currentQuestionIndex] = selectedAnswer;  // 更新答案
-            hasAnswered = true; // 标记为已回答
-            nextButton.disabled = false; // 启用“下一题”
-            if (currentQuestionIndex === questions.length - 1) {
-              submitButton.disabled = false;
+            if (event.target.type === 'radio') {
+                const selectedAnswer = event.target.value;
+                userAnswers[currentQuestionIndex] = selectedAnswer;
+                hasAnswered = true;
+                nextButton.disabled = false; // 启用“下一题”
+                if(currentQuestionIndex === questions.length -1){
+                  submitButton.disabled = false;
+                }
             }
-
-            // 如果不是最后一题，自动进入下一题（仅PC端）
-            if (window.innerWidth > 768 && currentQuestionIndex < questions.length - 1) {
-              currentQuestionIndex++;
-              displayQuestion(currentQuestionIndex);
-            }
-          }
-
         });
 
-        // 初始加载第一题
-        displayQuestion(currentQuestionIndex);
+        displayQuestion(currentQuestionIndex); // 初始加载，不带动画
     </script>
 </body>
 </html>
