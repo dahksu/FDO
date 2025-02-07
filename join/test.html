@@ -7,43 +7,43 @@
     <style>
         /* ----- 全局样式 ----- */
         body {
-            font-family: 'Helvetica Neue', 'Arial', sans-serif; /* 更现代的字体 */
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa; /* 更柔和的背景色 */
-            color: #343a40; /* 更柔和的文字颜色 */
+            background-color: #f0f0f0; /* 浅灰色背景 */
+            color: #333; /* 深灰色文字 */
             line-height: 1.6;
         }
 
         /* ----- 容器 ----- */
         .container {
             display: flex;
-            min-height: 100vh; /* 使用 min-height，允许内容超出 */
+            min-height: 100vh;
         }
 
-        /* ----- 左侧内容区 ----- */
+        /* ----- 左侧内容区 (文件三) ----- */
         .content-area {
             width: 66.66%;
-            overflow-y: auto;
-            padding: 25px; /* 增加内边距 */
-            border-right: 1px solid #dee2e6; /* 更柔和的边框颜色 */
+            overflow-y: auto; /* 允许滚动 */
+            padding: 25px;
             background-color: #fff; /* 白色背景 */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 添加轻微阴影 */
+            border-right: 1px solid #ccc;
         }
-        /* 文件三标题样式 */
+
         .content-area h2 {
             font-size: 1.5rem;
-            color: #007bff;
+            color: #000; /* 黑色标题 */
             margin-bottom: 1rem;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 2px solid #000; /* 黑色下划线 */
             padding-bottom: 0.5rem;
             display: inline-block;
         }
 
         .content-area p {
-            margin-bottom: 1rem; /* 段落间距 */
-            text-indent: 2em;   /* 首行缩进 */
-            line-height: 1.8;    /* 增加行高 */
+            margin-bottom: 1rem;
+            text-indent: 2em;
+            line-height: 1.8;
+            color: #555; /* 稍浅的灰色文字 */
         }
         .content-area ul {
           padding-left: 2em;
@@ -52,69 +52,78 @@
         /* ----- 右侧题目区 ----- */
         .quiz-area {
             width: 33.33%;
-            overflow-y: auto;
             padding: 25px;
-            background-color: #fff; /* 白色背景 */
-            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05); /* 左侧阴影 */
+            background-color: #f0f0f0; /* 与 body 相同的背景色 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中 */
+            align-items: center;    /* 水平居中 (可选) */
+            position: relative; /* 相对定位 */
+        }
+        .quiz-area-inner{
+                max-height: 80vh;
+                overflow-y: auto;
+                width:100%;
         }
 
         /* ----- 题目样式 ----- */
         .question {
-            margin-bottom: 25px; /* 增加题目间距 */
+            margin-bottom: 25px;
         }
 
         .question h3 {
-            font-size: 1.3rem; /* 稍大字号 */
+            font-size: 1.3rem;
             margin-bottom: 12px;
-            color: #212529; /* 深色标题 */
-            font-weight: 600; /* 加粗 */
+            color: #000; /* 黑色标题 */
+            font-weight: 600;
         }
 
         .options label {
             display: block;
-            margin-bottom: 8px; /* 选项间距 */
+            margin-bottom: 8px;
             cursor: pointer;
-            padding: 8px 12px; /* 选项内边距 */
+            padding: 8px 12px;
             border-radius: 4px;
             transition: background-color 0.2s;
-        }
-        .options label:hover {
-            background-color:#f1f1f1;
+            color: #555;       /* 选项文字颜色 */
         }
 
-        /* 选中状态 */
+        .options label:hover {
+            background-color: #e9ecef; /* 浅灰色悬停背景 */
+        }
+
         .options input[type="radio"]:checked + span {
             font-weight: bold;
-            color:#0056b3;
+            color: #000; /* 选中状态为黑色 */
         }
 
         /* ----- 按钮样式 ----- */
         .button {
-            background-color: #007bff; /* 主题色 */
+            background-color: #000; /* 黑色按钮 */
             color: #fff;
-            padding: 12px 18px; /* 稍大内边距 */
+            padding: 12px 18px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-right: 10px;
-            font-size: 1rem; /* 稍大字号 */
+            font-size: 1rem;
             transition: background-color 0.2s;
         }
-
         .button:disabled {
-            background-color: #ced4da; /* 更柔和的禁用色 */
-            cursor: not-allowed;
-        }
-        .button:hover:enabled { /* 仅当按钮启用时 */
-          background-color: #0056b3;
+            background-color: #aaa;
+            cursor:not-allowed;
         }
 
+        .button:hover:enabled {
+            background-color: #333; /* 深灰色悬停 */
+        }
 
         /* 提交按钮样式 */
         #submit-button {
-            margin-top: auto; /* 将提交按钮推到底部 */
-            align-self: flex-end; /* 自身对齐到底部 */
+            margin-top: 20px; /* 与上方按钮的间距 */
+            align-self: center; /* 水平居中 */
         }
+
 
         /* ----- 移动端样式 ----- */
         @media (max-width: 768px) {
@@ -125,71 +134,96 @@
             .content-area {
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid #dee2e6;
+                border-bottom: 1px solid #ccc;
                 padding: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 底部阴影 */
-                height: auto; /* 移除固定高度 */
-                min-height: 50vh; /* 设置最小高度 */
+                height: auto;
+                min-height: 60vh; /* 调整最小高度 */
+                box-sizing: border-box; /* 重要：避免 padding 影响高度计算 */
+
             }
 
             .quiz-area {
                 width: 100%;
                 padding: 20px;
-                box-shadow: none; /* 移除阴影 */
-                overflow-y: visible; /* 允许内容溢出 */
-                position: relative; /* 相对定位 */
-            }
+                position: fixed; /* 固定定位 */
+                bottom: 0;       /* 底部对齐 */
+                left: 0;        /* 左侧对齐 */
+                /* 根据需要调整高度，确保题目能完整显示，但又不会过高 */
+                max-height: 40vh;  /* 最大高度 */
+                overflow-y: auto;  /* 如果题目内容过多，允许滚动 */
+                justify-content: flex-start; /* 顶部对齐 */
+                background-color: #f8f9fa;
 
-            .buttons-container {
-               margin-top: 1rem;
-               display: flex; /* 使用 Flexbox */
-               justify-content: space-around; /* 按钮均匀分布 */
-               width: 100%; /* 撑满宽度 */
-               padding: 0 20px; /* 左右内边距 */
+            }
+              .quiz-area-inner {
+                max-height: none; /* 移除内部容器的最大高度限制 */
+                overflow-y: visible; /* 允许内部内容溢出 */
+                width: 100%;
+
+            }
+            .buttons-container{
+              display:flex;
+              justify-content: space-around;
+              width: 100%;
             }
 
             .question {
-                margin-bottom: 15px; /* 减少题目间距 */
+                margin-bottom: 15px;
             }
             #submit-button{
               display:none;
             }
         }
+
         /* ----- 暗色模式 (可选) ----- */
-         @media (prefers-color-scheme: dark) {
+        @media (prefers-color-scheme: dark) {
             body {
                 background-color: #121212;
                 color: #ddd;
             }
-            .content-area,
-            .quiz-area {
-              background-color: #1e1e1e;
-              border-color: #444;
-              box-shadow: none; /* 暗色模式下通常不需要阴影 */
+
+            .content-area {
+                background-color: #1e1e1e;
+                border-color: #444;
             }
+
             .content-area h2 {
-                color: #74a9ff;
-                border-color: #74a9ff
+                color: #fff;
+                border-color: #fff;
             }
-              .options label:hover {
-                background-color:#515151;
-              }
+            .content-area p{
+                color:#aaa;
+            }
+
+            .quiz-area {
+                background-color: #121212; /* 与 body 相同的背景色 */
+            }
+
+            .options label {
+                color: #aaa;
+            }
+
+            .options label:hover {
+                background-color: #333;
+            }
+
+            .options input[type="radio"]:checked + span {
+                color: #fff;
+            }
+
             .button {
-                background-color: #3490dc;
-                color: #fff
+                background-color: #fff;
+                color: #000;
             }
             .button:disabled{
-              background-color: #666;
-            }
-            .options input[type="radio"]:checked+span{
-              color: #fff;
+              background-color:#666
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 左侧内容区域 -->
+        <!-- 左侧内容区域 (文件三) -->
         <div class="content-area" id="content-area">
             <!-- 文件三内容 -->
             <div id="file3-content"></div>
@@ -197,22 +231,24 @@
 
         <!-- 右侧题目区域 -->
         <div class="quiz-area" id="quiz-area">
-            <!-- 题目 -->
-            <div id="questions-container"></div>
+            <div class="quiz-area-inner">
+              <!-- 题目 -->
+              <div id="questions-container"></div>
 
-            <div class="buttons-container">
-            <!-- 按钮 -->
-            <button id="prev-button" class="button" disabled>上一题</button>
-            <button id="next-button" class="button" >下一题</button>
+              <div class="buttons-container">
+              <!-- 按钮 -->
+              <button id="prev-button" class="button" disabled>上一题</button>
+              <button id="next-button" class="button" >下一题</button>
+              </div>
+              <!-- 提交按钮 -->
+              <button id="submit-button" class="button" style="display: none;">提交</button>
             </div>
-            <!-- 提交按钮 -->
-            <button id="submit-button" class="button" style="display: none;">提交</button>
-
         </div>
     </div>
 
     <script>
-        // 文件三的内容 (格式化)
+       // (JS 代码与上一版相同, 只需要复制样式部分的修改)
+       // 文件三的内容 (格式化)
         const file3Content = `
             <h2>FDO交流群内部发言原则（群规试行稿）</h2>
             <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
