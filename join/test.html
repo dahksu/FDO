@@ -45,8 +45,9 @@
             line-height: 1.8;
             color: #555;
         }
+
         .content-area ul {
-          padding-left: 2em;
+            padding-left: 2em;
         }
 
         /* ----- 右侧题目区 ----- */
@@ -60,7 +61,8 @@
             align-items: center;
             position: relative; /* 保持相对定位 */
         }
-        /* 内部容器 */
+
+        /* 内部容器 (电脑版题目固定) */
         .quiz-area-inner {
             position: sticky; /* 悬浮的关键 */
             top: 50%;       /* 垂直居中 */
@@ -69,23 +71,22 @@
             max-height: 80vh; /* 最大高度限制 */
             overflow-y: auto; /* 如果题目内容过多，允许滚动 */
         }
+
         /* ----- 题目样式 ----- */
         .question {
             margin-bottom: 25px;
-              opacity: 1; /* 初始不透明 */
+            opacity: 1;
             transition: opacity 0.4s ease-in-out;
         }
 
         .question.fade-out {
-          opacity: 0; /* 消失时透明度为0 */
-          filter: blur(5px); /* 模糊效果 */
+            opacity: 0;
+            filter: blur(5px);
         }
-
         .question.fade-in{
-          opacity: 1;
-          filter: blur(0);
+            opacity: 1;
+            filter:blur(0);
         }
-
         .question h3 {
             font-size: 1.3rem;
             margin-bottom: 12px;
@@ -125,10 +126,11 @@
             transition: background-color 0.2s;
         }
 
-        .button:disabled{
+        .button:disabled {
             background-color: #aaa;
-            cursor:not-allowed;
+            cursor: not-allowed;
         }
+
         .button:hover:enabled {
             background-color: #333;
         }
@@ -140,7 +142,7 @@
         }
 
         /* ----- 移动端样式 ----- */
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
             .container {
                 flex-direction: column;
             }
@@ -150,46 +152,45 @@
                 border-right: none;
                 border-bottom: 1px solid #ccc;
                 padding: 20px;
+                padding-bottom: 200px; /* 增加底部内边距 */
                 height: auto;
-                min-height: 60vh; /* 调整最小高度 */
+                min-height: 60vh;
                 box-sizing: border-box;
-
             }
 
             .quiz-area {
                 width: 100%;
-                padding: 20px;
-                position: fixed; /* 固定定位 */
-                bottom: 0;       /* 底部对齐 */
-                left: 0;        /* 左侧对齐 */
-                max-height: 40vh;  /* 最大高度 */
-                overflow-y: auto;  /* 如果题目内容过多，允许滚动 */
-                justify-content: flex-start; /* 顶部对齐 */
-                background-color: #f8f9fa;
-
+                padding: 20px; /* 增加内边距 */
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                max-height: 45vh; /* 适当增加最大高度 */
+                overflow-y: auto;
+                justify-content: flex-start;
+                 /* 毛玻璃效果 */
+                background-color: rgba(248, 249, 250, 0.8); /* 半透明背景 */
+                backdrop-filter: blur(10px); /* 模糊效果 */
+                -webkit-backdrop-filter: blur(10px); /* 兼容性 */
             }
-              .quiz-area-inner {
-                position: static; /* 取消固定定位 */
-                transform: none;  /* 取消变换 */
+
+            .quiz-area-inner {
+                position: static;
+                transform: none;
                 max-height: none;
                 overflow-y: visible;
                 width: 100%;
             }
-            .buttons-container{
-              display:flex;
-              justify-content: space-around;
-              width: 100%;
-            }
 
-            .question {
-                margin-bottom: 15px;
+            .buttons-container {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                margin-top: 15px; /* 增加按钮与选项的间距 */
             }
-            #submit-button{
+             #submit-button{
               display:none;
             }
         }
-
-
         /* ----- 暗色模式 (可选) ----- */
        @media (prefers-color-scheme: dark) {
             body {
@@ -233,11 +234,17 @@
             .button:disabled{
               background-color:#666
             }
+             @media (max-width: 768px) {
+                .quiz-area{
+                    background-color: rgba(18, 18, 18, 0.8); /* 暗色模式下的半透明 */
+                }
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+<!-- (HTML 结构与之前相同，保持不变) -->
+ <div class="container">
         <!-- 左侧内容区域 (文件三) -->
         <div class="content-area" id="content-area">
             <!-- 文件三内容 -->
@@ -260,10 +267,9 @@
             </div>
         </div>
     </div>
-
     <script>
-        // (JS 代码有改动，需要复制)
-        // 文件三的内容 (格式化)
+         // (JS 代码与上一版相同)
+// 文件三的内容 (格式化)
         const file3Content = `
             <h2>FDO交流群内部发言原则（群规试行稿）</h2>
             <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
