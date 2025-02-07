@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FDO 入群测试</title>
     <style>
-      /* ----- 全局样式 ----- */
+        /* ----- 全局样式 ----- */
         body {
             font-family: 'Helvetica Neue', 'Arial', sans-serif;
             margin: 0;
@@ -59,17 +59,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative; /* 保持相对定位 */
+            position: relative;
         }
 
         /* 内部容器 (电脑版题目固定) */
         .quiz-area-inner {
-            position: sticky; /* 悬浮的关键 */
-            top: 50%;       /* 垂直居中 */
-            transform: translateY(-50%); /* 垂直居中 */
+            position: sticky;
+            top: 50%;
+            transform: translateY(-50%);
             width: 100%;
-            max-height: 80vh; /* 最大高度限制 */
-            overflow-y: auto; /* 如果题目内容过多，允许滚动 */
+            max-height: 80vh;
+            overflow-y: auto; /* 允许题目内容滚动 */
         }
 
         /* ----- 题目样式 ----- */
@@ -90,7 +90,7 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 4px;
-            transition: background-color: 0.2s;
+            transition: background-color 0.2s;
             color: #555;
         }
 
@@ -113,7 +113,7 @@
             cursor: pointer;
             margin-right: 10px;
             font-size: 1rem;
-            transition: background-color: 0.2s;
+            transition: background-color 0.2s;
         }
 
         .button:disabled {
@@ -142,7 +142,7 @@
                 border-right: none;
                 border-bottom: 1px solid #ccc;
                 padding: 20px;
-                padding-bottom: 250px; /* 再次调整底部内边距 */
+                padding-bottom: 250px;
                 height: auto;
                 min-height: 60vh;
                 box-sizing: border-box;
@@ -157,7 +157,6 @@
                 max-height: 45vh;
                 overflow-y: auto;
                 justify-content: flex-start;
-                 /* 毛玻璃效果 */
                 background-color: rgba(248, 249, 250, 0.8);
                 backdrop-filter: blur(10px);
                 -webkit-backdrop-filter: blur(10px);
@@ -177,8 +176,9 @@
                 width: 100%;
                 margin-top: 15px;
             }
-             #submit-button{
-              display:none;
+
+            #submit-button {
+                display: none;
             }
         }
 
@@ -198,9 +198,11 @@
                 color: #fff;
                 border-color: #fff;
             }
-            .content-area p{
-                color:#aaa;
+
+            .content-area p {
+                color: #aaa;
             }
+
             .quiz-area {
                 background-color: #121212;
             }
@@ -221,10 +223,11 @@
                 background-color: #fff;
                 color: #000;
             }
-            .button:disabled{
-              background-color:#666
+
+            .button:disabled {
+                background-color: #666
             }
-             @media (max-width: 768px) {
+                @media (max-width: 768px) {
                 .quiz-area{
                     background-color: rgba(18, 18, 18, 0.8); /* 暗色模式下的半透明 */
                 }
@@ -258,7 +261,7 @@
     </div>
 
     <script>
-        // 文件三的内容 (格式化, 增加了新内容)
+// 文件三的内容 (格式化, 增加了新内容)
         const file3Content = `
             <h2>FDO交流群内部发言原则（群规试行稿）</h2>
             <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
@@ -293,74 +296,91 @@
         `;
 
         // 题库 (增加了更多题目)
-       const questions = [
+        const questions = [
           {
             text: "根据FDO群规，以下哪种行为是不被允许的？",
-            options: ["A. 分享经过Fact Check的新闻报道", "B. 对其他成员的观点提出质疑，并要求提供可信来源", "C. 在群里发布大量未经证实的八卦消息", "D. 理性讨论，即使观点不同也互相尊重"],
-            correctAnswer: "C",
+            options: ["分享经过Fact Check的新闻报道", "对其他成员的观点提出质疑，并要求提供可信来源", "在群里发布大量未经证实的八卦消息", "理性讨论，即使观点不同也互相尊重"],
+            correctAnswer: "在群里发布大量未经证实的八卦消息",
             file: "file3-content"
           },
           {
             text: "FDO群内讨论时，对待不同观点的正确态度是什么？",
-            options: ["A. 直接否定，不予理睬", "B. 包容、善意推定，并进行理性讨论", "C. 只能接受与自己相同的观点", "D. 随意嘲讽、攻击不同观点"],
-            correctAnswer: "B",
+            options: ["直接否定，不予理睬", "包容、善意推定，并进行理性讨论", "只能接受与自己相同的观点", "随意嘲讽、攻击不同观点"],
+            correctAnswer: "包容、善意推定，并进行理性讨论",
             file: "file3-content"
           },
           {
             text: "关于在FDO群内提出事实性内容，以下说法正确的是？",
-            options: ["A. 不需要提供任何来源，因为是个人观点", "B. 提出者有责任提供可信来源", "C. 只要是自己相信的，就不需要来源", "D. 来源是否可信不重要"],
-            correctAnswer: "B",
+            options: ["不需要提供任何来源，因为是个人观点", "提出者有责任提供可信来源", "只要是自己相信的，就不需要来源", "来源是否可信不重要"],
+            correctAnswer: "提出者有责任提供可信来源",
             file: "file3-content"
           },
           {
             text: "以下哪种情况不需要提供引证？",
-            options: ["A. 引述其他群成员的观点", "B. 引述新闻报道", "C. 表达个人观点", "D. 引述维基百科内容"],
-            correctAnswer: "C",
+            options: ["引述其他群成员的观点", "引述新闻报道", "表达个人观点", "引述维基百科内容"],
+            correctAnswer: "表达个人观点",
             file: "file3-content"
           },
           {
             text: "如果在群里看到有人发布了你认为不可靠的信息，你应该怎么做？",
-            options: ["A. 直接举报给管理员", "B. 私下联系发布者，要求删除", "C. 在群里公开质疑，并要求对方提供可信来源", "D. 不予理睬，或者嘲讽对方"],
-            correctAnswer: "C",
+            options: ["直接举报给管理员", "私下联系发布者，要求删除", "在群里公开质疑，并要求对方提供可信来源", "不予理睬，或者嘲讽对方"],
+            correctAnswer: "在群里公开质疑，并要求对方提供可信来源",
             file: "file3-content"
           },
           {
             text: "根据 #T 方针，引述事实时最好选择什么来源？",
-            options: ["A. 个人社交媒体账号", "B. 维基百科或可信媒体报道", "C. 朋友的口头转述", "D. 任何来源都可以"],
-            correctAnswer: "B",
+            options: ["个人社交媒体账号", "维基百科或可信媒体报道", "朋友的口头转述", "任何来源都可以"],
+            correctAnswer: "维基百科或可信媒体报道",
             file: "file3-content"
           },
           {
             text: "根据 #C 方针，在讨论中应该如何对待新手？",
-            options: ["A. 严厉批评", "B. 善意推定，耐心引导", "C. 不予理睬", "D. 要求新手立即熟悉所有规则"],
-            correctAnswer: "B",
+            options: ["严厉批评", "善意推定，耐心引导", "不予理睬", "要求新手立即熟悉所有规则"],
+            correctAnswer: "善意推定，耐心引导",
             file: "file3-content"
           },
           {
             text: "在激烈的讨论中，如果你事后感到后悔，应该怎么做？",
-            options: ["A. 保持沉默", "B. 坚持自己的观点", "C. 说出来，表达悔意", "D. 攻击对方"],
-            correctAnswer: "C",
+            options: ["保持沉默", "坚持自己的观点", "说出来，表达悔意", "攻击对方"],
+            correctAnswer: "说出来，表达悔意",
             file: "file3-content"
           },
           {
             text: "在 FDO 群内，以下哪种行为符合“善意假定”原则？",
-            options: ["A. 怀疑对方的动机", "B. 假定对方的言论是出于善意", "C. 直接指责对方", "D. 不相信任何人的话"],
-            correctAnswer: "B",
+            options: ["怀疑对方的动机", "假定对方的言论是出于善意", "直接指责对方", "不相信任何人的话"],
+            correctAnswer: "假定对方的言论是出于善意",
             file: "file3-content"
           },
            {
             text: "为了保证讨论的连贯性，当群内有多个话题同时进行时，你应该：",
-            options: ["A. 想说什么就说什么", "B. 引用要回应的发言", "C. 只参与自己发起的话题", "D. 不参与任何讨论"],
-            correctAnswer: "B",
+            options: ["想说什么就说什么", "引用要回应的发言", "只参与自己发起的话题", "不参与任何讨论"],
+            correctAnswer: "引用要回应的发言",
             file: "file3-content"
+          },
+          {
+            text: "当你在群里分享一个事实性信息，但没有注明出处时，默认的出处是：",
+            options: ["你自己的经验", "你听说的消息", "维基百科", "不需要出处"],
+            correctAnswer: "维基百科",
+            file: "file3-content"
+          },
+          {
+            text: "在 FDO 群内，如果有人提出了一个你不同意的观点，你应该：",
+            options: ["直接反驳，不留情面", "要求对方提供证据，并进行理性讨论", "私下里抱怨", "不予理会"],
+            correctAnswer: "要求对方提供证据，并进行理性讨论",
+            file: "file3-content"
+          },
+          {
+           text: "以下哪项 *不符合* #C 方针中“遵守礼仪”的要求？",
+           options: ["争论事实，不进行人身攻击", "围绕问题本身进行讨论", "使用脏话表达强烈情感", "在感到后悔时，表达歉意"],
+           correctAnswer: "使用脏话表达强烈情感",
+           file: "file3-content"
           }
         ];
-
 
         let currentQuestionIndex = 0;
         let userAnswers = [];
         let hasAnswered = false;
-        let currentQuestions = []; // 存储当前抽取的题目
+        let currentQuestions = [];
 
         const contentArea = document.getElementById('content-area');
         const file3ContentDiv = document.getElementById('file3-content');
@@ -372,7 +392,6 @@
 
         file3ContentDiv.innerHTML = file3Content;
 
-        // 打乱数组顺序 (Fisher-Yates 洗牌算法)
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -381,45 +400,49 @@
             return array;
         }
 
-        // 从题库中随机抽取 n 道题
         function getRandomQuestions(questions, n) {
-          const shuffled = shuffleArray([...questions]); // 创建副本并打乱
-          return shuffled.slice(0, n);
+            const shuffled = shuffleArray([...questions]);
+            return shuffled.slice(0, n);
         }
 
-      // 显示题目 (修改：选项乱序)
-      function displayQuestion(index) {
-        const question = currentQuestions[index]; // 使用 currentQuestions
-        let questionHTML = `
-            <div class="question" id="question-${index}">
-                <h3>${index + 1}. ${question.text}</h3>
-                <div class="options">
-        `;
-
-        // 打乱选项顺序
-        const shuffledOptions = shuffleArray(question.options);
-
-        shuffledOptions.forEach(option => {
-            questionHTML += `
-                <label>
-                    <input type="radio" name="question-${index}" value="${option[0]}" ${userAnswers[index] === option[0] ? 'checked' : ''}>
-                    <span>${option}</span>
-                </label>
+        // 显示题目 (修改：无字母，保持滚动位置)
+        function displayQuestion(index) {
+            const question = currentQuestions[index];
+            let questionHTML = `
+                <div class="question" id="question-${index}">
+                    <h3>${index + 1}. ${question.text}</h3>
+                    <div class="options">
             `;
-        });
 
-        questionHTML += `</div></div>`;
-        questionsContainer.innerHTML = questionHTML;
+            const shuffledOptions = shuffleArray(question.options);
 
-        updateButtonStates(index);
+            // 不再添加字母 (A, B, C, D)
+            shuffledOptions.forEach(option => {
+                questionHTML += `
+                    <label>
+                        <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
+                        <span>${option}</span>
+                    </label>
+                `;
+            });
 
-        const fileContentDiv = document.getElementById(question.file);
-        if (fileContentDiv) {
-            fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            questionHTML += `</div></div>`;
+
+            // 记录当前滚动位置
+            const scrollPosition = contentArea.scrollTop;
+
+            questionsContainer.innerHTML = questionHTML;
+            updateButtonStates(index);
+
+            // 恢复滚动位置
+            contentArea.scrollTop = scrollPosition;
+
+            const fileContentDiv = document.getElementById(question.file);
+            if (fileContentDiv) {
+                fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
-    }
 
-        // 更新按钮状态
         function updateButtonStates(index) {
             prevButton.disabled = index === 0;
             hasAnswered = !!userAnswers[index];
@@ -437,7 +460,7 @@
 
         function checkAnswersAndProceed() {
             let correctCount = 0;
-             for (let i = 0; i < currentQuestions.length; i++) { // 使用 currentQuestions
+            for (let i = 0; i < currentQuestions.length; i++) {
                 if (userAnswers[i] === currentQuestions[i].correctAnswer) {
                     correctCount++;
                 }
@@ -451,14 +474,22 @@
                 resetQuiz();
             }
         }
-
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+          // 检查是否有通过测试的 Cookie，如果有，直接跳转
+        if (getCookie('fdo_quiz_passed')) {
+            window.location.href = "/join";
+        }
         function resetQuiz() {
             currentQuestionIndex = 0;
             userAnswers = [];
             hasAnswered = false;
-            currentQuestions = getRandomQuestions(questions, 5); // 重新抽取题目
+            currentQuestions = getRandomQuestions(questions, 5);
             displayQuestion(currentQuestionIndex);
-            file3ContentDiv.innerHTML = file3Content; // 重新加载
+            file3ContentDiv.innerHTML = file3Content; // 重新加载内容
         }
 
         prevButton.addEventListener('click', () => {
@@ -487,13 +518,12 @@
                 userAnswers[currentQuestionIndex] = selectedAnswer;
                 hasAnswered = true;
                 nextButton.disabled = false;
-                if (currentQuestionIndex === currentQuestions.length - 1) {
+                 if (currentQuestionIndex === currentQuestions.length - 1) {
                   submitButton.disabled = false;
                 }
             }
         });
 
-        // 初始加载时，抽取题目并显示第一题
         currentQuestions = getRandomQuestions(questions, 5);
         displayQuestion(currentQuestionIndex);
     </script>
