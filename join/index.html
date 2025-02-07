@@ -111,7 +111,7 @@
       border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
-      transition: background-color 0.3s;
+      transition: background-color: 0.3s;
     }
     .btn:hover {
       background-color: #333;
@@ -131,6 +131,20 @@
       background: #ccc url('https://via.placeholder.com/150?text=QR+Code') center/cover no-repeat; 
       border-radius: 8px;
     }
+     /* 前往测试按钮样式 */
+    .go-to-test-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff; /* 醒目的蓝色 */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 20px; /* 与上方文字拉开距离 */
+    }
+    .go-to-test-btn:hover {
+      background-color: #0056b3;
+    }
 
     /* ===== 小屏幕适配 ===== */
     @media (max-width: 768px) {
@@ -147,57 +161,55 @@
   </style>
 </head>
 <body>
-
-  <!-- 加入我们 - 英文: Join Us-->
-  <section class="join-hero">
-    <div class="circle-decor"></div>
-    <div class="join-hero-content">
-      <h1>加入我们</h1>
-      <p>欢迎加入 FDO 的交流社区。我们目前有一种群聊方式，供你选择：  
-         更安全的 Signal 群组，和另一种国内常用的微信群聊（未完工）</p>
+    <div id="join-content">
+        <!-- 这里的内容会被 JavaScript 动态替换 -->
     </div>
-  </section>
 
-  <!-- 群聊卡片区 -->
-  <div class="container">
-    <div class="groups-section">
+    <script>
+      // 检查 Cookie 的函数
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
 
-      <!-- 1) Signal 群聊 -->
-      <div class="group-card">
-        <h3>Signal 群聊</h3>
-        <p>Signal是一款注重隐私与安全的通讯软件，推荐给注重数据安全的朋友。  
-           点击下方按钮添加管理员账号，申请后加群。</p>
-
-        <!-- 加入按钮，直接跳转Signal群聊链接 -->
-        <a class="btn signal-btn" 
-           href="https://signal.me/#eu/R2rbboAC3bTHOSOLTd1XfCRr6DHFJdoUaTqnmrUNdQYEY7OfyR1An6R6OJA3Rl7c"
-           target="_blank" 
-           rel="noopener noreferrer">
-          管理员X
-        </a>
-        <a class="btn signal-btn" 
-           href="https://signal.me/#eu/cJlJRG03jbrTps5-ajGuds2XUJ-dbN5ZM5S0qIqaZt6zrjxVnlFMq67cieKyTRay"
-           target="_blank" 
-           rel="noopener noreferrer">
-          管理员J
-        </a>
-      </div>
-
-      <!-- 2) 微信群聊 -->
-      <div class="group-card">
-        <h3>微信群聊</h3>
-        <p>如果你更习惯使用微信，可以扫描下方二维码进入我们的微信群，与其他成员一起互动讨论。</p>
-
-        <a class="btn signal-btn" 
-           href="https://weixin.qq.com/g/CQYAAIIPX0g6Dfu5TivoSBXcH_d1Z9wymOVRiKRv4PGjEeFTfRZXmMcnOqsro7Ls"
-           target="_blank" 
-           rel="noopener noreferrer">
-          加入微信群（目前无效，微信只支持扫码）
-        </a>
-      </div>
-
-    </div>
-  </div>
-
+        // 检查是否有通过测试的 Cookie
+        if (getCookie('fdo_quiz_passed')) {
+            // 显示文件二的内容
+            document.getElementById('join-content').innerHTML = `
+                <section class="join-hero">
+                    <div class="circle-decor"></div>
+                    <div class="join-hero-content">
+                        <h1>加入我们</h1>
+                        <p>欢迎加入 FDO 的交流社区。我们目前有两种群聊方式，供你选择：更安全的 Signal 群组，和另一种国内常用的微信群聊（未完工）</p>
+                    </div>
+                </section>
+                <div class="container">
+                    <div class="groups-section">
+                        <div class="group-card">
+                            <h3>Signal 群聊</h3>
+                            <p>Signal是一款注重隐私与安全的通讯软件，推荐给注重数据安全的朋友。点击下方按钮添加管理员账号，申请后加群。</p>
+                            <a class="btn signal-btn" href="https://signal.me/#eu/R2rbboAC3bTHOSOLTd1XfCRr6DHFJdoUaTqnmrUNdQYEY7OfyR1An6R6OJA3Rl7c" target="_blank" rel="noopener noreferrer">管理员X</a>
+                            <a class="btn signal-btn" href="https://signal.me/#eu/cJlJRG03jbrTps5-ajGuds2XUJ-dbN5ZM5S0qIqaZt6zrjxVnlFMq67cieKyTRay" target="_blank" rel="noopener noreferrer">管理员J</a>
+                        </div>
+                        <div class="group-card">
+                            <h3>微信群聊</h3>
+                            <p>如果你更习惯使用微信，可以扫描下方二维码进入我们的微信群，与其他成员一起互动讨论。</p>
+                            <a class="btn signal-btn" href="https://weixin.qq.com/g/CQYAAIIPX0g6Dfu5TivoSBXcH_d1Z9wymOVRiKRv4PGjEeFTfRZXmMcnOqsro7Ls" target="_blank" rel="noopener noreferrer">加入微信群（目前无效，微信只支持扫码）</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            // 显示提示信息和跳转按钮
+            document.getElementById('join-content').innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <h2>请先通过测试</h2>
+                    <p>您需要先通过我们的入群测试，才能查看加入方式。</p>
+                    <a href="/join/test" class="go-to-test-btn">前往测试</a>
+                </div>
+            `;
+        }
+    </script>
 </body>
 </html>
