@@ -182,57 +182,62 @@
             }
         }
 
-        /* ----- 暗色模式 (可选) ----- */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #ddd;
-            }
+/* ----- 暗色模式 ----- */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #ddd;
+    }
 
-            .content-area {
-                background-color: #1e1e1e;
-                border-color: #444;
-            }
+    .content-area {
+        background-color: #1e1e1e;
+        border-color: #444;
+    }
 
-            .content-area h2 {
-                color: #fff;
-                border-color: #fff;
-            }
+    .content-area h2 {
+        color: #fff;
+        border-color: #fff;
+    }
 
-            .content-area p {
-                color: #aaa;
-            }
+    .content-area p {
+        color: #aaa;
+    }
 
-            .quiz-area {
-                background-color: #121212;
-            }
+    .quiz-area {
+        background-color: #121212;
+    }
 
-            .options label {
-                color: #aaa;
-            }
+    /* 新增：问题题目颜色 */
+    .question h3 {
+        color: #fff; /* 或任何你想要的浅色 */
+    }
 
-            .options label:hover {
-                background-color: #333;
-            }
+    .options label {
+        color: #aaa;
+    }
 
-            .options input[type="radio"]:checked + span {
-                color: #fff;
-            }
+    .options label:hover {
+        background-color: #333;
+    }
 
-            .button {
-                background-color: #fff;
-                color: #000;
-            }
+    .options input[type="radio"]:checked + span {
+        color: #fff;
+    }
 
-            .button:disabled {
-                background-color: #666
-            }
-                @media (max-width: 768px) {
-                .quiz-area{
-                    background-color: rgba(18, 18, 18, 0.8); /* 暗色模式下的半透明 */
-                }
-            }
+    .button {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .button:disabled {
+        background-color: #666
+    }
+        @media (max-width: 768px) {
+        .quiz-area{
+            background-color: rgba(18, 18, 18, 0.8); /* 暗色模式下的半透明 */
         }
+    }
+}
     </style>
 </head>
 <body>
