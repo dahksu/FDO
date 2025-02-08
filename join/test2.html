@@ -57,6 +57,10 @@
             background-color: #f0f0f0;
             overflow-y: auto;
         }
+        .quiz-area-inner {
+            position: relative; /* 相对定位，为 sticky 定位提供参考 */
+            width: 100%;
+        }
 
         /* ----- 电脑版固定样式 ----- */
         @media (min-width: 1120px) {
@@ -66,10 +70,19 @@
                 right: 0;
                 bottom: 0;
             }
+
             .content-area {
-                max-width: calc(100% - 33.33% - 50px - 1px);
+                max-width: calc(100% - 33.33% - 60px - 1px); /* 增加间距 */
+            }
+
+            /* 题目内容定位 */
+            .quiz-area-inner {
+                position: sticky;
+                top: 61.8%; /* 黄金分割比例 */
+                transform: translateY(-100%); /* 向上偏移 */
             }
         }
+
         /* ----- 题目样式 ----- */
         .question {
             margin-bottom: 25px;
@@ -235,7 +248,8 @@
         </div>
 
         <!-- 右侧题目区域 -->
-        <div class="quiz-area" id="quiz-area">
+          <div class="quiz-area" id="quiz-area">
+            <div class="quiz-area-inner">  <!-- 重新引入 -->
                 <!-- 题目 -->
                 <div id="questions-container"></div>
 
@@ -246,6 +260,7 @@
                 </div>
                 <!-- 提交按钮 -->
                 <button id="submit-button" class="button" style="display: none;">提交</button>
+            </div> <!-- 重新引入 -->
         </div>
     </div>
 
