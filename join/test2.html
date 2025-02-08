@@ -60,25 +60,20 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            /* 移除可能干扰 sticky 的 overflow */
+            /* overflow: hidden;  如果有，移除 */
         }
+         /* 确保 .quiz-area 的所有父元素 (直到 body) 都没有 overflow: auto/scroll */
 
         /* ----- 内部容器 (电脑版题目固定) ----- */
         .quiz-area-inner {
             position: sticky;
-            /* top: 50%;  移除原有的垂直居中 */
-            /* transform: translateY(-50%); 移除 */
+            top: 24px; /* 根据实际情况调整 */
             width: 100%;
-            max-height: 80vh; /* 初始最大高度，可根据需要调整 */
+            max-height: calc(100vh - 48px); /* 根据实际情况调整 */
             overflow-y: auto;
         }
 
-        /* ----- 电脑版固定样式 (模仿维基百科) ----- */
-        @media (min-width: 1120px) {
-          .quiz-area-inner {
-            top: 24px; /* 假设没有顶部导航栏，只有间距 */
-            max-height: calc(100vh - 48px); /* 减去上下间距 */
-          }
-        }
         /* ----- 题目样式 ----- */
         .question {
             margin-bottom: 25px;
@@ -273,7 +268,7 @@
     </div>
 
     <script>
-// 文件三的内容 (格式化, 增加了新内容)
+// 文件三的内容
         const file3Content = `
             <h2>FDO交流群内部发言原则（群规试行稿）</h2>
             <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
@@ -307,7 +302,7 @@
             <p>完整引用本方针简称 #C方针 或 #C</p>
         `;
 
-// 题库 (增加了更多题目)
+// 题库
         const questions = [
           {
             text: "根据FDO群规，以下哪种行为是不被允许的？",
@@ -431,55 +426,43 @@
         }
 
         function getRandomQuestions(questions, n) {
-            const shuffled = shuffleArray([...questions]); // 创建副本并打乱
+            const shuffled = shuffleArray([...questions]);
             return shuffled.slice(0, n);
         }
 
-// 显示题目 (使用 MutationObserver)
-        function displayQuestion(index) {
-            const question = currentQuestions[index];
-            let questionHTML = `
-                <div class="question" id="question-${index}">
-                    <h3>${index + 1}. ${question.text}</h3>
-                    <div class="options">
-            `;
+// 显示题目 (使用 requestAnimationFrame)
+function displayQuestion(index) {
+  const question = currentQuestions[index];
+  let questionHTML = `
+    <div class="question" id="question-${index}">
+      <h3>${index + 1}. ${question.text}</h3>
+      <div class="options">
+  `;
 
-            const shuffledOptions = shuffleArray(question.options);
-            shuffledOptions.forEach(option => {
-                questionHTML += `
-                    <label>
-                        <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
-                        <span>${option}</span>
-                    </label>
-                `;
-            });
+  const shuffledOptions = shuffleArray(question.options);
+  shuffledOptions.forEach(option => {
+    questionHTML += `
+      <label>
+        <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
+        <span>${option}</span>
+      </label>
+    `;
+  });
 
-            questionHTML += `</div></div>`;
+  questionHTML += `</div></div>`;
 
-            // 记录当前滚动位置
-            const scrollPosition = contentArea.scrollTop;
+  // 记录当前滚动位置
+  const scrollPosition = contentArea.scrollTop;
 
-            // 更新题目 HTML
-            questionsContainer.innerHTML = questionHTML;
-            updateButtonStates(index);
+  // 更新题目 HTML
+  questionsContainer.innerHTML = questionHTML;
+  updateButtonStates(index);
 
-
-            // 创建 MutationObserver
-            const observer = new MutationObserver(() => {
-                // DOM 更新后，恢复滚动位置
-                contentArea.scrollTop = scrollPosition;
-                observer.disconnect(); // 只需监听一次
-            });
-
-            // 配置并启动 MutationObserver
-            observer.observe(questionsContainer, { childList: true }); // 监听子节点变化
-
-
-            const fileContentDiv = document.getElementById(question.file);
-            if (fileContentDiv) {
-                fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
+  // 使用 requestAnimationFrame 恢复滚动位置
+  requestAnimationFrame(() => {
+    contentArea.scrollTop = scrollPosition;
+  });
+}
         function updateButtonStates(index) {
             prevButton.disabled = index === 0;
             hasAnswered = !!userAnswers[index];
@@ -504,7 +487,7 @@
             }
 
             if (correctCount >= currentQuestions.length - 1) {
-                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7); // 7 天后过期
+                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7); // 7 天
                 window.location.href = "/join";
             } else {
                 alert(`很遗憾，您没有通过测试。答对 ${correctCount} 题，需要答对 ${currentQuestions.length - 1} 题及以上才能通过。请重新作答。`);
@@ -518,7 +501,7 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
 
-        // 检查是否有通过测试的 Cookie
+        // 检查 Cookie
         if (getCookie('fdo_quiz_passed')) {
             window.location.href = "/join";
         }
@@ -527,9 +510,9 @@
             currentQuestionIndex = 0;
             userAnswers = [];
             hasAnswered = false;
-            currentQuestions = getRandomQuestions(questions, 5); // 重新抽取
+            currentQuestions = getRandomQuestions(questions, 5);
             displayQuestion(currentQuestionIndex);
-            file3ContentDiv.innerHTML = file3Content; // 重新加载内容
+            file3ContentDiv.innerHTML = file3Content;
         }
 
         prevButton.addEventListener('click', () => {
@@ -564,7 +547,6 @@
             }
         });
 
-        // 初始加载，抽取题目
         currentQuestions = getRandomQuestions(questions, 5);
         displayQuestion(currentQuestionIndex);
     </script>
