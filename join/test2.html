@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDO 入群测试</title>
+    <style>
+        /* ----- 全局样式 ----- */
+        body {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ----- 容器 ----- */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ----- 左侧内容区 (文件三) ----- */
+        .content-area {
+            width: 66.66%;
+            overflow-y: auto;
+            padding: 25px;
+            background-color: #fff;
+            border-right: 1px solid #ccc;
+        }
+
+        .content-area h2 {
+            font-size: 1.5rem;
+            color: #000;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .content-area p {
+            margin-bottom: 1rem;
+            text-indent: 2em;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .content-area ul {
+            padding-left: 2em;
+        }
+
+        /* ----- 右侧题目区 ----- */
+        .quiz-area {
+            width: 33.33%;
+            padding: 25px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* ----- 内部容器 (电脑版题目固定) ----- */
+        .quiz-area-inner {
+            position: sticky;
+            /* top: 50%;  移除原有的垂直居中 */
+            /* transform: translateY(-50%); 移除 */
+            width: 100%;
+            max-height: 80vh; /* 初始最大高度，可根据需要调整 */
+            overflow-y: auto;
+        }
+
+        /* ----- 电脑版固定样式 (模仿维基百科) ----- */
+        @media (min-width: 1120px) {
+          .quiz-area-inner {
+            top: 24px; /* 假设没有顶部导航栏，只有间距 */
+            max-height: calc(100vh - 48px); /* 减去上下间距 */
+          }
+        }
+        /* ----- 题目样式 ----- */
+        .question {
+            margin-bottom: 25px;
+        }
+
+        .question h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color: 0.2s;
+            color: #555;
+        }
+
+        .options label:hover {
+            background-color: #e9ecef;
+        }
+
+        .options input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* ----- 按钮样式 ----- */
+        .button {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 1rem;
+            transition: background-color: 0.2s;
+        }
+
+        .button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .button:hover:enabled {
+            background-color: #333;
+        }
+
+        /* 提交按钮样式 */
+        #submit-button {
+            margin-top: 20px;
+            align-self: center;
+        }
+
+        /* ----- 移动端样式 ----- */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .content-area {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+                padding: 20px;
+                padding-bottom: 250px;
+                height: auto;
+                min-height: 60vh;
+                box-sizing: border-box;
+            }
+
+            .quiz-area {
+                width: 100%;
+                padding: 20px;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                max-height: 45vh;
+                overflow-y: auto;
+                justify-content: flex-start;
+                background-color: rgba(248, 249, 250, 0.8);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            .quiz-area-inner {
+                position: static;
+                transform: none;
+                max-height: none;
+                overflow-y: visible;
+                width: 100%;
+            }
+
+            .buttons-container {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            #submit-button {
+                display: none;
+            }
+        }
+
+        /* ----- 暗色模式 (可选) ----- */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #ddd;
+            }
+
+            .content-area {
+                background-color: #1e1e1e;
+                border-color: #444;
+            }
+
+            .content-area h2 {
+                color: #fff;
+                border-color: #fff;
+            }
+
+            .content-area p {
+                color: #aaa;
+            }
+
+            .quiz-area {
+                background-color: #121212;
+            }
+
+            /* 新增：问题题目颜色 */
+            .question h3 {
+                color: #fff; /* 或任何你想要的浅色 */
+            }
+
+            .options label {
+                color: #aaa;
+            }
+
+            .options label:hover {
+                background-color: #333;
+            }
+
+            .options input[type="radio"]:checked + span {
+                color: #fff;
+            }
+
+            .button {
+                background-color: #fff;
+                color: #000;
+            }
+
+            .button:disabled {
+                background-color: #666
+            }
+                @media (max-width: 768px) {
+                .quiz-area{
+                    background-color: rgba(18, 18, 18, 0.8); /* 暗色模式下的半透明 */
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧内容区域 (文件三) -->
+        <div class="content-area" id="content-area">
+            <!-- 文件三内容 -->
+            <div id="file3-content"></div>
+        </div>
+
+        <!-- 右侧题目区域 -->
+        <div class="quiz-area" id="quiz-area">
+            <div class="quiz-area-inner">
+                <!-- 题目 -->
+                <div id="questions-container"></div>
+
+                <div class="buttons-container">
+                    <!-- 按钮 -->
+                    <button id="prev-button" class="button" disabled>上一题</button>
+                    <button id="next-button" class="button">下一题</button>
+                </div>
+                <!-- 提交按钮 -->
+                <button id="submit-button" class="button" style="display: none;">提交</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// 文件三的内容 (格式化, 增加了新内容)
+        const file3Content = `
+            <h2>FDO交流群内部发言原则（群规试行稿）</h2>
+            <p>本群群成员，即FDO成员，在本群的发言需遵守本发言原则。</p>
+
+            <p><b>本群不是八卦群：</b>本群不是用于八卦，不是各种未被可信来源证实的信息汇聚的地方。任何在本群提出的事实性内容需要可信来源，任何人都可以/应该对他人提出的信息请求可信来源。提出信息者负举出可信来源的责任。可信来源根据#T事实核查原则判断。</p>
+
+            <p><b>本群不是饭桌酒席：</b>本群是允许/尊重/鼓励不同观点的群聊，而不只是同温层的交流群。本群内发言不能在没有符合逻辑的论证情况对任何观点下出结论。提出结论者负论证的责任。在本群对待不同观点内要包容、善意推定，对自己已认识到的的错误要及时承认。</p>
+
+            <p><b>本群不是政治游乐场：</b>本群不是用于发泄情绪的群聊。本群讨论内容或该与当前话题有关，或该新起话题，而不应该有离题内容。本群禁止无关表情包/图片/视频。本群内发言不能包含无必要的侮辱性质词语。</p>
+
+            <p><b>本群不是新闻媒体：</b>本群提供的不是时时新闻，本群主要目的为互相交流观点，但也不拒绝带有观点评价的新闻。</p>
+
+
+            <h2>FDOrganization事实查证方针（试行稿）</h2>
+            <p>简而言之：事实需要可信引证，谁提出谁查证</p>
+            <ul>
+            <li><b>个人观点：</b>在表达个人观点时，不需要引证。</li>
+            <li><b>引述观点：</b>在引述其他人的观点时，需要可靠引证。可靠引证分为两种情况，对于群内人员应直接使用引用功能引用元内容。对于群外人员，需要可信的来源，比如个人认证的社交媒体账号，可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。</li>
+            <li><b>引述事实：</b>在引述事实时最好选择维基百科，或者其他的可信媒体报道。如果来源不可信或没有给出来源成员可以向引述观点的人请求来源。</li>
+            </ul>
+            <p>引用本方针简称 #T方针 或 #T</p>
+
+            <h2>FDOrganization讨论方针（试行稿）</h2>
+            <p><b>善意假定：</b>既然我们在这个组织内讨论，我们需要假定对方的言论是出于善意的。除非有明确的证据，不然应假定致力于这个计划的人们在试图帮助这个计划，并非在伤害这个计划。</p>
+            <p><b>遵守礼仪：</b>在讨论时，不使用脏话。争论事实，勿作人身攻击。讨论要围绕问题本身。在激烈的讨论中，我们时常说出事后感到悔恨的言论。如果您感到后悔，请说出来。</p>
+            <p><b>事实可查证：</b>在讨论时，讨论各方可能并不了解各方了解的事。请在举例时说明符合规则的出处，不注明出处的默认来自于维基百科。也请讨论时各方对于不了解的事多做查证。</p>
+            <p><b>勇于发言：</b>虽然你可能觉得大家的讨论很高深，自己的问题和发言不足为道。但是请勇于提出问题和自己的见解。因为通过发言互动，你同样可以提升自己的水平。</p>
+            <p><b>善待新手：</b>每个人都是从新手慢慢成长和熟悉规则的。如果遇到新人的错误，请先善意推定。不要伤害新手。</p>
+            <p><b>讨论连贯性：</b>本群内可能多个话题同时被讨论，此时需要确保你的发言不被误解。可以通过引用要回应的发言实现。</p>
+            <p><b>开始与结尾标注：</b>在讨论开始时提供一个标记（发送讨论编号），在讨论结束后引用此标记以供查阅。</p>
+            <p>完整引用本方针简称 #C方针 或 #C</p>
+        `;
+
+// 题库 (增加了更多题目)
+        const questions = [
+          {
+            text: "根据FDO群规，以下哪种行为是不被允许的？",
+            options: ["分享经过Fact Check的新闻报道", "对其他成员的观点提出质疑，并要求提供可信来源", "在群里发布大量未经证实的八卦消息", "理性讨论，即使观点不同也互相尊重"],
+            correctAnswer: "在群里发布大量未经证实的八卦消息",
+            file: "file3-content"
+          },
+          {
+            text: "FDO群内讨论时，对待不同观点的正确态度是什么？",
+            options: ["直接否定，不予理睬", "包容、善意推定，并进行理性讨论", "只能接受与自己相同的观点", "随意嘲讽、攻击不同观点"],
+            correctAnswer: "包容、善意推定，并进行理性讨论",
+            file: "file3-content"
+          },
+          {
+            text: "关于在FDO群内提出事实性内容，以下说法正确的是？",
+            options: ["不需要提供任何来源，因为是个人观点", "提出者有责任提供可信来源", "只要是自己相信的，就不需要来源", "来源是否可信不重要"],
+            correctAnswer: "提出者有责任提供可信来源",
+            file: "file3-content"
+          },
+          {
+            text: "以下哪种情况不需要提供引证？",
+            options: ["引述其他群成员的观点", "引述新闻报道", "表达个人观点", "引述维基百科内容"],
+            correctAnswer: "表达个人观点",
+            file: "file3-content"
+          },
+          {
+            text: "如果在群里看到有人发布了你认为不可靠的信息，你应该怎么做？",
+            options: ["直接举报给管理员", "私下联系发布者，要求删除", "在群里公开质疑，并要求对方提供可信来源", "不予理睬，或者嘲讽对方"],
+            correctAnswer: "在群里公开质疑，并要求对方提供可信来源",
+            file: "file3-content"
+          },
+          {
+            text: "根据 #T 方针，引述事实时最好选择什么来源？",
+            options: ["个人社交媒体账号", "维基百科或可信媒体报道", "朋友的口头转述", "任何来源都可以"],
+            correctAnswer: "维基百科或可信媒体报道",
+            file: "file3-content"
+          },
+          {
+            text: "根据 #C 方针，在讨论中应该如何对待新手？",
+            options: ["严厉批评", "善意推定，耐心引导", "不予理睬", "要求新手立即熟悉所有规则"],
+            correctAnswer: "善意推定，耐心引导",
+            file: "file3-content"
+          },
+          {
+            text: "在激烈的讨论中，如果你事后感到后悔，应该怎么做？",
+            options: ["保持沉默", "坚持自己的观点", "说出来，表达悔意", "攻击对方"],
+            correctAnswer: "说出来，表达悔意",
+            file: "file3-content"
+          },
+          {
+            text: "在 FDO 群内，以下哪种行为符合“善意假定”原则？",
+            options: ["怀疑对方的动机", "假定对方的言论是出于善意", "直接指责对方", "不相信任何人的话"],
+            correctAnswer: "假定对方的言论是出于善意",
+            file: "file3-content"
+          },
+           {
+            text: "为了保证讨论的连贯性，当群内有多个话题同时进行时，你应该：",
+            options: ["想说什么就说什么", "引用要回应的发言", "只参与自己发起的话题", "不参与任何讨论"],
+            correctAnswer: "引用要回应的发言",
+            file: "file3-content"
+          },
+          {
+            text: "当你在群里分享一个事实性信息，但没有注明出处时，默认的出处是：",
+            options: ["你自己的经验", "你听说的消息", "维基百科", "不需要出处"],
+            correctAnswer: "维基百科",
+            file: "file3-content"
+          },
+          {
+            text: "在 FDO 群内，如果有人提出了一个你不同意的观点，你应该：",
+            options: ["直接反驳，不留情面", "要求对方提供证据，并进行理性讨论", "私下里抱怨", "不予理会"],
+            correctAnswer: "要求对方提供证据，并进行理性讨论",
+            file: "file3-content"
+          },
+          {
+           text: "以下哪项 *不符合* #C 方针中“遵守礼仪”的要求？",
+           options: ["争论事实，不进行人身攻击", "围绕问题本身进行讨论", "使用脏话表达强烈情感", "在感到后悔时，表达歉意"],
+           correctAnswer: "使用脏话表达强烈情感",
+           file: "file3-content"
+          },
+          {
+            text: "#T 方针和 #C 方针分别是什么的简称？",
+            options: ["讨论方针和事实查证方针", "事实查证方针和讨论方针", "测试方针和社区方针", "社区方针和测试方针"],
+            correctAnswer: "事实查证方针和讨论方针",
+            file: "file3-content"
+          },
+          {
+            text: "在FDO群中，以下哪种行为符合“勇于发言”的要求？",
+            options: ["害怕自己的问题太简单，不敢提问", "只参与自己熟悉的话题", "即使觉得自己观点不重要，也积极表达", "只在私下里交流"],
+            correctAnswer: "即使觉得自己观点不重要，也积极表达",
+            file: "file3-content"
+          },
+          {
+            text: "关于FDO群讨论的开始与结尾标注，以下说法正确的是：",
+            options: ["只需要开始标注，不需要结尾标注", "只需要结尾标注，不需要开始标注", "开始时提供标记，结束时引用此标记", "不需要任何标注"],
+            correctAnswer: "开始时提供标记，结束时引用此标记",
+            file: "file3-content"
+          }
+        ];
+
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let hasAnswered = false;
+        let currentQuestions = [];
+
+        const contentArea = document.getElementById('content-area');
+        const file3ContentDiv = document.getElementById('file3-content');
+        const questionsContainer = document.getElementById('questions-container');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const submitButton = document.getElementById('submit-button');
+
+        file3ContentDiv.innerHTML = file3Content;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getRandomQuestions(questions, n) {
+            const shuffled = shuffleArray([...questions]); // 创建副本并打乱
+            return shuffled.slice(0, n);
+        }
+
+// 显示题目 (使用 MutationObserver)
+        function displayQuestion(index) {
+            const question = currentQuestions[index];
+            let questionHTML = `
+                <div class="question" id="question-${index}">
+                    <h3>${index + 1}. ${question.text}</h3>
+                    <div class="options">
+            `;
+
+            const shuffledOptions = shuffleArray(question.options);
+            shuffledOptions.forEach(option => {
+                questionHTML += `
+                    <label>
+                        <input type="radio" name="question-${index}" value="${option}" ${userAnswers[index] === option ? 'checked' : ''}>
+                        <span>${option}</span>
+                    </label>
+                `;
+            });
+
+            questionHTML += `</div></div>`;
+
+            // 记录当前滚动位置
+            const scrollPosition = contentArea.scrollTop;
+
+            // 更新题目 HTML
+            questionsContainer.innerHTML = questionHTML;
+            updateButtonStates(index);
+
+
+            // 创建 MutationObserver
+            const observer = new MutationObserver(() => {
+                // DOM 更新后，恢复滚动位置
+                contentArea.scrollTop = scrollPosition;
+                observer.disconnect(); // 只需监听一次
+            });
+
+            // 配置并启动 MutationObserver
+            observer.observe(questionsContainer, { childList: true }); // 监听子节点变化
+
+
+            const fileContentDiv = document.getElementById(question.file);
+            if (fileContentDiv) {
+                fileContentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        function updateButtonStates(index) {
+            prevButton.disabled = index === 0;
+            hasAnswered = !!userAnswers[index];
+
+            if (index === currentQuestions.length - 1) {
+                nextButton.style.display = 'none';
+                submitButton.style.display = 'inline-block';
+                submitButton.disabled = !hasAnswered;
+            } else {
+                nextButton.style.display = 'inline-block';
+                submitButton.style.display = 'none';
+                nextButton.disabled = !hasAnswered;
+            }
+        }
+
+        function checkAnswersAndProceed() {
+            let correctCount = 0;
+            for (let i = 0; i < currentQuestions.length; i++) {
+                if (userAnswers[i] === currentQuestions[i].correctAnswer) {
+                    correctCount++;
+                }
+            }
+
+            if (correctCount >= currentQuestions.length - 1) {
+                document.cookie = "fdo_quiz_passed=true; path=/; max-age=" + (60 * 60 * 24 * 7); // 7 天后过期
+                window.location.href = "/join";
+            } else {
+                alert(`很遗憾，您没有通过测试。答对 ${correctCount} 题，需要答对 ${currentQuestions.length - 1} 题及以上才能通过。请重新作答。`);
+                resetQuiz();
+            }
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // 检查是否有通过测试的 Cookie
+        if (getCookie('fdo_quiz_passed')) {
+            window.location.href = "/join";
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            hasAnswered = false;
+            currentQuestions = getRandomQuestions(questions, 5); // 重新抽取
+            displayQuestion(currentQuestionIndex);
+            file3ContentDiv.innerHTML = file3Content; // 重新加载内容
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentQuestionIndex < currentQuestions.length - 1 && hasAnswered) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            }
+        });
+
+        submitButton.addEventListener('click', () => {
+            if (hasAnswered) {
+                checkAnswersAndProceed();
+            }
+        });
+
+        questionsContainer.addEventListener('change', (event) => {
+            if (event.target.type === 'radio') {
+                const selectedAnswer = event.target.value;
+                userAnswers[currentQuestionIndex] = selectedAnswer;
+                hasAnswered = true;
+                nextButton.disabled = false;
+                 if (currentQuestionIndex === currentQuestions.length - 1) {
+                  submitButton.disabled = false;
+                }
+            }
+        });
+
+        // 初始加载，抽取题目
+        currentQuestions = getRandomQuestions(questions, 5);
+        displayQuestion(currentQuestionIndex);
+    </script>
+</body>
+</html>
