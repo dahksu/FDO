@@ -55,25 +55,24 @@
             width: 33.33%;
             padding: 25px;
             background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            /* 移除可能干扰 sticky 的 overflow */
-            /* overflow: hidden;  如果有，移除 */
-        }
-         /* 确保 .quiz-area 的所有父元素 (直到 body) 都没有 overflow: auto/scroll */
-
-        /* ----- 内部容器 (电脑版题目固定) ----- */
-        .quiz-area-inner {
-            position: sticky;
-            top: 24px; /* 根据实际情况调整 */
-            width: 100%;
-            max-height: calc(100vh - 48px); /* 根据实际情况调整 */
-            overflow-y: auto;
+            /* display: flex;  移除 */
+            /* flex-direction: column; 移除 */
+            /* justify-content: center; 移除*/
+            /* align-items: center; 移除 */
+            /* position: relative; 移除 */
+            overflow-y: auto; /* 允许题目内容滚动 */
         }
 
+        /* ----- 电脑版固定样式 ----- */
+        @media (min-width: 1120px) {
+            .quiz-area {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                /* 不需要 left: ...; 因为宽度已由 width: 33.33% 确定 */
+            }
+        }
         /* ----- 题目样式 ----- */
         .question {
             margin-bottom: 25px;
@@ -130,7 +129,7 @@
         /* 提交按钮样式 */
         #submit-button {
             margin-top: 20px;
-            align-self: center;
+           /* align-self: center;  移除，不再需要 */
         }
 
         /* ----- 移动端样式 ----- */
@@ -164,13 +163,7 @@
                 -webkit-backdrop-filter: blur(10px);
             }
 
-            .quiz-area-inner {
-                position: static;
-                transform: none;
-                max-height: none;
-                overflow-y: visible;
-                width: 100%;
-            }
+            /* .quiz-area-inner 移除 */
 
             .buttons-container {
                 display: flex;
@@ -208,10 +201,8 @@
             .quiz-area {
                 background-color: #121212;
             }
-
-            /* 新增：问题题目颜色 */
             .question h3 {
-                color: #fff; /* 或任何你想要的浅色 */
+                color: #fff;
             }
 
             .options label {
@@ -236,7 +227,7 @@
             }
                 @media (max-width: 768px) {
                 .quiz-area{
-                    background-color: rgba(18, 18, 18, 0.8); /* 暗色模式下的半透明 */
+                    background-color: rgba(18, 18, 18, 0.8);
                 }
             }
         }
@@ -252,7 +243,7 @@
 
         <!-- 右侧题目区域 -->
         <div class="quiz-area" id="quiz-area">
-            <div class="quiz-area-inner">
+            <!-- 移除 .quiz-area-inner -->
                 <!-- 题目 -->
                 <div id="questions-container"></div>
 
@@ -263,7 +254,6 @@
                 </div>
                 <!-- 提交按钮 -->
                 <button id="submit-button" class="button" style="display: none;">提交</button>
-            </div>
         </div>
     </div>
 
