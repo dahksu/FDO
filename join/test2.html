@@ -50,41 +50,40 @@
             padding-left: 2em;
         }
 
-/* ----- 右侧题目区 ----- */
-.quiz-area {
-    width: 33.33%;
-    padding: 25px;
-    background-color: #f0f0f0;
-    overflow-y: auto;
-     display: flex; /* 新增 */
-    flex-direction: column; /* 新增 */
-}
+        /* ----- 右侧题目区 ----- */
+        .quiz-area {
+            width: 33.33%;
+            padding: 25px;
+            background-color: #f0f0f0;
+            overflow-y: auto;
+        }
+        .quiz-area-inner {
+            position: relative;  /* 确保是 relative */
+            width: 100%;
+        }
 
-.quiz-area-inner {
-    position: relative;
-    width: 100%;
-    align-self: flex-end; /* 新增：靠底部对齐 */
+        /* ----- 电脑版固定样式 ----- */
+        @media (min-width: 1120px) {
+            .quiz-area {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
 
-}
+            /* 更精确的 max-width 计算，留出更多间距 */
+            .content-area {
+                max-width: calc(100% - 33.33% - 25px - 25px - 1px - 40px); /* 左右各 25px padding，1px border, 额外 40px 间距 */
+            }
 
-/* ----- 电脑版固定样式 ----- */
-@media (min-width: 1120px) {
-    .quiz-area {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-    }
+            /* 确保题目内容位于黄金分割位置 */
+            .quiz-area-inner {
+                position: sticky;
+                top: 61.8%;
+                transform: translateY(-100%);
+            }
+        }
 
-    .content-area {
-       /* max-width: calc(100% - 33.33% - 60px - 1px); 移除 */
-        padding-right: calc(33.33% + 25px + 1px); /* 使用 padding-right */
-    }
-    .quiz-area-inner{
-        margin-top: auto;
-        margin-bottom: 38.2vh;
-    }
-}
         /* ----- 题目样式 ----- */
         .question {
             margin-bottom: 25px;
@@ -103,7 +102,7 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 4px;
-            transition: background-color: 0.2s;
+            transition: background-color 0.2s;
             color: #555;
         }
 
@@ -251,7 +250,7 @@
 
         <!-- 右侧题目区域 -->
           <div class="quiz-area" id="quiz-area">
-            <div class="quiz-area-inner">  <!-- 重新引入 -->
+            <div class="quiz-area-inner">
                 <!-- 题目 -->
                 <div id="questions-container"></div>
 
@@ -262,7 +261,7 @@
                 </div>
                 <!-- 提交按钮 -->
                 <button id="submit-button" class="button" style="display: none;">提交</button>
-            </div> <!-- 重新引入 -->
+            </div>
         </div>
     </div>
 
