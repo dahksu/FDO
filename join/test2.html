@@ -55,12 +55,7 @@
             width: 33.33%;
             padding: 25px;
             background-color: #f0f0f0;
-            /* display: flex;  移除 */
-            /* flex-direction: column; 移除 */
-            /* justify-content: center; 移除*/
-            /* align-items: center; 移除 */
-            /* position: relative; 移除 */
-            overflow-y: auto; /* 允许题目内容滚动 */
+            overflow-y: auto;
         }
 
         /* ----- 电脑版固定样式 ----- */
@@ -70,7 +65,9 @@
                 top: 0;
                 right: 0;
                 bottom: 0;
-                /* 不需要 left: ...; 因为宽度已由 width: 33.33% 确定 */
+            }
+            .content-area {
+                max-width: calc(100% - 33.33% - 50px - 1px);
             }
         }
         /* ----- 题目样式 ----- */
@@ -91,7 +88,7 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 4px;
-            transition: background-color: 0.2s;
+            transition: background-color 0.2s;
             color: #555;
         }
 
@@ -129,7 +126,6 @@
         /* 提交按钮样式 */
         #submit-button {
             margin-top: 20px;
-           /* align-self: center;  移除，不再需要 */
         }
 
         /* ----- 移动端样式 ----- */
@@ -162,9 +158,6 @@
                 backdrop-filter: blur(10px);
                 -webkit-backdrop-filter: blur(10px);
             }
-
-            /* .quiz-area-inner 移除 */
-
             .buttons-container {
                 display: flex;
                 justify-content: space-around;
@@ -243,7 +236,6 @@
 
         <!-- 右侧题目区域 -->
         <div class="quiz-area" id="quiz-area">
-            <!-- 移除 .quiz-area-inner -->
                 <!-- 题目 -->
                 <div id="questions-container"></div>
 
