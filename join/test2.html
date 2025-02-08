@@ -58,7 +58,7 @@
             overflow-y: auto;
         }
         .quiz-area-inner {
-            position: relative;  /* 确保是 relative */
+            position: relative;
             width: 100%;
         }
 
@@ -71,12 +71,11 @@
                 bottom: 0;
             }
 
-            /* 更精确的 max-width 计算，留出更多间距 */
             .content-area {
-                max-width: calc(100% - 33.33% - 25px - 25px - 1px - 40px); /* 左右各 25px padding，1px border, 额外 40px 间距 */
+                max-width: calc(100% - 33.33% - 25px - 25px - 1px - 40px);
             }
 
-            /* 确保题目内容位于黄金分割位置 */
+            /* 题目内容定位 */
             .quiz-area-inner {
                 position: sticky;
                 top: 61.8%;
@@ -102,7 +101,7 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 4px;
-            transition: background-color 0.2s;
+            transition: background-color: 0.2s;
             color: #555;
         }
 
@@ -137,10 +136,6 @@
             background-color: #333;
         }
 
-        /* 提交按钮样式 */
-        #submit-button {
-            margin-top: 20px;
-        }
 
         /* ----- 移动端样式 ----- */
         @media (max-width: 768px) {
@@ -177,10 +172,6 @@
                 justify-content: space-around;
                 width: 100%;
                 margin-top: 15px;
-            }
-
-            #submit-button {
-                display: none;
             }
         }
 
@@ -254,13 +245,12 @@
                 <!-- 题目 -->
                 <div id="questions-container"></div>
 
+                <!-- 按钮容器 (所有按钮都在这里) -->
                 <div class="buttons-container">
-                    <!-- 按钮 -->
                     <button id="prev-button" class="button" disabled>上一题</button>
                     <button id="next-button" class="button">下一题</button>
+                    <button id="submit-button" class="button" style="display: none;">提交</button>
                 </div>
-                <!-- 提交按钮 -->
-                <button id="submit-button" class="button" style="display: none;">提交</button>
             </div>
         </div>
     </div>
@@ -467,11 +457,11 @@ function displayQuestion(index) {
 
             if (index === currentQuestions.length - 1) {
                 nextButton.style.display = 'none';
-                submitButton.style.display = 'inline-block';
+                submitButton.style.display = 'inline-block'; // 显示提交按钮
                 submitButton.disabled = !hasAnswered;
             } else {
                 nextButton.style.display = 'inline-block';
-                submitButton.style.display = 'none';
+                submitButton.style.display = 'none'; // 隐藏提交按钮
                 nextButton.disabled = !hasAnswered;
             }
         }
