@@ -152,7 +152,7 @@
     @keyframes slideInUp {
       0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(40px); /* 增加初始位移，更明显 */
       }
       100% {
         opacity: 1;
@@ -177,14 +177,87 @@
         opacity: 0.15; /* 调整为更柔和的透明度 */
       }
     }
+    @keyframes moveCircleBlack {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(15vw, 15vh); /* 减小移动距离 */
+      }
+    }
+
+    @keyframes moveCircleGray {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-10vw, 20vh); /* 减小移动距离 */
+      }
+    }
+    @keyframes fadeInSection {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes textFadeIn {
+      0% {
+        opacity: 0;
+        filter: blur(10px); /* 增加初始模糊 */
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+    @keyframes moveCircleAboutBlack {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(16vw, 6vh); /* 基于黄金分割调整位置 */
+      }
+    }
+
+    @keyframes moveCircleAboutGray {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-9vw, 8vh); /* 基于黄金分割调整位置 */
+      }
+    }
+
     .slide-in-up {
-      animation: slideInUp 1s ease forwards;
+      animation: slideInUp 1s ease-out forwards;
     }
     .slide-in-left {
       animation: slideInLeft 1s ease forwards;
     }
     .fade-in {
       animation: fadeIn 1s ease-in-out forwards;
+    }
+    .animate-circle-black {
+      animation: moveCircleBlack 1s ease-out forwards; /* 减慢动画 */
+    }
+
+    .animate-circle-gray {
+      animation: moveCircleGray 1s ease-out forwards; /* 减慢动画 */
+    }
+    .fade-in-section {
+      animation: fadeInSection 0.5s ease forwards;
+    }
+    .animate-text-fade-in {
+      animation: textFadeIn 1s ease-out forwards; /* 调整为和 slideInUp 相同的时长 */
+    }
+    .animate-circle-about-black {
+      animation: moveCircleAboutBlack 2s ease-out forwards; /* 减慢动画 */
+    }
+
+    .animate-circle-about-gray {
+      animation: moveCircleAboutGray 2.4s ease-out forwards 0.3s; /* 减慢动画 */
     }
 
     /* ========== 5. Hero(首屏) ========== */
@@ -197,19 +270,20 @@
     }
     .circle-black {
       position: absolute;
-      top: -20%;
-      left: -30%;
+      top: -12%; /* 基于黄金分割调整位置 */
+      left: -19%; /* 基于黄金分割调整位置 */
       width: 80vw;
       height: 80vw;
       background: #0b0b0be9;
       border-radius: 50%;
       z-index: 1;
         max-width: 100vw;  /* 限制最大宽度，避免溢出 */
+        transition: transform 0.3s ease-out; /* 减小过渡持续时间 */
     }
     .circle-gray {
       position: absolute;
       top: 0;
-      right: -35%; /* 调整右侧位置，减少超出 */
+      right: -22%; /* 基于黄金分割调整位置 */
       width: 75vw; /* 稍微减小宽度 */
       height: 75vw; /* 保持宽高一致 */
       background: #404040;
@@ -217,6 +291,7 @@
       border-radius: 50%;
       z-index: 2;
         max-width: 100vw;  /* 限制最大宽度，避免溢出 */
+        transition: transform 0.3s ease-out; /* 减小过渡持续时间 */
     }
     .hero-content {
       position: relative;
@@ -279,29 +354,31 @@
     /* 新增 About 板块的圆形元素 */
     .circle-about-black {
       position: absolute;
-      top: 10%;
-      left: 10%;
-      width: 100vw;
-      height: 100vw;
+      top: 15%; /* 设置与灰色圆相同的纵坐标 */
+      left: 5%; /* 拉大横坐标差距 */
+      width: 80vw; /* 调整宽度 */
+      height: 80vw; /* 调整高度 */
       background: #0B0B0B;
       border-radius: 50%;
       z-index: 0;
-      opacity: 0; /* 初始透明 */
+      opacity: 0.1; /* 设置初始透明度 */
       max-width: 600px; /* 限制最大宽度 */
       max-height: 600px; /* 限制最大高度 */
+      transition: transform 2s ease-out; /* 添加过渡效果 */
     }
     .circle-about-gray {
       position: absolute;
-      bottom: 5%;
-      right: 15%;
-      width: 70vw;
-      height: 70vw;
+      top: 15%; /* 设置与黑色圆相同的纵坐标 */
+      right: 25%; /* 拉大横坐标差距 */
+      width: 80vw; /* 调整宽度 */
+      height: 80vw; /* 调整高度 */
       background: #404040;
-      opacity: 0; /* 初始透明 */
+      opacity: 0.05; /* 设置初始透明度 */
       border-radius: 50%;
       z-index: 0;
       max-width: 700px; /* 限制最大宽度 */
       max-height: 700px; /* 限制最大高度 */
+      transition: transform 2.4s ease-out; /* 添加过渡效果 */
     }
 
     /* ========== 7. Programs 板块 ========== */
@@ -437,7 +514,7 @@
         flex-direction: column; /* 垂直排列内容 */
         justify-content: center; /* 内容垂直居中 (可以根据需要调整) */
         align-items: flex-start; /* 内容左对齐 */
-        box-sizing: border-box; /* 确保 padding 不会增加总高度 */
+        box-sizing: border-box;
       }
 
       /* 首屏 - 手机端文字居中，并调整圆的位置和大小 */
@@ -463,17 +540,17 @@
         margin-bottom: 1.2rem;
       }
         .circle-black {
-            top: -25%; /* 进一步调整顶部位置 */
-            left: -40%; /* 进一步调整左侧位置 */
-            width: 150vw; /* 进一步增大宽度以覆盖 */
-            height: 150vw; /* 保持宽高一致 */
+            top: -15%; /* 基于黄金分割调整位置 */
+            left: -25%; /* 基于黄金分割调整位置 */
+            width: 120vw; /* 调整宽度 */
+            height: 120vw; /* 调整高度 */
             max-width: none; /* 移除最大宽度限制，让vw生效 */
         }
         .circle-gray {
-            top: 10%; /* 进一步调整顶部位置 */
-            right: -35%; /* 调整右侧位置，减少超出 */
-            width: 110vw; /* 调整宽度 */
-            height: 110vw; /* 保持宽高一致 */
+            top: 10%; /* 基于黄金分割调整位置 */
+            right: -30%; /* 基于黄金分割调整位置 */
+            width: 100vw; /* 调整宽度 */
+            height: 100vw; /* 调整高度 */
             max-width: none; /* 移除最大宽度限制，让vw生效 */
         }
 
@@ -582,49 +659,50 @@
       <a href="/articles/comments">留言</a>
     </div>
   </header>
-  <section class="hero" id="hero">
-    <div class="circle-black"></div>
-    <div class="circle-gray"></div>
+  <section class="hero fade-in-section" id="hero">
+    <div class="circle-black animate-circle-black"></div>
+    <div class="circle-gray animate-circle-gray"></div>
     <div class="hero-content">
-      <h1>Freedom & Diversity foster Organization</h1>
-      <p> Rationality · Freedom · Pluralism</p>
+      <h1 class="animate-text-fade-in">Freedom & Diversity foster Organization</h1>
+      <p class="animate-text-fade-in"> Rationality · Freedom · Pluralism</p>
     </div>
     <div class="wave-line"></div>
   </section>
-  <section class="section-about" id="about">
-    <div class="circle-about-black"></div>
-    <div class="circle-about-gray"></div>
-    <h2>我们的使命</h2>
-    <p>
+  <section class="section-about fade-in-section" id="about">
+    <div class="circle-about-black animate-circle-about-black"></div>
+    <div class="circle-about-gray animate-circle-about-gray"></div>
+    <h2 class="animate-text-fade-in">我们的使命</h2>
+    <p class="animate-text-fade-in">
       FDO（Freedom and Diversity foster Organization）专注于在社会层面
       推动“自由”、“多元”与“理性”的理念。我们相信，包容和尊重差异，能让社会保持活力与创造力
       我们在网络上运行，非营利性
     </p>
   </section>
-  <section class="section-programs" id="programs">
-    <h2>核心理念</h2>
+  <section class="section-programs fade-in-section" id="programs">
+    <h2 class="animate-text-fade-in">核心理念</h2>
     <div class="programs-grid">
-      <div class="program-item">
-        <h3>理性 Rationality</h3>
-        <p>我們鼓勵理性、嚴肅的討論，追求事實、互相包容</p>
-        <p>透過嚴肅和理性的討論，更好地溝通、理解、包容</p>
+      <div class="program-item slide-in-up">
+        <h3 class="animate-text-fade-in">理性 Rationality</h3>
+        <p class="animate-text-fade-in">我們鼓勵理性、嚴肅的討論，追求事實、互相包容</p>
+        <p class="animate-text-fade-in">透過嚴肅和理性的討論，更好地溝通、理解、包容</p>
       </div>
-      <div class="program-item">
-        <h3>自由 Freedom</h3>
-        <p>我們追求與建構自由的環境，找到更多不同價值</p>
-        <p>通過自由的信息，養成独立地思考能力</p>
+      <div class="program-item slide-in-up">
+        <h3 class="animate-text-fade-in">自由 Freedom</h3>
+        <p class="animate-text-fade-in">我們追求與建構自由的環境，找到更多不同價值</p>
+        <p class="animate-text-fade-in">通過自由的信息，養成独立地思考能力</p>
       </div>
-      <div class="program-item">
-        <h3>多樣 Pluralism</h3>
-        <p>我们互相尊重包容多元，跳出同溫層</p>
-        <p>追求更多樣化、更豐富、更全面的資訊空間</p>
+      <div class="program-item slide-in-up">
+        <h3 class="animate-text-fade-in">多樣 Pluralism</h3>
+        <p class="animate-text-fade-in">我们互相尊重包容多元，跳出同溫層</p>
+        <p class="animate-text-fade-in">追求更多樣化、更豐富、更全面的資訊空間</p>
       </div>
+    </div>
   </section>
-  <section class="section-cta" id="cta">
-    <h2>讓我們一起創造更多可能</h2>
-    <p>加入FDO的討論，了解我們的動向</p>
-    <p>讓我們共同努力，為打造更自由、多元、包容的未來貢獻力量</p>
-    <a href="/join" class="btn-primary">立即加入討論 join</a>
+  <section class="section-cta fade-in-section" id="cta">
+    <h2 class="animate-text-fade-in">讓我們一起創造更多可能</h2>
+    <p class="animate-text-fade-in">加入FDO的討論，了解我們的動向</p>
+    <p class="animate-text-fade-in">讓我們共同努力，為打造更自由、多元、包容的未來貢獻力量</p>
+    <a href="/join" class="btn-primary animate-text-fade-in">立即加入討論 join</a>
   </section>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -633,52 +711,53 @@
       const aboutSection = document.getElementById('about');
       const aboutCirclesBlack = document.querySelector('.circle-about-black');
       const aboutCirclesGray = document.querySelector('.circle-about-gray');
-
-      // 按顺序给板块指定动画
-      const sectionAnimations = [
-        'slide-in-left', // Hero
-        'slide-in-up',   // About
-        'slide-in-up',   // Programs
-        'slide-in-left', // CTA
-        'slide-in-up'    // Footer
-      ];
+      const heroSection = document.querySelector('.hero');
+      const blackCircleHero = heroSection.querySelector('.circle-black');
+      const grayCircleHero = heroSection.querySelector('.circle-gray');
 
       const options = { threshold: 0.3 };
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            if (entry.target.tagName.toLowerCase() === 'section') {
-              const index = Array.from(sections).indexOf(entry.target);
-              const animClass = sectionAnimations[index] || 'slide-in-up';
-              entry.target.classList.add(animClass);
+            const target = entry.target;
+            target.classList.add('fade-in-section');
 
-              // 触发 About 板块圆形元素的淡入动画
-              if (entry.target === aboutSection && aboutCirclesBlack && aboutCirclesGray) {
-                aboutCirclesBlack.classList.add('fade-in');
-                aboutCirclesGray.classList.add('fade-in');
-              } else if (!entry.isIntersecting && entry.target === aboutSection && aboutCirclesBlack && aboutCirclesGray) {
-                // 当往回滑动离开 About 板块时，移除 fade-in 类，实现淡出效果
-                aboutCirclesBlack.classList.remove('fade-in');
-                aboutCirclesGray.classList.remove('fade-in');
-                // 重新设置初始透明度，确保下次进入时动画可以再次触发
-                setTimeout(() => {
-                    aboutCirclesBlack.style.opacity = '0';
-                    aboutCirclesGray.style.opacity = '0';
-                }, 1000); // 等待动画结束后再设置
-              }
-            } else if (entry.target.classList.contains('program-item')) {
-              entry.target.classList.add('slide-in-up');
+            // About section circle animation
+            if (target === aboutSection && aboutCirclesBlack && aboutCirclesGray) {
+              aboutCirclesBlack.classList.add('animate-circle-about-black');
+              aboutCirclesGray.classList.add('animate-circle-about-gray');
             }
-          } else if (entry.target.tagName.toLowerCase() === 'section' && entry.target === aboutSection && aboutCirclesBlack && aboutCirclesGray) {
-              // 当完全离开 About 板块时，确保圆形元素是隐藏的
-              aboutCirclesBlack.style.opacity = '0';
-              aboutCirclesGray.style.opacity = '0';
+
+            // Hero section circle animation
+            if (target === heroSection && blackCircleHero && grayCircleHero) {
+              blackCircleHero.classList.add('animate-circle-black');
+              grayCircleHero.classList.add('animate-circle-gray');
+            }
           }
+          // Removed else block for smoother backward scrolling
         });
       }, options);
 
       sections.forEach(section => observer.observe(section));
-      programItems.forEach(item => observer.observe(item));
+
+      // Apply text fade-in animation using a separate observer
+      const textObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const textElements = entry.target.querySelectorAll('h1, h2, h3, p, a');
+            textElements.forEach(element => {
+              element.classList.add('animate-text-fade-in');
+            });
+          } else {
+            const textElements = entry.target.querySelectorAll('h1, h2, h3, p, a');
+            textElements.forEach(element => {
+              element.classList.remove('animate-text-fade-in');
+            });
+          }
+        });
+      }, { threshold: 0.1 }); // Adjust threshold as needed
+
+      sections.forEach(section => textObserver.observe(section));
     });
   </script>
 </body>
