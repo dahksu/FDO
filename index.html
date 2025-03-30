@@ -229,6 +229,18 @@
         transform: translate(-9vw, 8vh); /* 基于黄金分割调整位置 */
       }
     }
+    @keyframes slideInRightFade {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px); /* 从左侧开始 */
+        filter: blur(5px); /* 初始模糊 */
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+      }
+    }
 
     .slide-in-up {
       animation: slideInUp 1s ease-out forwards;
@@ -258,6 +270,15 @@
 
     .animate-circle-about-gray {
       animation: moveCircleAboutGray 2.4s ease-out forwards 0.3s; /* 减慢动画 */
+    }
+    .animate-text-slide-in-right {
+      opacity: 0; /* 初始透明 */
+      transform: translateX(-30px); /* 初始位置在左侧 */
+      transition: opacity 1s ease-out, transform 1s ease-out; /* 添加过渡效果 */
+    }
+    .program-item.start-animation .animate-text-slide-in-right {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     /* ========== 5. Hero(首屏) ========== */
@@ -354,24 +375,24 @@
     /* 新增 About 板块的圆形元素 */
     .circle-about-black {
       position: absolute;
-      top: 15%; /* 设置与灰色圆相同的纵坐标 */
-      left: 5%; /* 拉大横坐标差距 */
-      width: 80vw; /* 调整宽度 */
-      height: 80vw; /* 调整高度 */
+      top: 40%; /* 调整垂直位置 */
+      left: 10%; /* 调整水平位置 */
+      width: 60vw; /* 调整大小 */
+      height: 60vw; /* 保持宽高比 */
       background: #0B0B0B;
       border-radius: 50%;
       z-index: 0;
       opacity: 0.1; /* 设置初始透明度 */
-      max-width: 600px; /* 限制最大宽度 */
-      max-height: 600px; /* 限制最大高度 */
+      max-width: 450px; /* 限制最大宽度 */
+      max-height: 450px; /* 限制最大高度 */
       transition: transform 2s ease-out; /* 添加过渡效果 */
     }
     .circle-about-gray {
       position: absolute;
-      top: 15%; /* 设置与黑色圆相同的纵坐标 */
-      right: 25%; /* 拉大横坐标差距 */
-      width: 80vw; /* 调整宽度 */
-      height: 80vw; /* 调整高度 */
+      top: 20%; /* 调整垂直位置 */
+      right: 5%; /* 调整水平位置 */
+      width: 90vw; /* 调整大小 */
+      height: 90vw; /* 保持宽高比 */
       background: #404040;
       opacity: 0.05; /* 设置初始透明度 */
       border-radius: 50%;
@@ -682,19 +703,19 @@
     <h2 class="animate-text-fade-in">核心理念</h2>
     <div class="programs-grid">
       <div class="program-item slide-in-up">
-        <h3 class="animate-text-fade-in">理性 Rationality</h3>
-        <p class="animate-text-fade-in">我們鼓勵理性、嚴肅的討論，追求事實、互相包容</p>
-        <p class="animate-text-fade-in">透過嚴肅和理性的討論，更好地溝通、理解、包容</p>
+        <h3 class="animate-text-slide-in-right">理性 Rationality</h3>
+        <p class="animate-text-slide-in-right">我們鼓勵理性、嚴肅的討論，追求事實、互相包容</p>
+        <p class="animate-text-slide-in-right">透過嚴肅和理性的討論，更好地溝通、理解、包容</p>
       </div>
       <div class="program-item slide-in-up">
-        <h3 class="animate-text-fade-in">自由 Freedom</h3>
-        <p class="animate-text-fade-in">我們追求與建構自由的環境，找到更多不同價值</p>
-        <p class="animate-text-fade-in">通過自由的信息，養成独立地思考能力</p>
+        <h3 class="animate-text-slide-in-right">自由 Freedom</h3>
+        <p class="animate-text-slide-in-right">我們追求與建構自由的環境，找到更多不同價值</p>
+        <p class="animate-text-slide-in-right">通過自由的信息，養成独立地思考能力</p>
       </div>
       <div class="program-item slide-in-up">
-        <h3 class="animate-text-fade-in">多樣 Pluralism</h3>
-        <p class="animate-text-fade-in">我们互相尊重包容多元，跳出同溫層</p>
-        <p class="animate-text-fade-in">追求更多樣化、更豐富、更全面的資訊空間</p>
+        <h3 class="animate-text-slide-in-right">多樣 Pluralism</h3>
+        <p class="animate-text-slide-in-right">我们互相尊重包容多元，跳出同溫層</p>
+        <p class="animate-text-slide-in-right">追求更多樣化、更豐富、更全面的資訊空間</p>
       </div>
     </div>
   </section>
@@ -714,8 +735,11 @@
       const heroSection = document.querySelector('.hero');
       const blackCircleHero = heroSection.querySelector('.circle-black');
       const grayCircleHero = heroSection.querySelector('.circle-gray');
+      const programsSection = document.getElementById('programs');
+      let programsAnimationStarted = false;
 
-      const options = { threshold: 0.3 };
+      const options = { threshold: 0.2 }; // 调整阈值
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -733,23 +757,32 @@
               blackCircleHero.classList.add('animate-circle-black');
               grayCircleHero.classList.add('animate-circle-gray');
             }
+
+            // Programs section text animation trigger (only once)
+            if (target === programsSection && !programsAnimationStarted) {
+              programItems.forEach(item => {
+                setTimeout(() => {
+                  item.classList.add('start-animation');
+                }, Array.from(programItems).indexOf(item) * 200);
+              });
+              programsAnimationStarted = true;
+            }
           }
-          // Removed else block for smoother backward scrolling
         });
       }, options);
 
       sections.forEach(section => observer.observe(section));
 
-      // Apply text fade-in animation using a separate observer
+      // Apply fade-in animation for other text elements
       const textObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const textElements = entry.target.querySelectorAll('h1, h2, h3, p, a');
+          if (entry.isIntersecting && entry.target.id !== 'programs') {
+            const textElements = entry.target.querySelectorAll('h1, h2, p, a');
             textElements.forEach(element => {
               element.classList.add('animate-text-fade-in');
             });
-          } else {
-            const textElements = entry.target.querySelectorAll('h1, h2, h3, p, a');
+          } else if (!entry.isIntersecting && entry.target.id !== 'programs') {
+            const textElements = entry.target.querySelectorAll('h1, h2, p, a');
             textElements.forEach(element => {
               element.classList.remove('animate-text-fade-in');
             });
@@ -760,5 +793,29 @@
       sections.forEach(section => textObserver.observe(section));
     });
   </script>
+  <style>
+    @keyframes slideInRightFade {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px); /* 从左侧开始 */
+        filter: blur(5px); /* 初始模糊 */
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+      }
+    }
+    .animate-text-slide-in-right {
+      opacity: 0; /* 初始透明 */
+      transform: translateX(-30px); /* 初始位置在左侧 */
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out; /* 添加过渡效果 */
+    }
+    .program-item.start-animation .animate-text-slide-in-right {
+      opacity: 1;
+      transform: translateX(0);
+      filter: blur(0);
+    }
+  </style>
 </body>
 </html>
